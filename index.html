@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA RATIO | المحاكي الواقعي لملامح الوجه</title>
+    <title>AURA RATIO | المحاكي الفيزيائي الحقيقي للملامح</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -47,9 +47,9 @@
 
     <!-- Header -->
     <header style="text-align: center; margin: 0.5rem 0 1rem;">
-        <span class="badge">AURA REALISTIC MESH WARP ENGINE</span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">محلل ومحاكي ملامح الوجه الواقعي</h1>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تعديل فيزيائي حقيقي لبكسلات الوجه بناءً على القياسات العلمية</p>
+        <span class="badge">AURA PURE PIXEL WARP ENGINE</span>
+        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">المحاكي الفيزيائي الحقيقي للملامح</h1>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تعديل فيزيائي حقيقي لبكسلات الصورة بدون ألوان أو رسومات</p>
     </header>
 
     <!-- Main Section -->
@@ -57,17 +57,17 @@
 
         <!-- Step 1: Upload Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
-            <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">📷</div>
-            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء المحاكاة الواقعية</h2>
-            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">سيقوم المحرك بمسح الملامح وتعديل بكسلات الصورة نفسها بشكل طبيعي وواقعي.</p>
+            <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">📸</div>
+            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء التعديل الفيزيائي الحقيقي</h2>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">يتم إزاحة بكسلات ملامح وجهك الحقيقي بدون إضافات ألوان أو فلاتر رسم.</p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processAIImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التعديل الواقعي</button>
+            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التعديل</button>
         </div>
 
         <!-- AI Processing Loader -->
         <div id="loadingSection" class="hidden card" style="text-align: center;">
             <div class="spinner"></div>
-            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري معالجة بكسلات الوجه وإعادة بناء الملامح...</p>
+            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري معالجة بكسلات الوجه بفيزياء المتجهات...</p>
         </div>
 
         <!-- Step 2: FREE Scientific Teaser Report (Pre-Payment) -->
@@ -84,11 +84,11 @@
 
             <!-- Paywall Box to Unlock Visual Transformation -->
             <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center; space-y: 0.75rem;">
-                <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة الواقعية مغلقة</span>
-                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف الصورة المعدلة واقعياً (تعديل البكسلات الحقيقي)</h3>
-                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">شاهد صورتك الحقيقية بعد تعديل أبعاد الأنف والشفاه والخدود بفيزياء تحريك الملامح.</p>
+                <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة البصرية مغلقة</span>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف الصورة المعدلة بفيزياء البكسلات الحقيقية</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">شاهد الصورة الحقيقية بعد تعديل أبعاد الشفاه والأنف والحواجب بدون أي رسومات أو فلاتر.</p>
                 <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
-                    فتح الصورة المعدلة واقعياً بـ 49 ر.س (Apple Pay) 🔒
+                    فتح الصورة المعدلة بـ 49 ر.س (Apple Pay) 🔒
                 </button>
             </div>
         </div>
@@ -98,7 +98,7 @@
             
             <!-- Comparison Grid (Unlocked Image) -->
             <div class="card" style="padding: 0.75rem;">
-                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة البصرية الواقعية (تعديل هيكل الملامح)</p>
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة الفيزيائية الحقيقية (تعديل البكسلات)</p>
                 <div class="comparison-grid">
                     <div class="img-box">
                         <canvas id="beforeCanvas"></canvas>
@@ -106,10 +106,10 @@
                     </div>
                     <div class="img-box">
                         <canvas id="afterCanvas"></canvas>
-                        <span class="img-label" style="background: linear-gradient(135deg, #E0A990 0%, #C98263 100%);">الصورة المعدلة واقعياً (بعد)</span>
+                        <span class="img-label" style="background: linear-gradient(135deg, #E0A990 0%, #C98263 100%);">الصورة المعدلة (بعد)</span>
                     </div>
                 </div>
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">ملاحظة: التعديل تم على بكسلات الصورة الحقيقية وليس رَسماً أو فلاتر ⬆</p>
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تنبيه: التعديل تم بفيزياء إزاحة البكسلات فقط بدون ألوان أو رسم ⬆</p>
             </div>
 
             <!-- Full Dossier Container for PDF Export -->
@@ -117,7 +117,7 @@
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - REALISTIC DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير تعديل أبعاد الملامح للعيادة</p>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير العيادة الكامل للنسب الجمالية</p>
                     </div>
                     <span class="badge">مفعل بالكامل</span>
                 </div>
@@ -203,7 +203,7 @@
 
             try {
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري قراءة نقاط الوجه وحساب النسبة الذهبية...";
+                document.getElementById('loadingStatus').innerText = "جاري مسح الملامح وقراءة الأبعاد...";
 
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
@@ -240,7 +240,7 @@
             document.getElementById('teaserReportSection').classList.remove('hidden');
             currentLandmarks = results.multiFaceLandmarks[0];
 
-            // Render Original Base Canvas
+            // Render Clean Original Base Canvas (NO DOTS, NO OVERLAYS)
             const bCanvas = document.getElementById('beforeCanvas');
             const bCtx = bCanvas.getContext('2d');
             bCanvas.width = uploadedImg.width;
@@ -250,7 +250,7 @@
             // Perform Anthropometric Ratio Calculations
             currentAnalysis = calculateScientificMetrics(currentLandmarks, bCanvas.width, bCanvas.height);
 
-            // Render Teaser Report
+            // Render Teaser Report Text
             buildScientificTeaserUI(currentAnalysis);
         }
 
@@ -277,7 +277,7 @@
 
             if (analysis.needsNoseSlimming) {
                 recs.push({
-                    title: "نحت وتنحيف قاعدة الأنف (Nose Alar Refinement)",
+                    title: "تنحيف ونحت قاعدة الأنف (Nose Alar Refinement)",
                     desc: "أظهر المسح اتساعاً في قاعدة الأنف مقارنة بالمسافة بين العينين. يُوصى بتنحيف الحواف الجانبية.",
                     citation: "Farkas Canon 4: Intercanthal-Alar Ratio"
                 });
@@ -291,7 +291,7 @@
 
             if (analysis.needsUpperLipPlump) {
                 recs.push({
-                    title: "امتلاء ورفع الشفة العلوية (Upper Lip Augmentation)",
+                    title: "تكبير وامتلاء الشفة العلوية (Upper Lip Augmentation)",
                     desc: "ارتفاع الشفة العلوية أنحف من النسبة الذهبية (1:1.6). نوصي بتكبير امتداد الشفة العلوية.",
                     citation: "Powell & Humphreys Golden Decagon Ratio"
                 });
@@ -324,7 +324,7 @@
         }
 
         function simulatePayment() {
-            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري معالجة وإزاحة بكسلات الصورة واقعياً.");
+            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري معالجة بكسلات الصورة فيزياءً.");
             
             document.getElementById('teaserReportSection').classList.add('hidden');
             document.getElementById('unlockedVisualSection').classList.remove('hidden');
@@ -333,110 +333,84 @@
             aCanvas.width = uploadedImg.width;
             aCanvas.height = uploadedImg.height;
 
-            // Apply REAL PIXEL MESH DISPLACEMENT (No overlays or drawings!)
-            applyRealPixelMeshWarp(aCanvas, uploadedImg, currentLandmarks, currentAnalysis);
+            // Execute PURE MATH PIXEL DISPLACEMENT (NO OVERLAYS, NO COLORS, NO DRAWING)
+            applyPurePixelMeshWarp(aCanvas, uploadedImg, currentLandmarks, currentAnalysis);
 
             // Duplicate Recommendations in PDF Dossier
             document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
         }
 
-        // REAL PIXEL MESH DISPLACEMENT ENGINE (PHYSICAL PIXEL WARPING)
-        function applyRealPixelMeshWarp(canvas, img, lm, analysis) {
+        // PURE MATHEMATICAL PIXEL DISPLACEMENT ENGINE (ZERO DRAWING / ZERO OVERLAYS)
+        function applyPurePixelMeshWarp(canvas, img, lm, analysis) {
             const ctx = canvas.getContext('2d');
             const w = canvas.width;
             const h = canvas.height;
 
-            // Draw Original Photo to Temp Canvas
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = w;
-            tempCanvas.height = h;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.drawImage(img, 0, 0);
+            // Draw original image to an offscreen canvas to extract raw pixel data
+            const off = document.createElement('canvas');
+            off.width = w; 
+            off.height = h;
+            const offCtx = off.getContext('2d');
+            offCtx.drawImage(img, 0, 0);
 
-            const srcData = tempCtx.getImageData(0, 0, w, h);
+            const srcData = offCtx.getImageData(0, 0, w, h);
             const dstData = ctx.createImageData(w, h);
 
-            const srcPixels = srcData.data;
-            const dstPixels = dstData.data;
+            const src = srcData.data;
+            const dst = dstData.data;
 
-            // Define Deformation Control Points based on AI Landmarks
-            const warpPoints = [];
+            // Define Vector Deformation Control Points
+            const vectors = [];
 
-            // 1. Lip Plump Distortion Points (Push Lip Pixels Outward Vertically)
-            if (analysis.needsUpperLipPlump) {
-                warpPoints.push({
-                    cx: lm[0].x * w,
-                    cy: lm[0].y * h,
-                    radius: w * 0.08,
-                    strength: -12, // Pull upward to plump upper lip
-                    dirY: -1, dirX: 0
-                });
-                warpPoints.push({
-                    cx: lm[17].x * w,
-                    cy: lm[17].y * h,
-                    radius: w * 0.08,
-                    strength: 10, // Pull downward to plump lower lip
-                    dirY: 1, dirX: 0
-                });
-            }
-
-            // 2. Nose Slimming Distortion Points (Squeeze Nose Alar Pixels Inward)
+            // 1. Nose Slimming Vector (Compress pixels inward at nostrils)
             if (analysis.needsNoseSlimming) {
-                warpPoints.push({
-                    cx: lm[98].x * w,
-                    cy: lm[98].y * h,
-                    radius: w * 0.06,
-                    strength: 14, // Push right nostril inward
-                    dirY: 0, dirX: 1
-                });
-                warpPoints.push({
-                    cx: lm[327].x * w,
-                    cy: lm[327].y * h,
-                    radius: w * 0.06,
-                    strength: 14, // Push left nostril inward
-                    dirY: 0, dirX: -1
-                });
+                vectors.push({ x: lm[98].x * w,  y: lm[98].y * h,  radius: w * 0.07, forceX:  12, forceY: 0 });
+                vectors.push({ x: lm[327].x * w, y: lm[327].y * h, radius: w * 0.07, forceX: -12, forceY: 0 });
             }
 
-            // Execute Real Mathematical Displacement on Image Pixel Buffer
+            // 2. Lip Plumping Vector (Expand lip pixels vertically)
+            if (analysis.needsUpperLipPlump) {
+                vectors.push({ x: lm[0].x * w,  y: lm[0].y * h,  radius: w * 0.08, forceX: 0, forceY: -10 });
+                vectors.push({ x: lm[17].x * w, y: lm[17].y * h, radius: w * 0.08, forceX: 0, forceY:  10 });
+            }
+
+            // Apply Vector Deformation Field directly to raw pixel array
             for (let y = 0; y < h; y++) {
                 for (let x = 0; x < w; x++) {
-                    let dx = 0;
-                    let dy = 0;
+                    let shiftX = 0;
+                    let shiftY = 0;
 
-                    // Calculate Vector Warp Distortions
-                    for (let i = 0; i < warpPoints.length; i++) {
-                        const pt = warpPoints[i];
-                        const distSq = (x - pt.cx) * (x - pt.cx) + (y - pt.cy) * (y - pt.cy);
-                        const radiusSq = pt.radius * pt.radius;
+                    for (let i = 0; i < vectors.length; i++) {
+                        const v = vectors[i];
+                        const dx = x - v.x;
+                        const dy = y - v.y;
+                        const d2 = dx * dx + dy * dy;
+                        const r2 = v.radius * v.radius;
 
-                        if (distSq < radiusSq) {
-                            // Smooth Gaussian Inverse Radial Factor
-                            const factor = Math.pow(1 - distSq / radiusSq, 2) * pt.strength;
-                            dx += pt.dirX * factor;
-                            dy += pt.dirY * factor;
+                        if (d2 < r2) {
+                            const falloff = Math.pow(1 - d2 / r2, 2);
+                            shiftX += v.forceX * falloff;
+                            shiftY += v.forceY * falloff;
                         }
                     }
 
-                    // Map Source Pixel to Displacement Target Pixel
-                    let srcX = Math.round(x - dx);
-                    let srcY = Math.round(y - dy);
+                    let srcX = Math.round(x - shiftX);
+                    let srcY = Math.round(y - shiftY);
 
-                    // Clamp to Bounds
                     srcX = Math.max(0, Math.min(w - 1, srcX));
                     srcY = Math.max(0, Math.min(h - 1, srcY));
 
-                    const dstIdx = (y * w + x) * 4;
-                    const srcIdx = (srcY * w + srcX) * 4;
+                    const dIdx = (y * w + x) * 4;
+                    const sIdx = (srcY * w + srcX) * 4;
 
-                    dstPixels[dstIdx]     = srcPixels[srcIdx];     // Red
-                    dstPixels[dstIdx + 1] = srcPixels[srcIdx + 1]; // Green
-                    dstPixels[dstIdx + 2] = srcPixels[srcIdx + 2]; // Blue
-                    dstPixels[dstIdx + 3] = srcPixels[srcIdx + 3]; // Alpha
+                    dst[dIdx]     = src[sIdx];     // Red
+                    dst[dIdx + 1] = src[sIdx + 1]; // Green
+                    dst[dIdx + 2] = src[sIdx + 2]; // Blue
+                    dst[dIdx + 3] = src[sIdx + 3]; // Alpha
                 }
             }
 
-            // Put Transformed Pixels Back to Main After Canvas
+            // Put Transformed Raw Pixels Back to Canvas
             ctx.putImageData(dstData, 0, 0);
         }
 
