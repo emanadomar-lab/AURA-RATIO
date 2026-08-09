@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA RATIO | المحلل الجمالي العلمي بالذكاء الاصطناعي</title>
+    <title>AURA RATIO | المحلل الجمالي الطبي بالذكاء الاصطناعي</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
         .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; }
         .img-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1rem; overflow: hidden; background: #1a1a1a; border: 1px solid var(--border-color); }
         .img-box canvas { width: 100%; height: 100%; object-fit: cover; }
-        .img-label { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.65); color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 4px; backdrop-filter: blur(4px); }
+        .img-label { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.7); color: #fff; font-size: 8px; padding: 3px 7px; border-radius: 4px; backdrop-filter: blur(4px); font-weight: bold; }
 
         .hidden { display: none !important; }
         .spinner { width: 36px; height: 36px; border: 3px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
@@ -47,9 +47,9 @@
 
     <!-- Header -->
     <header style="text-align: center; margin: 0.5rem 0 1rem;">
-        <span class="badge">AURA AI SCIENTIFIC ENGINE</span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">محلل تناسق الملامح والنسب الذهبية</h1>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تحليل علمي موثق بالدراسات الطبية لتحديد الملاءمة الجمالية</p>
+        <span class="badge">AURA CLINICAL BEAUTY ENGINE</span>
+        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">محلل تناسق الملامح وتقييم العيادة</h1>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">استشارة رقمية مدعومة بالذكاء الاصطناعي والمراجع الجراحية</p>
     </header>
 
     <!-- Main Section -->
@@ -57,24 +57,24 @@
 
         <!-- Step 1: Upload Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
-            <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">✨</div>
-            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه للتحليل العلمي بالذكاء الاصطناعي</h2>
-            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">مسح موثوق لـ 468 نقطة أبعاد وفق معايير Farkas العالمية للنسب الجمالية.</p>
+            <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">🩺</div>
+            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء الاستشارة التجميلية</h2>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">مسح 468 نقطة أبعاد وفق معايير Farkas & Powell العالمية للتجميل.</p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processAIImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التحليل المجاني</button>
+            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التشخيص الجمالي</button>
         </div>
 
         <!-- AI Processing Loader -->
         <div id="loadingSection" class="hidden card" style="text-align: center;">
             <div class="spinner"></div>
-            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري تحميل خوارزمية المسح البصري...</p>
+            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري مسح الملامح وهندسة الضوء...</p>
         </div>
 
         <!-- Step 2: FREE Scientific Teaser Report (Pre-Payment) -->
         <div id="teaserReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
             <div class="card" style="text-align: right;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="font-weight: 800; font-size: 0.85rem;">التشخيص العلمي الأكاديمي لملامحك</h2>
+                    <h2 style="font-weight: 800; font-size: 0.85rem;">التشخيص الطبي الأكاديمي لملامحك</h2>
                     <span class="badge">نتائج مجانية</span>
                 </div>
 
@@ -85,10 +85,10 @@
             <!-- Paywall Box to Unlock Visual Transformation -->
             <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center; space-y: 0.75rem;">
                 <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة البصرية مغلقة</span>
-                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف النتيجة البصرية المحاكاة (الصورة بعد التعديل)</h3>
-                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">احصلي على النتيجة البصرية المعدلة خصيصاً لأبعاد وجهك مع التقرير المخصص لطبيب العيادة.</p>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف الصورة المعدلة بلمسات الطبيب المختص</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">شاهد نتيجة التعديل المتوقعة لوجهك بعد إعادة توزيع الكتلة والضوء وفق تقرير العيادة.</p>
                 <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
-                    فتح النتيجة البصرية بـ 49 ر.س (Apple Pay) 🔒
+                    فتح محاكاة الطبيب البصرية بـ 49 ر.س (Apple Pay) 🔒
                 </button>
             </div>
         </div>
@@ -98,7 +98,7 @@
             
             <!-- Comparison Grid (Unlocked Image) -->
             <div class="card" style="padding: 0.75rem;">
-                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة البصرية المحاكاة المخصصة لوجهك</p>
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة البصرية المحاكاة بلمسات طبيب التجميل</p>
                 <div class="comparison-grid">
                     <div class="img-box">
                         <canvas id="beforeCanvas"></canvas>
@@ -106,18 +106,18 @@
                     </div>
                     <div class="img-box">
                         <canvas id="afterCanvas"></canvas>
-                        <span class="img-label" style="background: rgba(201, 130, 99, 0.9);">النتيجة المحاكاة (بعد)</span>
+                        <span class="img-label" style="background: linear-gradient(135deg, #E0A990 0%, #C98263 100%);">بعد لمسات الطبيب</span>
                     </div>
                 </div>
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تم تطبيق التعديلات المخصصة لوجهك بناءً على نقاط المسح البصري ⬆</p>
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تم تطبيق نحت الأنف، توريد وامتلاء الشفاه، وإضاءة الوجنات ⬆</p>
             </div>
 
             <!-- Full Dossier Container for PDF Export -->
             <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - UNLOCKED DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">التقرير النهائي الكامل للعيادة</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - CLINICAL DOSSIER</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">التقرير النهائي الموجه لطبيب العيادة</p>
                     </div>
                     <span class="badge">مفعل بالكامل</span>
                 </div>
@@ -135,14 +135,14 @@
                 </div>
             </div>
 
-            <button onclick="downloadPDFReport()" class="btn-primary">تحميل الملف الجمالي الكامل مع الصورة (PDF) 📄</button>
+            <button onclick="downloadPDFReport()" class="btn-primary">تحميل تقرير العيادة كاملاً مع الصورة (PDF) 📄</button>
         </div>
 
     </main>
 
     <!-- Footer -->
     <footer style="text-align: center; padding: 0.75rem 0; font-size: 0.65rem; color: var(--text-muted);">
-        جميع الحقوق محفوظة لـ AURA RATIO BEAUTY AI © 2026
+        جميع الحقوق محفوظة لـ AURA RATIO CLINICAL AI © 2026
     </footer>
 
     <!-- Execution Logic -->
@@ -170,11 +170,11 @@
         async function ensureMediaPipeLoaded() {
             try {
                 if (window.FaceMesh) return;
-                document.getElementById('loadingStatus').innerText = "جاري تحميل محرك الذكاء الاصطناعي...";
+                document.getElementById('loadingStatus').innerText = "جاري تحميل خوارزميات الذكاء الاصطناعي...";
                 await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
                 await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
             } catch (err) {
-                throw new Error("تعذر تحميل خوارزميات المسح. يرجى التأكد من جودة الاتصال بالإنترنت.");
+                throw new Error("تعذر تحميل خوارزميات المسح. يرجى التأكد من اتصال الإنترنت.");
             }
         }
 
@@ -203,7 +203,7 @@
 
             try {
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري قياس أبعاد الملامح ومطابقتها بالمراجع الطبية...";
+                document.getElementById('loadingStatus').innerText = "جاري قراءة نقاط الوجه وحساب النسبة الذهبية...";
 
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
@@ -212,7 +212,7 @@
                     try {
                         await faceMesh.send({ image: img });
                     } catch (err) {
-                        handleProcessingError("حدث خطأ أثناء تحليل معالم الصورة. يرجى تجربة صورة أخرى.");
+                        handleProcessingError("حدث خطأ أثناء تحليل الصورة. يرجى اختيار صورة أمامية واضحة.");
                     }
                 };
                 img.onerror = function() {
@@ -233,23 +233,21 @@
             document.getElementById('loadingSection').classList.add('hidden');
 
             if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                handleProcessingError("لم يتم التعرف على ملامح الوجه بوضوح. يرجى رفع صورة واضحة بزاوية مواجهة مباشرة.");
+                handleProcessingError("لم يتم التعرف على ملامح الوجه بوضوح. يرجى رفع صورة واضحة ومواجهة للكاميرا.");
                 return;
             }
 
-            // Reveal Step 2: FREE Scientific Teaser Report
             document.getElementById('teaserReportSection').classList.remove('hidden');
-
             currentLandmarks = results.multiFaceLandmarks[0];
 
-            // Render Original Base Canvas Buffer
+            // Render Original Base Canvas
             const bCanvas = document.getElementById('beforeCanvas');
             const bCtx = bCanvas.getContext('2d');
             bCanvas.width = uploadedImg.width;
             bCanvas.height = uploadedImg.height;
             bCtx.drawImage(uploadedImg, 0, 0);
 
-            // Draw Golden Landmark Points on "Before" Canvas
+            // Draw Golden Ratio Anchor Dots
             bCtx.fillStyle = '#C98263';
             [33, 263, 1, 61, 291, 152, 70, 300].forEach(idx => {
                 bCtx.beginPath();
@@ -257,14 +255,13 @@
                 bCtx.fill();
             });
 
-            // Perform Real Anthropometric Measurements
+            // Perform Anthropometric Ratio Calculations
             currentAnalysis = calculateScientificMetrics(currentLandmarks, bCanvas.width, bCanvas.height);
 
-            // Render Free Scientific Teaser Text
+            // Render Teaser Report
             buildScientificTeaserUI(currentAnalysis);
         }
 
-        // SCIENTIFIC ANTHROPOMETRIC RATIOS (Farkas & Powell Standards)
         function calculateScientificMetrics(lm, w, h) {
             const intercanthalDist = Math.hypot((lm[133].x - lm[362].x) * w, (lm[133].y - lm[362].y) * h);
             const noseWidth = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
@@ -274,13 +271,12 @@
             const jawWidth = Math.hypot((lm[288].x - lm[58].x) * w, (lm[288].y - lm[58].y) * h);
 
             return {
-                needsNoseSlimming: noseWidth > intercanthalDist * 1.08,
-                needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.65),
-                needsCheekDefinition: cheekWidth < jawWidth * 1.12
+                needsNoseSlimming: noseWidth > intercanthalDist * 1.04,
+                needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.72),
+                needsCheekDefinition: cheekWidth < jawWidth * 1.14
             };
         }
 
-        // BUILD FREE SCIENTIFIC TEASER REPORT (Text & Citations Only)
         function buildScientificTeaserUI(analysis) {
             const container = document.getElementById('teaserRecommendations');
             container.innerHTML = '';
@@ -289,36 +285,36 @@
 
             if (analysis.needsNoseSlimming) {
                 recs.push({
-                    title: "تحليل قاعدة الأنف (Alar Base Width)",
-                    desc: "أظهر المسح البصري اتساعاً في قاعدة الأنف مقارنة بالمسافة بين الموقين الداخليين للعين.",
-                    citation: "Farkas Canon 4: Intercanthal-Alar Ratio (1985)"
+                    title: "نحت وتنحيف جدار الأنف (Nose Alar Refinement)",
+                    desc: "أظهر المسح اتساعاً بسيطاً في قاعدة الأنف مقارنة بالمسافة بين العينين. يُوصى بالكنتور الضوئي أو الفيلر التعديلي للجسرة.",
+                    citation: "Farkas Canon 4: Intercanthal-Alar Ratio"
                 });
             } else {
                 recs.push({
-                    title: "تناسق قاعدة الأنف (Alar Base Harmony)",
-                    desc: "عرض قاعدة الأنف مطابِق للمسافة بين العينين ضمن الحدود النموذجية القياسية.",
+                    title: "تناسق الأنف (Harmonious Nose Ratio)",
+                    desc: "قاعدة الأنف متناسقة تماماً مع أبعاد العينين ولا تحتاج أي تدخل تجميلي.",
                     citation: "Farkas Canon 4 Standard"
                 });
             }
 
             if (analysis.needsUpperLipPlump) {
                 recs.push({
-                    title: "امتداد الشفة العلوية (Vermilion Height)",
-                    desc: "ارتفاع الشفة العلوية أقل من النسبة الذهبية الجمالية المقترحة مقارنة بالسفلية.",
-                    citation: "Powell & Humphreys Golden Decagon Ratio (1:1.618)"
+                    title: "توريد ورفع الشفة العلوية (Lip Flip & Augmentation)",
+                    desc: "ارتفاع الشفة العلوية أنحف من النسبة الذهبية الجمالية (1:1.6). نوصي برفع حافة الشفة وتعبئة المنتصف بحجم هادئ.",
+                    citation: "Powell & Humphreys Golden Decagon Ratio"
                 });
             } else {
                 recs.push({
-                    title: "توازن الشفتين (Balanced Lip Vermilion)",
-                    desc: "تناسق الارتفاع العمودي بين الشفة العلوية والسفلية متوازن تماماً مع النسبة الذهبية.",
+                    title: "توازن الشفتين (Balanced Lip Ratio)",
+                    desc: "الارتفاع العمودي بين الشفتين متوازن ومريح مع النسبة الذهبية للوجه.",
                     citation: "Golden Ratio 1:1.618 Standard"
                 });
             }
 
             if (analysis.needsCheekDefinition) {
                 recs.push({
-                    title: "نسبة الخدود للفك (Bizygomatic to Bigonial Ratio)",
-                    desc: "عرض الخدود يحتاج دعماً بكتلة الفيلر لإعطاء تباين أنثوي واضح مع خط الفك السفلي.",
+                    title: "إضاءة ودعم عظام الخدود (Zygomatic Arch Highlight)",
+                    desc: "عرض الخدود يحتاج دعماً بكتلة الفيلر العلوية لإبراز التباين الأنثوي مع خط الفك السفلي.",
                     citation: "Marquardt Golden Facial Mask Standard"
                 });
             }
@@ -335,63 +331,97 @@
             });
         }
 
-        // TRIGGER APPLE PAY PAYMENT TO UNLOCK VISUAL RESULT
         function simulatePayment() {
-            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري فتح الصورة النهائية المعدلة.");
+            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري استخراج الصورة المعدلة بلمسات الطبيب.");
             
             document.getElementById('teaserReportSection').classList.add('hidden');
             document.getElementById('unlockedVisualSection').classList.remove('hidden');
 
-            // Render Real Transformed "After" Canvas on Her Actual Landmark Points
+            // Render Transformed "After" Canvas
             const aCanvas = document.getElementById('afterCanvas');
             const aCtx = aCanvas.getContext('2d');
             aCanvas.width = uploadedImg.width;
             aCanvas.height = uploadedImg.height;
             aCtx.drawImage(uploadedImg, 0, 0);
 
-            // Apply Dynamic Tailored Transformation on Canvas
-            renderRealVisualTransformation(aCtx, currentLandmarks, aCanvas.width, aCanvas.height, currentAnalysis);
+            // Apply HIGH-PRECISION PLASTIC SURGEON TRANSFORMATION ENGINE
+            applyPlasticSurgeonTransformation(aCtx, currentLandmarks, aCanvas.width, aCanvas.height, currentAnalysis);
 
-            // Duplicate Recommendations inside unlocked PDF container view
+            // Duplicate Recommendations in PDF Dossier
             document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
         }
 
-        // REAL DYNAMIC VISUAL TRANSFORMATION ON HER LANDMARKS (Post-Payment)
-        function renderRealVisualTransformation(ctx, lm, w, h, analysis) {
-            // A. Nose Contouring Simulation
-            if (analysis.needsNoseSlimming) {
-                ctx.fillStyle = 'rgba(58, 46, 43, 0.18)';
-                ctx.filter = 'blur(4px)';
-                ctx.beginPath();
-                ctx.arc(lm[98].x * w, lm[98].y * h, w / 40, 0, Math.PI * 2);
-                ctx.arc(lm[327].x * w, lm[327].y * h, w / 40, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.filter = 'none';
-            }
+        // PLASTIC SURGEON HIGH-PRECISION TRANSFORMATION ENGINE
+        function applyPlasticSurgeonTransformation(ctx, lm, w, h, analysis) {
+            
+            // 1. TEAR TROUGH ERASER & EYE BRIGHTENING (إخفاء الهالات وإضاءة أسفل العين)
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 248, 242, 0.55)';
+            ctx.filter = 'blur(12px)';
+            ctx.beginPath();
+            ctx.arc(lm[33].x * w + w/28, lm[33].y * h + h/38, w / 11, 0, Math.PI * 2);
+            ctx.arc(lm[263].x * w - w/28, lm[263].y * h + h/38, w / 11, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
 
-            // B. Upper Lip Volume & Lift Highlight
+            // 2. LIP AUGMENTATION, ROSY TINT & CUPID'S BOW HIGHLIGHT (توريد وامتلاء الشفاف)
             if (analysis.needsUpperLipPlump) {
-                ctx.fillStyle = 'rgba(224, 169, 144, 0.45)';
-                ctx.filter = 'blur(2px)';
+                ctx.save();
+                
+                // A. Upper & Lower Lip Rosy Pigment Blend
+                ctx.fillStyle = 'rgba(215, 95, 110, 0.6)';
+                ctx.filter = 'blur(3px)';
                 ctx.beginPath();
-                ctx.ellipse(lm[0].x * w, lm[0].y * h, w / 20, h / 38, 0, 0, Math.PI * 2);
+                // Upper Lip Extension
+                ctx.ellipse(lm[0].x * w, lm[0].y * h - h/110, w / 15, h / 28, 0, 0, Math.PI * 2);
+                // Lower Lip Fullness
+                ctx.ellipse(lm[17].x * w, lm[17].y * h + h/140, w / 15, h / 30, 0, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.filter = 'none';
+
+                // B. Cupid's Bow Gloss Specular Highlight (لمعة الشفة العلوية)
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.filter = 'blur(1.5px)';
+                ctx.beginPath();
+                ctx.arc(lm[0].x * w, lm[0].y * h - h/85, w / 55, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
             }
 
-            // C. Cheekbone Lift & Illumination
-            if (analysis.needsCheekDefinition) {
-                ctx.fillStyle = 'rgba(255, 250, 245, 0.35)';
+            // 3. NOSE SLIMMING & DORSAL HIGHLIGHT (تنحيف الأنف وخط الإضاءة العمودي)
+            if (analysis.needsNoseSlimming) {
+                ctx.save();
+                // A. Dual Lateral Contouring Shadows (تظليل جوانب الأنف)
+                ctx.fillStyle = 'rgba(40, 25, 20, 0.42)';
                 ctx.filter = 'blur(6px)';
                 ctx.beginPath();
-                ctx.arc(lm[234].x * w, lm[234].y * h, w / 15, 0, Math.PI * 2);
-                ctx.arc(lm[454].x * w, lm[454].y * h, w / 15, 0, Math.PI * 2);
+                ctx.arc(lm[98].x * w, lm[98].y * h, w / 26, 0, Math.PI * 2);
+                ctx.arc(lm[327].x * w, lm[327].y * h, w / 26, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.filter = 'none';
+
+                // B. Nasal Bridge Dorsal Highlight (خط الضوء الناصع على الجسرة)
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+                ctx.lineWidth = Math.max(3, w / 65);
+                ctx.filter = 'blur(2px)';
+                ctx.beginPath();
+                ctx.moveTo(lm[6].x * w, lm[6].y * h);
+                ctx.lineTo(lm[1].x * w, lm[1].y * h);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // 4. ZYGOMATIC ARCH CHEEK LIFT & HIGHLIGHT (نحت الخدود وإبراز العظام)
+            if (analysis.needsCheekDefinition) {
+                ctx.save();
+                ctx.fillStyle = 'rgba(255, 245, 235, 0.6)';
+                ctx.filter = 'blur(9px)';
+                ctx.beginPath();
+                ctx.arc(lm[234].x * w, lm[234].y * h - h/50, w / 13, 0, Math.PI * 2);
+                ctx.arc(lm[454].x * w, lm[454].y * h - h/50, w / 13, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
             }
         }
 
-        // PDF DOWNLOAD ENGINE
         async function downloadPDFReport() {
             try {
                 if (!window.html2pdf) {
@@ -400,7 +430,7 @@
                 const element = document.getElementById('pdfContainer');
                 window.html2pdf().set({
                     margin: 0.3,
-                    filename: 'AuraRatio_Unlocked_Report.pdf',
+                    filename: 'AuraRatio_Clinical_Report.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
