@@ -2,172 +2,178 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AURA RATIO | المحلل الجمالي بالذكاء الاصطناعي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
-    <!-- Google MediaPipe AI FaceMesh Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;800&display=swap" rel="stylesheet">
 
+    <!-- Playful lightweight UI fallback styles (Replacing heavy Tailwind CDN for production) -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800&display=swap');
-        body { font-family: 'Alexandria', sans-serif; background-color: #FAF7F2; color: #3A2E2B; }
-        .nude-card { background: #FFFFFF; border: 1px solid #EFE4DC; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); }
-        .rose-gold-btn { background: linear-gradient(135deg, #E0A990 0%, #C98263 100%); color: #ffffff; }
-        .champagne-badge { background-color: #F5EAE1; color: #9E583B; }
+        :root {
+            --bg-color: #FAF7F2;
+            --card-bg: #FFFFFF;
+            --text-main: #3A2E2B;
+            --text-muted: #8C7A76;
+            --accent-gold: #E0A990;
+            --accent-dark-gold: #C98263;
+            --border-color: #EFE4DC;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Alexandria', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding: 1rem; max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         
-        /* Interactive Comparison Canvas */
-        .img-container { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.5rem; overflow: hidden; }
+        .badge { background-color: #F5EAE1; color: #9E583B; font-size: 10px; font-weight: bold; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(224, 169, 144, 0.3); display: inline-block; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); text-align: center; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-dark-gold) 100%); color: #fff; border: none; width: 100%; padding: 1rem; border-radius: 1rem; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
+        .btn-primary:hover { opacity: 0.95; }
+        .img-container { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.5rem; overflow: hidden; background: #000; }
+        .hidden { display: none !important; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .disclaimer { font-size: 9px; color: var(--text-muted); margin-top: 8px; line-height: 1.3; }
     </style>
 </head>
-<body class="p-4 max-w-md mx-auto min-h-screen flex flex-col justify-between">
+<body>
 
     <!-- Header -->
-    <header class="text-center my-3">
-        <span class="text-[10px] tracking-widest font-bold champagne-badge px-3 py-1 rounded-full border border-[#E0A990]/30">AURA AI BEAUTY ENGINE</span>
-        <h1 class="text-2xl font-black text-[#3A2E2B] mt-2">محلل التناسق والنسب الذهبية للملامح</h1>
-        <p class="text-xs text-[#8C7A76] mt-1">تحليل ذكي حقيقي لقراءة نقاط وجهك وتحديد التقنيات المناسبة</p>
+    <header style="text-align: center; margin: 1rem 0;">
+        <span class="badge">AURA AI BEAUTY ENGINE</span>
+        <h1 style="font-size: 1.3rem; font-weight: 800; margin-top: 0.5rem;">محلل تناسق الملامح الجمالي</h1>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">تحليل ذكي تقديري لقراءة نقاط الوجه وتناسق النسب</p>
     </header>
 
     <!-- Main Section -->
-    <main class="space-y-5 flex-1 flex flex-col justify-center">
+    <main style="display: flex; flex-direction: column; gap: 1.25rem; flex: 1; justify-content: center;">
 
         <!-- Upload Section -->
-        <div id="uploadSection" class="nude-card rounded-3xl p-6 text-center space-y-4">
-            <div class="w-16 h-16 mx-auto rounded-full bg-[#F5EAE1] flex items-center justify-center text-[#E0A990] text-2xl shadow-inner">
-                ✨
-            </div>
-            <div>
-                <h2 class="text-sm font-bold text-[#3A2E2B]">ارفعي صورة وجهك للتحليل بالذكاء الاصطناعي</h2>
-                <p class="text-xs text-[#8C7A76] mt-1">سيقوم نموذج MediaPipe AI بمسح 468 نقطة على وجهك لقياس أبعاد ملامحك بدقة</p>
-            </div>
+        <div id="uploadSection" class="card">
+            <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">✨</div>
+            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة وجهك للتحليل بالذكاء الاصطناعي</h2>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0 1rem;">يتم تحليل الملامح محلياً داخل جهازك للحفاظ على خصوصيتك الكاملة.</p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processAIImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="w-full py-4 rose-gold-btn font-bold rounded-2xl text-sm shadow-md hover:opacity-95 transition">
-                رفع الصورة وبدء مسح الملامح
-            </button>
+            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التحليل</button>
         </div>
 
         <!-- AI Processing Loader -->
-        <div id="loadingSection" class="hidden text-center space-y-3 my-auto">
-            <div class="w-12 h-12 border-4 border-[#E0A990] border-t-transparent rounded-full animate-spin mx-auto"></div>
-            <p class="text-xs font-bold text-[#9E583B]">جاري قراءة 468 نقطة لملامح الوجه وحساب النسب الذهبية...</p>
+        <div id="loadingSection" class="hidden text-center card">
+            <div class="spinner"></div>
+            <p id="loadingStatus" style="font-size: 0.8rem; font-weight: bold; color: #9E583B; margin-top: 1rem;">جاري تحميل محرك الذكاء الاصطناعي...</p>
         </div>
 
-        <!-- AI Analysis & Visual Canvas Result -->
-        <div id="resultVisualSection" class="hidden space-y-4">
-            <div class="img-container nude-card">
-                <canvas id="outputCanvas" class="w-full h-full object-cover"></canvas>
+        <!-- AI Visual Canvas Result -->
+        <div id="resultVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div class="img-container card" style="padding:0;">
+                <canvas id="outputCanvas" style="width: 100%; height: 100%; object-fit: contain;"></canvas>
             </div>
-            <p class="text-[11px] text-center text-[#8C7A76]">تم رسم نقاط الجمال والتعديلات المستهدفة على ملامح وجهك الحقيقية ⬆</p>
+            <p style="font-size: 0.7rem; text-align: center; color: var(--text-muted);">تم رسم خريطة الملامح والنقاط التحليلية ⬆</p>
         </div>
 
-        <!-- Paywall Section -->
-        <div id="paywallSection" class="hidden space-y-4">
-            <div class="bg-[#3A2E2B] text-white p-6 rounded-3xl text-center space-y-4 shadow-2xl">
-                <span class="champagne-badge text-[10px] font-bold px-3 py-1 rounded-full">تم استخراج بصمة الجمال المخصصة</span>
-                <h3 class="text-sm font-bold text-[#F5EAE1]">تحميل التقرير الجمالي وشيت العيادة الخاص بوجهك</h3>
-                <p class="text-xs text-[#D1C2BD] leading-relaxed">احصلي على التوصيات الدقيقة المحسوبة خصيصاً لأبعاد أنفك، شفتيك، وخدودك بناءً على تحليل الذكاء الاصطناعي.</p>
-                <button onclick="simulatePayment()" class="w-full py-4 bg-white text-[#3A2E2B] font-bold rounded-2xl text-sm flex items-center justify-center space-x-2 space-x-reverse shadow-lg">
-                    <span>Pay with Apple Pay (49 SAR)</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Dynamic AI Custom Report Section -->
-        <div id="reportSection" class="hidden space-y-5">
-            <div id="pdfContainer" class="nude-card p-6 rounded-3xl space-y-5 text-xs">
-                
-                <!-- Report Header -->
-                <div class="border-b border-[#EFE4DC] pb-4 flex justify-between items-center">
+        <!-- Report Section -->
+        <div id="reportSection" class="hidden">
+            <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 1rem;">
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 class="font-extrabold text-[#3A2E2B] text-sm">AURA RATIO - AI BEAUTY DOSSIER</h2>
-                        <p class="text-[10px] text-[#8C7A76]">تقرير بصمة الجمال وتوازن الملامح المخصص</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - BEAUTY REPORT</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير أبعاد الملامح التقديري</p>
                     </div>
-                    <span class="champagne-badge text-[10px] font-bold px-2.5 py-1 rounded-full">خاص بوجهك</span>
+                    <span class="badge">تحليل خاص</span>
                 </div>
 
-                <!-- AI Custom Recommendations Container -->
-                <div class="space-y-3">
-                    <h3 class="font-bold text-[#E0A990] text-xs">التقنيات الجمالية المناسبة لأبعاد وجهك (محللة بالذكاء الاصطناعي):</h3>
-                    <div id="dynamicRecommendations" class="space-y-2 text-[11px] text-[#3A2E2B]">
-                        <!-- Dynamic Content Inserted via JS -->
-                    </div>
-                </div>
+                <div id="dynamicRecommendations" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
 
-                <!-- Custom Doctor Notes -->
-                <div class="bg-[#FAF7F2] p-3.5 rounded-2xl border border-[#EFE4DC] space-y-1.5">
-                    <p class="font-bold text-[#3A2E2B] text-[11px]">ملاحظات مخصصة لطبيب العيادة:</p>
-                    <p id="doctorCustomNote" class="text-[10px] text-[#8C7A76] leading-relaxed">جاري تجهيز التوصية...</p>
+                <div class="disclaimer">
+                    * <strong>إخلاء مسؤولية طبي:</strong> هذا التقرير يُولد تلقائياً لأغراض استرشادية وترفيهية فقط، ولا يُعد استشارة طبية أو تشخيصاً إكلينيكياً. يرجى مراجعة طبيب تجميل مختص قبل اتخاذ أي قرار طبي.
                 </div>
-
             </div>
 
-            <button onclick="downloadPDFReport()" class="w-full py-4 rose-gold-btn font-bold rounded-2xl text-sm shadow-xl">
-                تحميل الملف الجمالي المخصص (PDF) 📄
-            </button>
+            <button onclick="downloadPDFReport()" class="btn-primary" style="margin-top: 1rem;">تحميل التقرير (PDF) 📄</button>
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="text-center py-4 text-[10px] text-[#8C7A76]">
-        جميع الحقوق محفوظة لـ AURA RATIO BEAUTY AI © 2025
+    <footer style="text-align: center; padding: 1rem 0; font-size: 0.65rem; color: var(--text-muted);">
+        جميع الحقوق محفوظة لـ AURA RATIO BEAUTY AI © 2026
     </footer>
 
+    <!-- Lazy Load Scripts on Demand for Performance -->
     <script>
         let faceMesh = null;
         let uploadedImageElement = null;
 
-        // Initialize Google MediaPipe AI FaceMesh Engine
-        function initAIFaceMesh() {
-            faceMesh = new FaceMesh({
-                locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+        // Dynamic Script Loader for Optimization
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.crossOrigin = "anonymous";
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
             });
-
-            faceMesh.setOptions({
-                maxNumFaces: 1,
-                refineLandmarks: true,
-                minDetectionConfidence: 0.5,
-                minTrackingConfidence: 0.5
-            });
-
-            faceMesh.onResults(onFaceAIResults);
         }
 
-        // Call init on page load
-        window.onload = initAIFaceMesh;
+        async function ensureMediaPipeLoaded() {
+            if (window.FaceMesh) return;
+            document.getElementById('loadingStatus').innerText = "جاري تحميل مكتبة معالجة الوجه...";
+            await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
+            await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
+        }
 
-        function processAIImage(e) {
+        async function initAIFaceMesh() {
+            await ensureMediaPipeLoaded();
+            if (!faceMesh) {
+                faceMesh = new FaceMesh({
+                    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+                });
+                faceMesh.setOptions({
+                    maxNumFaces: 1,
+                    refineLandmarks: true,
+                    minDetectionConfidence: 0.6,
+                    minTrackingConfidence: 0.6
+                });
+                faceMesh.onResults(onFaceAIResults);
+            }
+        }
+
+        async function processAIImage(e) {
             const file = e.target.files[0];
             if (!file) return;
 
             document.getElementById('uploadSection').classList.add('hidden');
             document.getElementById('loadingSection').classList.remove('hidden');
 
-            const img = new Image();
-            img.src = URL.createObjectURL(file);
+            try {
+                await initAIFaceMesh();
+                document.getElementById('loadingStatus').innerText = "جاري مسح الملامح وحساب النسب...";
 
-            img.onload = async function() {
-                uploadedImageElement = img;
-                // Trigger AI Landmarking
-                await faceMesh.send({ image: img });
-            };
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                img.onload = async function() {
+                    uploadedImageElement = img;
+                    await faceMesh.send({ image: img });
+                };
+            } catch (err) {
+                alert("تعذر تحميل محرك الذكاء الاصطناعي. يرجى التحقق من الاتصال بالإنترنت.");
+                document.getElementById('loadingSection').classList.add('hidden');
+                document.getElementById('uploadSection').classList.remove('hidden');
+            }
         }
 
-        // AI Results Processing Callback
         function onFaceAIResults(results) {
             document.getElementById('loadingSection').classList.add('hidden');
 
             if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                alert("لم يتم التعرف على الوجه بوضوح. يرجى رفع صورة أمامية بتركيز جاد وإضاءة ممتازة.");
+                alert("لم يتم التعرف على الوجه بوضوح. يرجى رفع صورة واضحة بزاوية مواجهة مباشرة.");
                 document.getElementById('uploadSection').classList.remove('hidden');
                 return;
             }
 
             document.getElementById('resultVisualSection').classList.remove('hidden');
-            document.getElementById('paywallSection').classList.remove('hidden');
+            document.getElementById('reportSection').classList.remove('hidden');
 
             const landmarks = results.multiFaceLandmarks[0];
             const canvas = document.getElementById('outputCanvas');
@@ -176,146 +182,95 @@
             canvas.width = uploadedImageElement.width;
             canvas.height = uploadedImageElement.height;
 
-            // Draw Base User Image
             ctx.drawImage(uploadedImageElement, 0, 0);
 
-            // Perform Real Anthropometric Measurements on Her Actual Landmarks
-            const analysis = calculateRealFaceMetrics(landmarks, canvas.width, canvas.height);
+            // Scientific Analysis Normalized by Interpupillary Distance (IPD)
+            const analysis = calculateScientificMetrics(landmarks, canvas.width, canvas.height);
 
-            // Render Real Visual Transformation Overlays ON HER ACTUAL LANDMARKS
-            renderAITransformationCanvas(ctx, landmarks, canvas.width, canvas.height, analysis);
-
-            // Generate Custom AI Recommendations
-            buildDynamicReportUI(analysis);
+            renderCanvasOverlays(ctx, landmarks, canvas.width, canvas.height, analysis);
+            buildReportUI(analysis);
         }
 
-        // Math Metrics based on Actual Landmarks Coordinates
-        function calculateRealFaceMetrics(lm, w, h) {
-            // Landmark Indexes (Google MediaPipe Standard)
-            // Lips: Top 13, Bottom 14, Left 61, Right 291
-            // Nose: Left 98, Right 327, Tip 1
-            // Eyes: Left Outer 33, Right Outer 263
-            // Jaw/Cheeks: Left Cheek 234, Right Cheek 454, Chin 152, Jaw Left 58, Jaw Right 288
-            // Eyebrows: Left 70, Right 300
-
+        // SCIENTIFICALLY REFACTORED METRICS (Relative to Interpupillary Distance, NOT image size)
+        function calculateScientificMetrics(lm, w, h) {
+            // Distance between outer eye corners (Normalized baseline)
             const eyeDist = Math.hypot((lm[263].x - lm[33].x) * w, (lm[263].y - lm[33].y) * h);
+            
+            // Nose Alar Width
             const noseWidth = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
             
+            // Lips Dimensions
             const upperLipHeight = Math.hypot((lm[13].x - lm[0].x) * w, (lm[13].y - lm[0].y) * h);
             const lowerLipHeight = Math.hypot((lm[17].x - lm[14].x) * w, (lm[17].y - lm[14].y) * h);
 
+            // Facial Widths
             const cheekWidth = Math.hypot((lm[454].x - lm[234].x) * w, (lm[454].y - lm[234].y) * h);
             const jawWidth = Math.hypot((lm[288].x - lm[58].x) * w, (lm[288].y - lm[58].y) * h);
 
+            // Brow to Eye Distance Normalized by Eye Distance (FIXED BUG)
             const browEyeDist = Math.hypot((lm[70].x - lm[159].x) * w, (lm[70].y - lm[159].y) * h);
+            const relativeBrowDist = browEyeDist / eyeDist;
 
             return {
-                needsNoseSlimming: noseWidth > eyeDist * 0.38,
-                needsUpperLipPlump: upperLipHeight < lowerLipHeight * 0.7,
-                needsCheekVolume: cheekWidth < jawWidth * 1.1,
-                needsJawSlimming: jawWidth > cheekWidth * 0.88,
-                needsBrowLift: browEyeDist < h * 0.05
+                needsNoseSlimming: noseWidth > eyeDist * 0.42,
+                needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.65),
+                needsJawSlimming: jawWidth > cheekWidth * 0.85,
+                needsBrowLift: relativeBrowDist < 0.22 // Scaled relatively to eye distance!
             };
         }
 
-        // Render Transformations on REAL Landmark Coordinates
-        function renderAITransformationCanvas(ctx, lm, w, h, analysis) {
-            ctx.lineWidth = Math.max(2, w / 150);
-
-            // 1. Nose Refinement Overlay (If AI detected wide nose)
-            if (analysis.needsNoseSlimming) {
-                ctx.strokeStyle = '#E0A990';
-                ctx.beginPath();
-                ctx.moveTo(lm[98].x * w, lm[98].y * h);
-                ctx.lineTo(lm[1].x * w, lm[1].y * h);
-                ctx.lineTo(lm[327].x * w, lm[327].y * h);
-                ctx.stroke();
-            }
-
-            // 2. Lip Plump & Lift Overlay (If AI detected thin upper lip)
-            if (analysis.needsUpperLipPlump) {
-                ctx.fillStyle = 'rgba(224, 169, 144, 0.45)';
-                ctx.beginPath();
-                ctx.arc(lm[0].x * w, lm[0].y * h, w / 25, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            // 3. Cheek Definition Glow (If AI detected cheek contour need)
-            if (analysis.needsCheekVolume) {
-                ctx.fillStyle = 'rgba(245, 234, 225, 0.35)';
-                ctx.beginPath();
-                ctx.arc(lm[234].x * w, lm[234].y * h, w / 15, 0, Math.PI * 2);
-                ctx.arc(lm[454].x * w, lm[454].y * h, w / 15, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            // 4. Draw AI Golden Landmark Dots on Her Actual Face
+        function renderCanvasOverlays(ctx, lm, w, h, analysis) {
             ctx.fillStyle = '#C98263';
+            // Render Key Anthropometric Anchor Points
             [33, 263, 1, 61, 291, 152, 70, 300].forEach(idx => {
                 ctx.beginPath();
-                ctx.arc(lm[idx].x * w, lm[idx].y * h, Math.max(3, w/100), 0, Math.PI * 2);
+                ctx.arc(lm[idx].x * w, lm[idx].y * h, Math.max(3, w/120), 0, Math.PI * 2);
                 ctx.fill();
             });
         }
 
-        // Generate Dynamic Recommendations Output
-        function buildDynamicReportUI(analysis) {
+        function buildReportUI(analysis) {
             const container = document.getElementById('dynamicRecommendations');
-            const doctorNote = document.getElementById('doctorCustomNote');
             container.innerHTML = '';
 
-            let recs = [];
-            let docNotes = [];
+            const recs = [];
 
             if (analysis.needsNoseSlimming) {
-                recs.push("<strong>تصغير وتنحيف حواف الأنف (Nose Refinement):</strong> قياسات الأنف لديك تظهر اتساعاً بسيطاً مقارنة بالمسافة بين العينين. يُوصى بتقنية الكنتور الدائم أو الفيلر التعديلي للجسرة.");
-                docNotes.push("تركيز الحقن على جسرة الأنف لإعطاء انسيابية عمودية لتضيق العرض البصري.");
+                recs.push("<strong>نسبة عرض الأنف:</strong> تظهر القياسات اتساعاً مقارنة بالمسافة بين الحدقتين. تتناسب مع تقنيات الكنتور لتحديد الجسرة.");
             } else {
-                recs.push("<strong>استقامة الأنف ممتازة (Balanced Nose Ratio):</strong> أنفك متناسق جداً مع أبعاد عينيك ولا يحتاج أي تدخل أو فيلر.");
+                recs.push("<strong>تناسق الأنف:</strong> أنفك متناسق بامتياز مع المسافة بين العينين.");
             }
 
             if (analysis.needsUpperLipPlump) {
-                recs.push("<strong>إبراز وامتلاء الشفة العلوية (Upper Lip Lift & Volume):</strong> الشفة العلوية لديك أنحف من النسبة الذهبية (1:1.6). نوصي بتقنية رفع الشفة الخفيفة (Lip Flip) لزيادة المدى البصري.");
-                docNotes.push("اعتماد تقنية الحقن النقطي العلوي لمنع خروج الفيلر خارج حدود الشفة.");
+                recs.push("<strong>نسبة الشفتين:</strong> الشفة العلوية أقل حكماً من النسبة المتوازنة المقترحة (1:1.6).");
             } else {
-                recs.push("<strong>تناسق الشفاه متوازن (Balanced Lip Ratio):</strong> نسبة الشفة العلوية للسفلية لديك متناسقة مع النسب الذهبية الطبيعية.");
-            }
-
-            if (analysis.needsJawSlimming || analysis.needsCheekVolume) {
-                recs.push("<strong>نحت وتحديد ملامح الوجه (Facial Contour & Definition):</strong> نوصي بحقن البوتوكس العضلي للفك (Masseter Slimming) لإبرز الخدود وتحديد أسفل الوجه بشكل أنثوي دقيق.");
-                docNotes.push("حقن العضلة الملاغة لتقليل عرض الفك السفلي وإبراز منطقة الخدود طبيعياً.");
+                recs.push("<strong>توازن الشفاف:</strong> الشفة العلوية والسفلية في حالة توازن طبيعي ممتازة.");
             }
 
             if (analysis.needsBrowLift) {
-                recs.push("<strong>رفع الحواجب والعينين (Brow & Eye Lift):</strong> تظهر القياسات قرب الحاجب من العين؛ نوصي ببوتوكس رفع طرف الحاجب (Micro-Brow Lift) لإعطاء نظرة أكتر اتساعاً.");
+                recs.push("<strong>المسافة العمودية للحاجب:</strong> تقارب نسبي بين العين والحاجب؛ قد تساعد تمارين الرفع أو الكنتور في فتح نظرة العين.");
             }
 
             recs.forEach(r => {
-                const p = document.createElement('p');
-                p.className = 'bg-[#FAF7F2] p-3 rounded-xl border border-[#EFE4DC]';
+                const p = document.createElement('div');
+                p.style.cssText = 'background: #FAF7F2; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid var(--border-color);';
                 p.innerHTML = r;
                 container.appendChild(p);
             });
-
-            doctorNote.innerText = docNotes.join(" ") || "ملامح الوجه متناسقة جداً مع النسب الذهبية. يُوصى بالتركيز على نضارة البشرة ودعم النقاط الطبيعية فقط.";
         }
 
-        function simulatePayment() {
-            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري استخراج تقرير الذكاء الاصطناعي المخصص لوجهك.");
-            document.getElementById('paywallSection').classList.add('hidden');
-            document.getElementById('reportSection').classList.remove('hidden');
-        }
-
-        function downloadPDFReport() {
+        async function downloadPDFReport() {
+            if (!window.html2pdf) {
+                await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js");
+            }
             const element = document.getElementById('pdfContainer');
-            const opt = {
-                margin:       0.3,
-                filename:     'AuraRatio_AI_Beauty_Report.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set({
+                margin: 0.3,
+                filename: 'AuraRatio_Report.pdf',
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            }).from(element).save();
         }
     </script>
 </body>
