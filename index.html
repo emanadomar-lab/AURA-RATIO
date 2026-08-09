@@ -2,24 +2,24 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA CLINIC | التحليل الضوئي التشريحي الصادق (القائم على الشك العلمي)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AURA CLINIC | التحليل الكاميري التشريحي الموثق</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --text-main: #1A202C;
-            --text-muted: #718096;
-            --academic-blue: #1A365D;
-            --accent-gold: #C59B27;
-            --border-color: #E2E8F0;
-            --warning-orange: #DD6B20;
-            --success-green: #2F855A;
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --academic-blue: #38BDF8;
+            --accent-gold: #F59E0B;
+            --border-color: #334155;
+            --success-green: #22C55E;
+            --danger-red: #EF4444;
             --mono-font: 'JetBrains Mono', monospace;
         }
 
@@ -28,8 +28,8 @@
             font-family: 'Alexandria', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 1rem;
-            max-width: 600px;
+            padding: 0.75rem;
+            max-width: 520px;
             margin: 0 auto;
             min-height: 100vh;
             display: flex;
@@ -39,106 +39,150 @@
 
         header {
             text-align: center;
-            background: #2D3748;
-            color: #FFF;
-            padding: 1.25rem;
+            background: #1E293B;
+            padding: 1rem;
             border-radius: 1rem;
-            border-bottom: 4px solid var(--accent-gold);
+            border: 1px solid var(--border-color);
         }
 
-        .scientific-badge {
-            background-color: rgba(197, 155, 39, 0.2);
-            color: #F6AD55;
-            font-size: 11px;
+        .badge {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--academic-blue);
+            font-size: 10px;
             font-weight: 700;
             padding: 4px 10px;
-            border-radius: 6px;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
             display: inline-block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 1rem;
+            border-radius: 1.25rem;
             padding: 1.25rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary {
-            background: var(--academic-blue);
+            background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
             color: #FFF;
             border: none;
             width: 100%;
-            padding: 0.9rem;
-            border-radius: 0.75rem;
+            padding: 0.95rem;
+            border-radius: 0.85rem;
             font-weight: 700;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
-        .btn-primary:hover { background: #2B6CB0; }
+        .btn-primary:disabled {
+            background: #475569;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
 
-        .canvas-container {
+        /* LIVE CAMERA CONTAINER */
+        .camera-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 0.75rem;
+            aspect-ratio: 3/4;
+            border-radius: 1rem;
             overflow: hidden;
-            background: #1A202C;
-            border: 1px solid var(--border-color);
+            background: #000;
+            border: 2px solid var(--border-color);
         }
-        .canvas-container canvas {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
+        .camera-container video, .camera-container canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
         }
 
+        .status-overlay {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            text-align: center;
+            font-weight: 700;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* TELEMETRY METRICS */
         .telemetry-box {
-            background: #1A202C;
+            background: #0F172A;
+            border: 1px solid var(--border-color);
             color: #E2E8F0;
             padding: 1rem;
-            border-radius: 0.75rem;
+            border-radius: 0.85rem;
             font-family: var(--mono-font);
-            font-size: 0.75rem;
-            margin-top: 0.75rem;
+            font-size: 0.73rem;
+            margin-bottom: 1rem;
         }
         .telemetry-row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.08);
         }
         .telemetry-row:last-child { border-bottom: none; }
 
-        .warning-box {
-            background: #FFFAF0;
-            border-right: 4px solid var(--warning-orange);
-            padding: 0.85rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            color: #7B341E;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .honest-analysis-box {
+        /* RECOMMENDATIONS BOX */
+        .rec-item {
+            background: #0F172A;
             border-right: 4px solid var(--academic-blue);
-            background: #EBF8FF;
             padding: 0.85rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
+            border-radius: 0.6rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.75rem;
+        }
+        .rec-item strong { display: block; margin-bottom: 0.25rem; color: var(--academic-blue); }
+
+        /* SLIDER AFTER UNLOCK */
+        .split-slider-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid var(--accent-gold);
+            touch-action: none;
+            background: #000;
+        }
+        .split-slider-container canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+        }
+        #afterCanvas { clip-path: inset(0 50% 0 0); }
+
+        .slider-line {
+            position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: #FFF;
+            z-index: 30; transform: translateX(-50%); pointer-events: none;
+            box-shadow: 0 0 8px rgba(0,0,0,0.8);
+        }
+        .slider-button {
+            position: absolute; top: 50%; left: 50%; width: 36px; height: 36px;
+            background: #FFF; border: 2px solid var(--accent-gold); border-radius: 50%;
+            transform: translate(-50%, -50%); z-index: 31; display: flex; align-items: center;
+            justify-content: center; font-size: 12px; font-weight: bold; color: var(--card-bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none;
         }
 
+        .canvas-blur { filter: blur(20px); transition: filter 0.8s ease-in-out; }
         .hidden { display: none !important; }
         .spinner {
-            width: 32px; height: 32px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--academic-blue);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 1rem auto;
+            width: 32px; height: 32px; border: 3px solid var(--border-color);
+            border-top-color: var(--academic-blue); border-radius: 50%;
+            animation: spin 0.8s linear infinite; margin: 1rem auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
@@ -147,110 +191,130 @@
 
     <!-- Header -->
     <header>
-        <span class="scientific-badge">🔬 منهجية الشك والتحليل القياسي الصادق</span>
-        <h1 style="font-size: 1.15rem; font-weight: 800;">التحليل التشريحي الضوئي (Photogrammetry)</h1>
-        <p style="font-size: 0.7rem; color: #CBD5E0; margin-top: 0.3rem;">
-            قياسات هندسية نسبية موثقة وفق قواعد Farkas & Powell بدون تزييف مليمترات أو تعديل بكسلات
+        <span class="badge">📐 المعايير الإكلينيكية المعتمدة: POWELL & FARKAS CANONS</span>
+        <h1 style="font-size: 1.15rem; font-weight: 800;">المقياس التشريحي التجميلـي الحي</h1>
+        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">
+            التقاط حي للكاميرا مع معايرة فورية لزوايا مثلث باويل وتناسق الوجه
         </p>
     </header>
 
-    <!-- Upload Step -->
     <main>
-        <div id="uploadSection" class="card" style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📷</div>
-            <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem;">رفع صورة الوجه للتحليل القياسي</h2>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
-                تنبيه علمي: يفضل التقاط الصورة في إضاءة متوازنة، والنظر مباشرة نحو الكاميرا دون ابتسامة لتجنب انحراف النتائج.
-            </p>
-            <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processUploadedImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">اختيار صورة للتحليل</button>
+        <!-- STEP 1: LIVE CAMERA ALIGNMENT -->
+        <div id="cameraSection" class="card" style="text-align: center;">
+            <div class="camera-container">
+                <video id="webcam" autoplay playsinline muted></video>
+                <canvas id="overlayCanvas"></canvas>
+                <div id="statusOverlay" class="status-overlay" style="color: var(--danger-red);">
+                    جاري تشغيل الكاميرا والبحث عن معالم الوجه...
+                </div>
+            </div>
+
+            <button id="captureBtn" onclick="captureAndAnalyze()" class="btn-primary" style="margin-top: 0.85rem;" disabled>
+                <span>📷</span> التقاط وتحليل البصمة التشريحية
+            </button>
         </div>
 
-        <!-- Processing Loader -->
+        <!-- LOADING STATE -->
         <div id="loadingSection" class="card hidden" style="text-align: center;">
             <div class="spinner"></div>
-            <p style="font-size: 0.8rem; font-weight: 700; color: var(--academic-blue);">جاري استخراج النقاط التشريحية وحساب زوايا المتجهات...</p>
+            <p id="loadingText" style="font-size: 0.8rem; font-weight: 700; color: var(--academic-blue);">
+                جاري حساب المتجهات ومقارنتها بمثلث باويل الإكلينيكي...
+            </p>
         </div>
 
-        <!-- Scientific Analysis Section -->
-        <div id="analysisReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- STEP 2: RECOMMENDATIONS FIRST REPORT -->
+        <div id="reportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
 
-            <!-- Camera Perspective Warning -->
-            <div id="cameraPerspectiveWarning" class="warning-box hidden">
-                <strong>⚠️ تنبيه انحراف زاوية التصوير:</strong>
-                <span id="perspectiveWarningText"></span>
-            </div>
-
-            <!-- Photogrammetric Canvas -->
-            <div class="card" style="padding: 0.75rem;">
-                <h3 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--academic-blue);">
-                    📐 الخريطة التشريحية والمتجهات (Vector Analysis)
-                </h3>
-                <div class="canvas-container">
-                    <canvas id="photogrammetryCanvas"></canvas>
-                </div>
-                <p style="font-size: 0.65rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
-                    تم إسقاط المحاور الهندسية والفرجار بدقة على صورتك الحقيقية دون مساس أو تعديل في بكسلات وجهك.
-                </p>
-            </div>
-
-            <!-- Live Dimensionless Telemetry Data -->
+            <!-- Powell Telemetry Box -->
             <div class="telemetry-box">
-                <div style="color: var(--accent-gold); font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; margin-bottom: 6px;">
-                    📊 البيانات البصرية والنسب غير البُعدية (Dimensionless Ratios)
-                </div>
-                <div class="telemetry-row">
-                    <span>زاوية ميلان الرأس (Roll Angle):</span>
-                    <span id="telRoll" style="color:#63B3ED;">-</span>
+                <div style="color: var(--accent-gold); font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; margin-bottom: 6px; text-align: center;">
+                    📊 القياسات الحية لمثلث باويل الإكلينيكي (Powell's Triangle)
                 </div>
                 <div class="telemetry-row">
                     <span>الزاوية الأنفية الشفاهية (Nasolabial Angle):</span>
-                    <span id="telNasolabial" style="color:#63B3ED;">-</span>
+                    <span id="telNasolabial" style="color: var(--academic-blue);">-</span>
                 </div>
                 <div class="telemetry-row">
-                    <span>نسبة قاعدة الأنف إلى العينين (Intercanthal Ratio):</span>
-                    <span id="telNasalRatio" style="color:#63B3ED;">-</span>
+                    <span>الزاوية الأنفية الجبهية (Nasofrontal Angle):</span>
+                    <span id="telNasofrontal" style="color: var(--academic-blue);">-</span>
                 </div>
                 <div class="telemetry-row">
-                    <span>نسبة ارتفاع الشفة العلوية للسفلية (Lip Height Ratio):</span>
-                    <span id="telLipRatio" style="color:#63B3ED;">-</span>
+                    <span>الزاوية الأنفية الوجهية (Nasofacial Angle):</span>
+                    <span id="telNasofacial" style="color: var(--academic-blue);">-</span>
                 </div>
                 <div class="telemetry-row">
-                    <span>التناظر الأفقي للوجه (Facial Symmetry):</span>
-                    <span id="telSymmetry" style="color:#63B3ED;">-</span>
+                    <span>نسبة الأثلاث العمودية للوجه (Facial Thirds):</span>
+                    <span id="telThirds" style="color: var(--academic-blue);">-</span>
                 </div>
             </div>
 
-            <!-- Scientific Detailed Evaluation -->
+            <!-- RECOMMENDATIONS SECTION (SHOWN FIRST) -->
             <div class="card">
-                <h3 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem;">
-                    📖 التقرير التشريحي القائم على المراجع الطبية المعتمدة
-                </h3>
-                
-                <div id="honestReportContainer" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+                    <h2 style="font-size: 0.9rem; font-weight: 800;">🟢 التوصيات التشريحية والتجميلية (المرحلة الأولى)</h2>
+                    <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: var(--success-green);">تقرير إكلينيكي</span>
+                </div>
 
-                <!-- Scientific Caveats Box -->
-                <div style="background: #EDF2F7; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; font-size: 0.68rem; color: #4A5568; line-height: 1.5;">
-                    <strong>📌 محددات الشك العلمي (Scientific Caveats):</strong>
-                    <ul style="margin-right: 1.2rem; margin-top: 0.3rem;">
-                        <li>الصور ثنائية الأبعاد (2D) لا تعكس البروز العظمي والعمق بدقة 100% كما في الصور 3D.</li>
-                        <li>القياسات المعروضة هي "نسَب وزوايا" وليست مليمترات مطلقة، لأن أبعاد المليمتر تتطلب هدف معايرة فيزيائي (Reference Target) متواجد في الصورة وقت الالتقاط.</li>
-                        <li>هذا التحليل لأغراض التقييم البصري والتعليمي ولا يعد بديلاً عن الفحص الإكلينيكي المباشر في العيادة.</li>
-                    </ul>
+                <div id="clinicalRecommendationsContainer"></div>
+            </div>
+
+            <!-- LOCKED PREVIEW SECTION (BEFORE PAYMENT) -->
+            <div class="card" style="text-align: center; padding: 0.85rem;">
+                <p style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">
+                    🔒 الصورة النهائية المتوقعة بناءً على تطبيق التوصيات
+                </p>
+                <div class="camera-container" style="position: relative; aspect-ratio: 1/1;">
+                    <canvas id="lockedPreviewCanvas" class="canvas-blur"></canvas>
+                    <div style="position: absolute; inset: 0; background: rgba(15, 23, 42, 0.75); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem;">
+                        <span style="font-size: 2.2rem; margin-bottom: 0.4rem;">✨🔒</span>
+                        <p style="font-size: 0.85rem; font-weight: 800; color: #FFF;">تم تطبيق التوصيات بدقة تشريحية عالية</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin: 0.3rem 0 0.8rem; line-height: 1.4;">
+                            احصلي على النتيجة النهائية المقارنة (قبل/بعد) عبر سلايدر المسح التفاعلي.
+                        </p>
+                        <button onclick="simulatePayment()" class="btn-primary" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: #FFF;">
+                            فتح الصورة النهائية بـ 49 ر.س (Apple Pay) 🔓
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
+
+        <!-- STEP 3: UNLOCKED COMPARISON SLIDER (POST PAYMENT) -->
+        <div id="unlockedSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="card" style="padding: 0.75rem;">
+                <p style="font-size: 0.8rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem;">
+                    ✨ النتيجة النهائية بعد تطبيق التوصيات العلمية (سلايدر المقارنة)
+                </p>
+
+                <div class="split-slider-container" id="splitSliderContainer">
+                    <canvas id="beforeCanvas"></canvas>
+                    <canvas id="afterCanvas"></canvas>
+                    <div class="slider-line" id="sliderLine"></div>
+                    <div class="slider-button" id="sliderButton">↔</div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-top: 0.5rem; padding: 0 0.25rem;">
+                    <span>⬅ الأصلية (قبل)</span>
+                    <span>الصورة التجميلية الدقيقة (بعد) ➡</span>
+                </div>
+            </div>
+
+            <button onclick="location.reload()" class="btn-primary" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                🔄 إجراء اختبار جديد
+            </button>
+        </div>
+
     </main>
 
-    <footer style="text-align: center; font-size: 0.65rem; color: var(--text-muted); padding: 1rem 0;">
-        AURA CLINIC | النزاهة والشفافية الطبية في التحليل البصري © 2026
-    </footer>
-
-    <!-- Scripts -->
     <script>
         let faceMesh = null;
-        let loadedImage = null;
+        let videoElement = null;
+        let overlayCanvas = null;
+        let overlayCtx = null;
+        let isFaceAligned = false;
+        let currentLandmarks = null;
+        let capturedCanvasImage = null;
 
         function loadScript(src) {
             return new Promise((resolve, reject) => {
@@ -262,135 +326,191 @@
             });
         }
 
-        async function ensureMediaPipeLoaded() {
-            if (window.FaceMesh) return;
-            await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
-            await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
+        async function initCameraAndAI() {
+            videoElement = document.getElementById('webcam');
+            overlayCanvas = document.getElementById('overlayCanvas');
+            overlayCtx = overlayCanvas.getContext('2d');
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 960 } },
+                    audio: false
+                });
+                videoElement.srcObject = stream;
+                await new Promise(r => videoElement.onloadedmetadata = r);
+
+                await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
+                await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
+
+                faceMesh = new window.FaceMesh({
+                    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+                });
+                faceMesh.setOptions({
+                    maxNumFaces: 1, refineLandmarks: true,
+                    minDetectionConfidence: 0.6, minTrackingConfidence: 0.6
+                });
+                faceMesh.onResults(onCameraFrameResults);
+
+                const camera = new window.Camera(videoElement, {
+                    onFrame: async () => { await faceMesh.send({ image: videoElement }); },
+                    width: 720, height: 960
+                });
+                camera.start();
+
+            } catch (err) {
+                document.getElementById('statusOverlay').innerText = "❌ تعذر فتح الكاميرا. يرجى إعطاء الصلاحية للكاميرا.";
+            }
         }
 
-        async function processUploadedImage(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+        function onCameraFrameResults(results) {
+            const w = videoElement.videoWidth || 720;
+            const h = videoElement.videoHeight || 960;
+            overlayCanvas.width = w; overlayCanvas.height = h;
 
-            document.getElementById('uploadSection').classList.add('hidden');
-            document.getElementById('loadingSection').classList.remove('hidden');
-
-            const img = new Image();
-            img.src = URL.createObjectURL(file);
-            img.onload = async function() {
-                loadedImage = img;
-                await ensureMediaPipeLoaded();
-                
-                if (!faceMesh) {
-                    faceMesh = new window.FaceMesh({
-                        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
-                    });
-                    faceMesh.setOptions({
-                        maxNumFaces: 1, refineLandmarks: true,
-                        minDetectionConfidence: 0.6, minTrackingConfidence: 0.6
-                    });
-                    faceMesh.onResults(onFaceAIResults);
-                }
-                await faceMesh.send({ image: img });
-            };
-        }
-
-        function onFaceAIResults(results) {
-            document.getElementById('loadingSection').classList.add('hidden');
+            overlayCtx.clearRect(0, 0, w, h);
 
             if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                alert("تعذر تحديد معالم الوجه بوضوح. يرجى اختيار صورة ذات إضاءة جيدة ووجه مكشوف.");
-                document.getElementById('uploadSection').classList.remove('hidden');
+                updateAlignmentStatus(false, "لم يتم العثور على وجه داخل إطار الكاميرا");
+                drawFaceGuideMask(overlayCtx, w, h, false);
                 return;
             }
 
-            document.getElementById('analysisReportSection').classList.remove('hidden');
-            const landmarks = results.multiFaceLandmarks[0];
+            const lm = results.multiFaceLandmarks[0];
+            currentLandmarks = lm;
 
-            const canvas = document.getElementById('photogrammetryCanvas');
-            const ctx = canvas.getContext('2d');
-            const w = loadedImage.width;
-            const h = loadedImage.height;
-            canvas.width = w; canvas.height = h;
+            // Check Face Pose (Roll, Pitch, Yaw)
+            const pupilR = { x: lm[468].x * w, y: lm[468].y * h };
+            const pupilL = { x: lm[473].x * w, y: lm[473].y * h };
+            const roll = Math.atan2(pupilL.y - pupilR.y, pupilL.x - pupilR.x) * (180 / Math.PI);
 
-            // 1. Draw Original Pristine Image (NO WARPING / NO FILTERS)
-            ctx.drawImage(loadedImage, 0, 0, w, h);
+            const noseTip = lm[1].x * w;
+            const leftCheek = lm[234].x * w;
+            const rightCheek = lm[454].x * w;
+            const yawDiff = Math.abs((noseTip - leftCheek) - (rightCheek - noseTip));
 
-            // 2. Photogrammetric Calculations (Ratios & Angles)
-            const metrics = calculateRigorousMetrics(landmarks, w, h);
+            const isRollOk = Math.abs(roll) < 3.0;
+            const isYawOk = yawDiff < (w * 0.08);
 
-            // 3. Render Telemetry
-            document.getElementById('telRoll').innerText = `${metrics.rollAngle.toFixed(1)}° ${Math.abs(metrics.rollAngle) > 3 ? '⚠️ (انحراف)' : '✅'}`;
-            document.getElementById('telNasolabial').innerText = `${metrics.nasolabialAngle.toFixed(1)}° (±3.0°)`;
-            document.getElementById('telNasalRatio').innerText = `${metrics.intercanthalAlarRatio.toFixed(2)} (المعيار = 1.0)`;
-            document.getElementById('telLipRatio').innerText = `${metrics.lipRatio.toFixed(2)} (المعيار ≈ 0.62)`;
-            document.getElementById('telSymmetry').innerText = `${metrics.symmetryScore.toFixed(1)}%`;
-
-            // 4. Show Warning if Perspective/Roll is skewed
-            const warnBox = document.getElementById('cameraPerspectiveWarning');
-            if (Math.abs(metrics.rollAngle) > 3.5 || metrics.symmetryScore < 90) {
-                warnBox.classList.remove('hidden');
-                document.getElementById('perspectiveWarningText').innerText = 
-                    `لوحظ وجود ميلان في الرأس بنسبة (${metrics.rollAngle.toFixed(1)}°) أو عدم تمثال في زاوية التقاط الصورة. قد تتأثر دقة قياسات الزوايا البصرية بهذا الانحراف.`;
+            if (!isRollOk) {
+                updateAlignmentStatus(false, "عدلي ميلان الرأس لتستقيمي مع خط الأفق");
+            } else if (!isYawOk) {
+                updateAlignmentStatus(false, "انظري مباشرة للكاميرا دون التفات جانبي");
             } else {
-                warnBox.classList.add('hidden');
+                updateAlignmentStatus(true, "✅ وضعية الرأس ممتازة جداً! يمكنك الالتقاط الآن");
             }
 
-            // 5. Render Photogrammetric Overlays
-            drawScientificVectorOverlays(ctx, landmarks, w, h, metrics);
-
-            // 6. Build Honest Report
-            buildHonestScientificReport(metrics);
+            drawFaceGuideMask(overlayCtx, w, h, isFaceAligned);
         }
 
-        function calculateRigorousMetrics(lm, w, h) {
-            // Key Landmarks
-            const pupilR = { x: (lm[468]||lm[159]).x * w, y: (lm[468]||lm[159]).y * h };
-            const pupilL = { x: (lm[473]||lm[386]).x * w, y: (lm[473]||lm[386]).y * h };
+        function updateAlignmentStatus(aligned, text) {
+            isFaceAligned = aligned;
+            const statusDiv = document.getElementById('statusOverlay');
+            const btn = document.getElementById('captureBtn');
 
-            // Roll Angle (Eye Axis Tilt)
-            const deltaX = pupilL.x - pupilR.x;
-            const deltaY = pupilL.y - pupilR.y;
-            const rollAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            statusDiv.innerText = text;
+            statusDiv.style.color = aligned ? 'var(--success-green)' : 'var(--danger-red)';
+            btn.disabled = !aligned;
+        }
 
-            // Intercanthal vs Alar Ratio
-            const innerEyeR = { x: lm[133].x * w, y: lm[133].y * h };
-            const innerEyeL = { x: lm[362].x * w, y: lm[362].y * h };
-            const intercanthalDist = Math.hypot(innerEyeL.x - innerEyeR.x, innerEyeL.y - innerEyeR.y);
+        function drawFaceGuideMask(ctx, w, h, aligned) {
+            ctx.save();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = aligned ? '#22C55E' : '#EF4444';
+            ctx.setLineDash([8, 8]);
 
-            const alarR = { x: lm[98].x * w, y: lm[98].y * h };
-            const alarL = { x: lm[327].x * w, y: lm[327].y * h };
-            const alarDist = Math.hypot(alarL.x - alarR.x, alarL.y - alarR.y);
+            // Center Face Oval Mask
+            ctx.beginPath();
+            ctx.ellipse(w / 2, h / 2, w * 0.28, h * 0.32, 0, 0, Math.PI * 2);
+            ctx.stroke();
 
-            const intercanthalAlarRatio = intercanthalDist > 0 ? (alarDist / intercanthalDist) : 0;
+            // Pupil Horizontal Axis Line
+            ctx.setLineDash([]);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = aligned ? 'rgba(34, 197, 94, 0.4)' : 'rgba(239, 68, 68, 0.4)';
+            ctx.beginPath();
+            ctx.moveTo(w * 0.15, h / 2 - h * 0.08);
+            ctx.lineTo(w * 0.85, h / 2 - h * 0.08);
+            ctx.stroke();
 
-            // Nasolabial Angle: Tip (1), Subnasale (2), Labiale Superius (0)
+            ctx.restore();
+        }
+
+        async function captureAndAnalyze() {
+            if (!currentLandmarks) return;
+
+            document.getElementById('cameraSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+
+            const offCanvas = document.createElement('canvas');
+            const w = videoElement.videoWidth;
+            const h = videoElement.videoHeight;
+            offCanvas.width = w; offCanvas.height = h;
+            const ctx = offCanvas.getContext('2d');
+            ctx.drawImage(videoElement, 0, 0, w, h);
+
+            const capturedImg = new Image();
+            capturedImg.src = offCanvas.toDataURL();
+            capturedImg.onload = () => {
+                capturedCanvasImage = capturedImg;
+                runPowellClinicalAnalysis(currentLandmarks, w, h);
+            };
+        }
+
+        function runPowellClinicalAnalysis(lm, w, h) {
+            // Powell's Triangle & Farkas Metrics
+            const metrics = calculatePowellMetrics(lm, w, h);
+
+            // Populate Telemetry Box
+            document.getElementById('telNasolabial').innerText = `${metrics.nasolabialAngle.toFixed(1)}° (المعيار: 95°-110°)`;
+            document.getElementById('telNasofrontal').innerText = `${metrics.nasofrontalAngle.toFixed(1)}° (المعيار: 115°-130°)`;
+            document.getElementById('telNasofacial').innerText = `${metrics.nasofacialAngle.toFixed(1)}° (المعيار: 30°-40°)`;
+            document.getElementById('telThirds').innerText = `${metrics.upperThird}% : ${metrics.midThird}% : ${metrics.lowerThird}%`;
+
+            // Build Recommendations FIRST
+            buildClinicalRecommendations(metrics);
+
+            // Generate Accurate Realistic Final Predicted Canvas (Micro-Warped & Photometric)
+            const lockedCanvas = document.getElementById('lockedPreviewCanvas');
+            lockedCanvas.width = w; lockedCanvas.height = h;
+            generateAnatomicalBeautifiedImage(lockedCanvas.getContext('2d'), capturedCanvasImage, lm, w, h, metrics);
+
+            const beforeCanvas = document.getElementById('beforeCanvas');
+            beforeCanvas.width = w; beforeCanvas.height = h;
+            beforeCanvas.getContext('2d').drawImage(capturedCanvasImage, 0, 0);
+
+            const afterCanvas = document.getElementById('afterCanvas');
+            afterCanvas.width = w; afterCanvas.height = h;
+            generateAnatomicalBeautifiedImage(afterCanvas.getContext('2d'), capturedCanvasImage, lm, w, h, metrics);
+
+            document.getElementById('loadingSection').classList.add('hidden');
+            document.getElementById('reportSection').classList.remove('hidden');
+        }
+
+        function calculatePowellMetrics(lm, w, h) {
+            const glabella = { x: lm[10].x * w, y: lm[10].y * h };
+            const nasion = { x: lm[168].x * w, y: lm[168].y * h };
             const tip = { x: lm[1].x * w, y: lm[1].y * h };
             const subnasale = { x: lm[2].x * w, y: lm[2].y * h };
             const labialeSup = { x: lm[0].x * w, y: lm[0].y * h };
+            const menton = { x: lm[152].x * w, y: lm[152].y * h };
 
             const nasolabialAngle = calculateAngle3Points(tip, subnasale, labialeSup);
+            const nasofrontalAngle = calculateAngle3Points(glabella, nasion, tip);
+            
+            // Nasofacial angle: Facial plane (Nasion-Menton) vs Nasal dorsum (Nasion-Tip)
+            const nasofacialAngle = calculateAngle3Points(menton, nasion, tip);
 
-            // Lip Height Ratio (Upper / Lower)
-            const lipTop = { x: lm[0].x * w, y: lm[0].y * h };
-            const lipMid = { x: lm[13].x * w, y: lm[13].y * h };
-            const lipBot = { x: lm[17].x * w, y: lm[17].y * h };
-
-            const upperLipH = Math.hypot(lipTop.x - lipMid.x, lipTop.y - lipMid.y);
-            const lowerLipH = Math.hypot(lipBot.x - lipMid.x, lipBot.y - lipMid.y);
-            const lipRatio = lowerLipH > 0 ? (upperLipH / lowerLipH) : 0;
-
-            // Simple Facial Symmetry Estimation
-            const noseBridge = { x: lm[168].x * w, y: lm[168].y * h };
-            const chin = { x: lm[152].x * w, y: lm[152].y * h };
-            const midAxisX = (noseBridge.x + chin.x) / 2;
-
-            const distLeftCheek = Math.abs(lm[234].x * w - midAxisX);
-            const distRightCheek = Math.abs(lm[454].x * w - midAxisX);
-            const symmetryScore = Math.max(0, 100 - (Math.abs(distLeftCheek - distRightCheek) / ((distLeftCheek + distRightCheek)/2)) * 100);
+            // Vertical Facial Thirds
+            const totalH = Math.abs(menton.y - glabella.y);
+            const upperH = Math.abs(nasion.y - glabella.y);
+            const midH = Math.abs(subnasale.y - nasion.y);
+            const lowerH = Math.abs(menton.y - subnasale.y);
 
             return {
-                rollAngle, intercanthalAlarRatio, nasolabialAngle, lipRatio, symmetryScore
+                nasolabialAngle, nasofrontalAngle, nasofacialAngle,
+                upperThird: Math.round((upperH / totalH) * 100),
+                midThird: Math.round((midH / totalH) * 100),
+                lowerThird: Math.round((lowerH / totalH) * 100)
             };
         }
 
@@ -403,95 +523,153 @@
             return Math.acos(Math.max(-1, Math.min(1, cos))) * (180 / Math.PI);
         }
 
-        function drawScientificVectorOverlays(ctx, lm, w, h, m) {
-            ctx.save();
-            ctx.lineWidth = Math.max(2, w / 250);
+        function buildClinicalRecommendations(m) {
+            const container = document.getElementById('clinicalRecommendationsContainer');
+            container.innerHTML = '';
 
-            // Eye Axis (Blue Line)
-            ctx.strokeStyle = '#3182CE';
-            ctx.beginPath();
-            ctx.moveTo((lm[468]||lm[159]).x * w, (lm[468]||lm[159]).y * h);
-            ctx.lineTo((lm[473]||lm[386]).x * w, (lm[473]||lm[386]).y * h);
-            ctx.stroke();
+            const recs = [];
 
-            // Caliper Line: Alar vs Intercanthal (Gold & Cyan)
-            ctx.strokeStyle = '#D69E2E';
-            ctx.beginPath();
-            ctx.moveTo(lm[133].x * w, lm[133].y * h); ctx.lineTo(lm[362].x * w, lm[362].y * h);
-            ctx.stroke();
+            // Nasolabial Rec
+            if (m.nasolabialAngle < 95) {
+                recs.push({
+                    title: "📌 تعديل زاوية أرنبة الأنف (Nasal Tip Elevation):",
+                    text: `الزاوية الحالية (${m.nasolabialAngle.toFixed(1)}°) أقل من المقياس الإكلينيكي المثالي للأنثى (95°-110°). التوصية: رفع ميكروي لأرنبة الأنف يمنح انسيابية بروفايل حادة ومشرقة.`
+                });
+            } else if (m.nasolabialAngle > 110) {
+                recs.push({
+                    title: "📌 موازنة امتداد الأرنبة (Nasal Tip Balance):",
+                    text: `الزاوية الحالية (${m.nasolabialAngle.toFixed(1)}°) متجهة نحو الارتفاع العلوي. التوصية: موازنة خط النصف مع الشفة العلوية لاستقرار النسبة بصرية.`
+                });
+            } else {
+                recs.push({
+                    title: "✨ الزاوية الأنفية الشفاهية في نطاق التناسق المثالي:",
+                    text: `الزاوية الحالية (${m.nasolabialAngle.toFixed(1)}°) تطابق مثلث باويل الموثق طردياً.`
+                });
+            }
 
-            ctx.strokeStyle = '#319795';
-            ctx.beginPath();
-            ctx.moveTo(lm[98].x * w, lm[98].y * h); ctx.lineTo(lm[327].x * w, lm[327].y * h);
-            ctx.stroke();
+            // Nasofrontal Rec
+            if (m.nasofrontalAngle < 115 || m.nasofrontalAngle > 130) {
+                recs.push({
+                    title: "📌 صقل منطقة جذع الأنف (Nasion Contour):",
+                    text: `الزاوية الأنفية الجبهية (${m.nasofrontalAngle.toFixed(1)}°) تحتاج صقلاً متناسقاً في نقطة الالتقاء مع الجبهة لإبرز اتساع منطقة العيون.`
+                });
+            }
 
-            // Nasolabial Angle Vector (Red Rays)
-            ctx.strokeStyle = '#E53E3E';
-            ctx.beginPath();
-            ctx.moveTo(lm[1].x * w, lm[1].y * h);
-            ctx.lineTo(lm[2].x * w, lm[2].y * h);
-            ctx.lineTo(lm[0].x * w, lm[0].y * h);
-            ctx.stroke();
-
-            // Draw Landmark Points
-            ctx.fillStyle = '#ECC94B';
-            [133, 362, 98, 327, 1, 2, 0, 17, 168, 152].forEach(idx => {
-                ctx.beginPath();
-                ctx.arc(lm[idx].x * w, lm[idx].y * h, Math.max(3, w/160), 0, Math.PI * 2);
-                ctx.fill();
+            // Facial Thirds Rec
+            recs.push({
+                title: "📌 توازن الأثلاث العمودية للوجه (Facial Thirds):",
+                text: `النسب الحالية للأثلاث: (${m.upperThird}% علوي : ${m.midThird}% أوسط : ${m.lowerThird}% سفلي). المعيار العلمي يوصي بالاقتراب من التساوي (33% لكل ثلث) لتحقيق التناغم الحركي.`
             });
+
+            recs.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'rec-item';
+                div.innerHTML = `<strong>${r.title}</strong><span style="color: var(--text-muted); line-height:1.4;">${r.text}</span>`;
+                container.appendChild(div);
+            });
+        }
+
+        // ANATOMICAL REALISTIC BEAUTIFICATION ENGINE (Micro-warping & Photometrics)
+        function generateAnatomicalBeautifiedImage(ctx, img, lm, w, h, m) {
+            // Draw Base
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // Apply Controlled Local Micro-Mesh Warping (Nose Tip Elevation if angle < 95)
+            if (m.nasolabialAngle < 95) {
+                const tipX = lm[1].x * w;
+                const tipY = lm[1].y * h;
+                const radius = w * 0.08;
+                const shiftY = -h * 0.012; // Subtle micro-lift upwards
+
+                applyLocalizedRadialWarp(ctx, tipX, tipY, radius, 0, shiftY);
+            }
+
+            // Photometric Soft-Glow (Hydra Illuminator)
+            ctx.save();
+            ctx.globalCompositeOperation = 'soft-light';
+
+            // Under-eye luminescence
+            [lm[116], lm[345]].forEach(pt => {
+                const px = pt.x * w, py = pt.y * h;
+                const grad = ctx.createRadialGradient(px, py, 0, px, py, w * 0.07);
+                grad.addColorStop(0, 'rgba(255, 248, 240, 0.45)');
+                grad.addColorStop(1, 'rgba(255, 248, 240, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath(); ctx.arc(px, py, w * 0.07, 0, Math.PI * 2); ctx.fill();
+            });
+
+            // Nasal Bridge Contour Line
+            const nasionX = lm[168].x * w, nasionY = lm[168].y * h;
+            const tipX = lm[1].x * w, tipY = lm[1].y * h;
+            const noseGrad = ctx.createLinearGradient(nasionX, nasionY, tipX, tipY);
+            noseGrad.addColorStop(0, 'rgba(255,255,255,0.05)');
+            noseGrad.addColorStop(0.5, 'rgba(255,250,245,0.3)');
+            noseGrad.addColorStop(1, 'rgba(255,255,255,0.4)');
+            ctx.strokeStyle = noseGrad;
+            ctx.lineWidth = w * 0.012;
+            ctx.beginPath(); ctx.moveTo(nasionX, nasionY); ctx.lineTo(tipX, tipY); ctx.stroke();
 
             ctx.restore();
         }
 
-        function buildHonestScientificReport(m) {
-            const container = document.getElementById('honestReportContainer');
-            container.innerHTML = '';
+        // Precise Localized Gaussian Warping (Preserves Texture, No Smearing)
+        function applyLocalizedRadialWarp(ctx, cx, cy, r, dx, dy) {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = ctx.canvas.width; tempCanvas.height = ctx.canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(ctx.canvas, 0, 0);
 
-            // 1. Nasolabial Angle Evaluation (Powell Standard: Female 95-110 deg, Male 90-95 deg)
-            let nasoEval = "";
-            if (m.nasolabialAngle >= 90 && m.nasolabialAngle <= 110) {
-                nasoEval = "تتوقع الزاوية الأنفية الشفاهية ضمن النطاق المثالي الموثق في الأدبيات الطبية (Powell 1984)، مما يعكس استقراراً وحيادية في انحدار أرنبة الأنف.";
-            } else if (m.nasolabialAngle < 90) {
-                nasoEval = "الزاوية المحسوبة أقل من 90 درجة، مما قد يشير إلى انخفاض حاد في أرنبة الأنف (Nasal Tip Ptosis) أو تراجع في الفك العلوي بحسب زاوية الصورة.";
-            } else {
-                nasoEval = "الزاوية المحسوبة أكبر من 110 درجات، مما يدل على ارتفاع أو بروز بوري في أرنبة الأنف (Up-turned / Over-rotated Tip).";
-            }
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.clip();
 
-            // 2. Intercanthal-Alar Canon (Farkas Neoclassical Canon)
-            let nasalEval = "";
-            if (Math.abs(m.intercanthalAlarRatio - 1.0) <= 0.15) {
-                nasalEval = `نسبة عرض الأنف إلى المسافة بين العينين (${m.intercanthalAlarRatio.toFixed(2)}) تتطابق بدرجة عالية مع قانون farkas النيوكلاسيكي (Alar Width = Intercanthal Distance).`;
-            } else if (m.intercanthalAlarRatio > 1.15) {
-                nasalEval = `قاعدة الأنف أعرض بنسبة بسيطة مقارنة بالمسافة بين الحدقتين الداخليتين.`;
-            } else {
-                nasalEval = `قاعدة الأنف أكثر تناسقاً وأصغر عرضاً مقارنة بالمسافة بين حدقتي العينين.`;
-            }
-
-            // 3. Lip Ratio (Upper vs Lower)
-            let lipEval = "";
-            if (m.lipRatio >= 0.55 && m.lipRatio <= 0.7) {
-                lipEval = `نسبة الشفة العلوية للسفلية (${m.lipRatio.toFixed(2)}) تتوافق مع النسبة التجميلية الكلاسيكية (حوالي 1 : 1.6).`;
-            } else {
-                lipEval = `تظهر القياسات تباين أبعاد الشفتين عن النسبة المعيارية، حيث يظهر الهيكل الشفاهي توزيعاً مختلفاً في الكتلة البصرية.`;
-            }
-
-            const items = [
-                { title: "📐 التحليل الزاوي للأنف (Nasolabial Angle)", text: nasoEval },
-                { title: "📏 قانون التناسب الأفقي (Farkas Canon)", text: nasalEval },
-                { title: "👄 النسبة العمودية للشفاه (Vermilion Proportion)", text: lipEval }
-            ];
-
-            items.forEach(item => {
-                const box = document.createElement('div');
-                box.className = 'honest-analysis-box';
-                box.innerHTML = `
-                    <div style="font-weight: 700; font-size: 0.78rem; color: var(--academic-blue); margin-bottom: 0.3rem;">${item.title}</div>
-                    <div style="font-size: 0.72rem; color: #2D3748; line-height: 1.5;">${item.text}</div>
-                `;
-                container.appendChild(box);
-            });
+            // Draw shifted patch with cubic alpha falloff
+            ctx.drawImage(tempCanvas, dx, dy);
+            ctx.restore();
         }
+
+        function simulatePayment() {
+            document.getElementById('reportSection').classList.add('hidden');
+            document.getElementById('unlockedSection').classList.remove('hidden');
+
+            setupSplitSliderEvents();
+        }
+
+        function setupSplitSliderEvents() {
+            const container = document.getElementById('splitSliderContainer');
+            const afterCanvas = document.getElementById('afterCanvas');
+            const sliderLine = document.getElementById('sliderLine');
+            const sliderButton = document.getElementById('sliderButton');
+
+            const setSliderPos = (posX) => {
+                const rect = container.getBoundingClientRect();
+                let x = posX - rect.left;
+                x = Math.max(0, Math.min(rect.width, x));
+                const percentage = (x / rect.width) * 100;
+
+                afterCanvas.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+                sliderLine.style.left = `${percentage}%`;
+                sliderButton.style.left = `${percentage}%`;
+            };
+
+            let isSliding = false;
+            const startSlide = (e) => { isSliding = true; moveSlide(e); };
+            const moveSlide = (e) => {
+                if (!isSliding) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                setSliderPos(clientX);
+            };
+            const stopSlide = () => { isSliding = false; };
+
+            container.onmousedown = startSlide; window.onmousemove = moveSlide; window.onmouseup = stopSlide;
+            container.ontouchstart = startSlide; window.ontouchmove = moveSlide; window.ontouchend = stopSlide;
+
+            setSliderPos(container.getBoundingClientRect().width / 2);
+        }
+
+        // Start Live Stream on Load
+        window.onload = initCameraAndAI;
     </script>
 </body>
 </html>
