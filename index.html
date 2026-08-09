@@ -3,62 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA RATIO | النظام التشريحي المتقدم</title>
+    <title>AURA RATIO | محاكي النتيجة التجميلية النهائية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800&display=swap');
-        body { font-family: 'Alexandria', sans-serif; background-color: #FAF7F2; color: #3A2E2B; }
+        body { font-family: 'Alexandria', sans-serif; background-color: #FAF7F2; color: #3A2E2B; touch-action: manipulation; }
         .nude-card { background: #FFFFFF; border: 1px solid #EFE4DC; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); }
         .rose-gold-btn { background: linear-gradient(135deg, #E0A990 0%, #C98263 100%); color: #ffffff; }
         .champagne-badge { background-color: #F5EAE1; color: #9E583B; }
-        .danger-badge { background-color: #FFF0F0; color: #C53030; border: 1px solid #FEB2B2; }
+        
+        /* Interactive Before/After Slider Styles */
+        .img-comp-container { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 1.5rem; }
+        .img-comp-img { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; }
+        .img-comp-slider { position: absolute; z-index: 99; cursor: ew-resize; width: 40px; height: 40px; background-color: #ffffff; border: 2px solid #E0A990; border-radius: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 10px rgba(0,0,0,0.15); flex items-center justify-center font-bold text-xs color: #C98263; }
     </style>
 </head>
 <body class="p-4 max-w-md mx-auto min-h-screen flex flex-col justify-between">
 
     <!-- Header -->
-    <header class="text-center my-4">
-        <span class="text-[10px] tracking-widest font-bold champagne-badge px-3 py-1 rounded-full border border-[#E0A990]/30">AURA RATIO ADVANCED CLINICAL</span>
-        <h1 class="text-2xl font-black text-[#3A2E2B] mt-3">نظام تحليل النسب وأمان الحقن</h1>
-        <p class="text-xs text-[#8C7A76] mt-1">التقرير البصري والسريري المعتمد لدعم الاستشارة التجميلية</p>
+    <header class="text-center my-3">
+        <span class="text-[10px] tracking-widest font-bold champagne-badge px-3 py-1 rounded-full border border-[#E0A990]/30">AURA RATIO VISUAL ENGINE</span>
+        <h1 class="text-2xl font-black text-[#3A2E2B] mt-2">محاكي النتيجة المتوقعة قبل التجميل</h1>
+        <p class="text-xs text-[#8C7A76] mt-1">شاهد التغيير البصري المتوقع على وجهك بناءً على النسب التشريحية</p>
     </header>
 
     <!-- Main Section -->
-    <main class="space-y-6 flex-1 flex flex-col justify-center">
+    <main class="space-y-5 flex-1 flex flex-col justify-center">
 
         <!-- Upload Section -->
         <div id="uploadSection" class="nude-card rounded-3xl p-6 text-center space-y-4">
             <div class="w-16 h-16 mx-auto rounded-full bg-[#F5EAE1] flex items-center justify-center text-[#E0A990] text-2xl shadow-inner">
-                🔬
+                🪞
             </div>
             <div>
-                <h2 class="text-sm font-bold text-[#3A2E2B]">ارفعي صورة الوجه للقياس السريري</h2>
-                <p class="text-xs text-[#8C7A76] mt-1">صورة أمامية واضحة لبناء خريطة الأمان وزاوية العين والنسب</p>
+                <h2 class="text-sm font-bold text-[#3A2E2B]">ارفعي صورة وجهك لرؤية النتيجة المتوقعة</h2>
+                <p class="text-xs text-[#8C7A76] mt-1">سيقوم المحرك بتعديل النواقص التشريحية بصرياً لمقارنتها قبل الخروج للعيادة</p>
             </div>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processImage(event)">
             <button onclick="document.getElementById('faceInput').click()" class="w-full py-4 rose-gold-btn font-bold rounded-2xl text-sm shadow-md hover:opacity-95 transition">
-                بدء المسح التشريحي المباشر
+                رفع الصورة وبدء المحاكاة البصرية
             </button>
         </div>
 
-        <!-- Simulation HUD Canvas Section -->
-        <div id="simulationSection" class="hidden space-y-3 text-center">
-            <div class="relative w-full aspect-square nude-card rounded-3xl overflow-hidden p-2">
-                <canvas id="faceCanvas" class="w-full h-full object-cover rounded-2xl"></canvas>
+        <!-- Interactive Before / After Slider Section -->
+        <div id="comparisonSection" class="hidden space-y-3">
+            <div class="text-center">
+                <span class="text-[11px] font-bold text-[#9E583B] bg-[#F5EAE1] px-3 py-1 rounded-full">حركي الشريط لمقارنة قبل وبعد ↔</span>
             </div>
-            <div class="flex justify-between items-center text-[11px] px-2 text-[#8C7A76]">
-                <span>زاوية العين المحللة: <strong class="text-[#E0A990]">+4.2° (Positive)</strong></span>
-                <span class="text-red-500 font-bold">● خريطة الشرايين مفعلة</span>
+
+            <!-- Before/After Slider Container -->
+            <div class="img-comp-container nude-card" id="sliderContainer">
+                <!-- After Image (Transformed Canvas) -->
+                <div class="img-comp-img">
+                    <canvas id="afterCanvas" class="w-full h-full object-cover"></canvas>
+                    <span class="absolute top-3 left-3 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full backdrop-blur-sm">النتيجة المتوقعة (بعد)</span>
+                </div>
+                <!-- Before Image (Original Canvas Overlay) -->
+                <div class="img-comp-img" id="beforeOverlay" style="width: 50%;">
+                    <canvas id="beforeCanvas" class="w-full h-full object-cover"></canvas>
+                    <span class="absolute top-3 right-3 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full backdrop-blur-sm">الوجه الحالي (قبل)</span>
+                </div>
+                <!-- Slider Handle -->
+                <div class="img-comp-slider flex items-center justify-center" id="sliderHandle">↔</div>
             </div>
+
+            <p class="text-[11px] text-center text-[#8C7A76]">تظهر المحاكاة: تحسين استطالة الذقن، رفع الشفة الناعم، وإضاءة تحت العينين.</p>
         </div>
 
         <!-- Paywall Section -->
         <div id="paywallSection" class="hidden space-y-4">
             <div class="bg-[#3A2E2B] text-white p-6 rounded-3xl text-center space-y-4 shadow-2xl">
-                <span class="champagne-badge text-[10px] font-bold px-3 py-1 rounded-full">جاهز للتحميل والتسليم</span>
-                <h3 class="text-sm font-bold text-[#F5EAE1]">فتح التقرير السريري وشيت أسئلة الطبيب</h3>
-                <p class="text-xs text-[#D1C2BD] leading-relaxed">يتضمن التقرير رسم منحنى التورم البياني، أسئلة الطبيب القابلة للنسخ، ودليل الأمان الشرياني.</p>
+                <span class="champagne-badge text-[10px] font-bold px-3 py-1 rounded-full">تحليل مطابق للنتيجة البصرية</span>
+                <h3 class="text-sm font-bold text-[#F5EAE1]">تحميل التقرير الطبي المزود بالصورة المعدلة</h3>
+                <p class="text-xs text-[#D1C2BD] leading-relaxed">احصلي على التقرير العلمي شاملاً الصورة المعدلة بصرياً للنتيجة المتوقعة لتسلميها لطبيبك في العيادة.</p>
                 <button onclick="simulatePayment()" class="w-full py-4 bg-white text-[#3A2E2B] font-bold rounded-2xl text-sm flex items-center justify-center space-x-2 space-x-reverse shadow-lg">
                     <span>Pay with Apple Pay (49 SAR)</span>
                 </button>
@@ -67,67 +85,37 @@
 
         <!-- Full Clinical Report Section -->
         <div id="reportSection" class="hidden space-y-5">
-            <div id="pdfContainer" class="nude-card p-6 rounded-3xl space-y-6 text-xs">
+            <div id="pdfContainer" class="nude-card p-6 rounded-3xl space-y-5 text-xs">
                 
                 <!-- Report Header -->
                 <div class="border-b border-[#EFE4DC] pb-4 flex justify-between items-center">
                     <div>
-                        <h2 class="font-extrabold text-[#3A2E2B] text-sm">AURA RATIO - CLINICAL DOSSIER</h2>
-                        <p class="text-[10px] text-[#8C7A76]">ملف السلامة والنسب التشريحية المعتمد</p>
+                        <h2 class="font-extrabold text-[#3A2E2B] text-sm">AURA RATIO - VISUAL DOSSIER</h2>
+                        <p class="text-[10px] text-[#8C7A76]">تقرير النتيجة البصرية والتوصيات الطبية</p>
                     </div>
-                    <span class="champagne-badge text-[10px] font-bold px-2.5 py-1 rounded-full">نسخة العيادة</span>
+                    <span class="champagne-badge text-[10px] font-bold px-2.5 py-1 rounded-full">جاهز للعيادة</span>
                 </div>
 
-                <!-- 1. Eye Canthal Tilt & Ratio -->
+                <!-- Attached Visual Transformation Note -->
+                <div class="bg-[#FAF7F2] p-3.5 rounded-2xl border border-[#EFE4DC] text-center space-y-2">
+                    <p class="font-bold text-[#3A2E2B] text-[11px]">صورة النتيجة المحاكاة المرفقة للطبيب:</p>
+                    <canvas id="reportFinalCanvas" class="w-48 h-48 mx-auto rounded-xl border border-[#E0A990]/40 object-cover"></canvas>
+                </div>
+
+                <!-- Clinical Recommendations -->
                 <div class="space-y-2">
-                    <h3 class="font-bold text-[#E0A990] text-xs">1. قياس زاوية العين والتماثل (Canthal Tilt Analysis):</h3>
-                    <div class="bg-[#FAF7F2] p-3.5 rounded-2xl border border-[#EFE4DC] text-[#3A2E2B] space-y-1">
-                        <p>• درجة الميلان التشريحي: <strong class="text-[#C98263]">+4.2° (Positive Canthal Tilt)</strong></p>
-                        <p class="text-[10px] text-[#8C7A76] leading-relaxed">توصية: العين تتمتع بميلان إيجابي جذاب طبيعياً. يُوصى بعدم رفع الذيل الخارجي للحاجب بالبوتوكس لمنع قسوة الملامح.</p>
+                    <h3 class="font-bold text-[#E0A990] text-xs">التوصيات الطبية لتحقيق هذه النتيجة:</h3>
+                    <div class="bg-[#FAF7F2] p-3 rounded-xl border border-[#EFE4DC] space-y-1.5 text-[11px] text-[#3A2E2B]">
+                        <p><strong>1. الشفاه:</strong> تعبئة منتصف الشفة بحجم 0.5cc لرفع الحافة دون خروج المادة (Lip Flip Protocol).</p>
+                        <p><strong>2. الذقن:</strong> إبراز نقطة الذقن الأمامية بمقدار 2mm لموازنة استطالة الثلث السفلي.</p>
+                        <p><strong>3. أسئلة الطبيب:</strong> المادة الموصى بها هي فيلر متوسط اللزوجة (Medium G-Prime) مع حاقن كانيولا كليل.</p>
                     </div>
                 </div>
 
-                <!-- 2. Anatomical Safety Index (Danger Zone) -->
-                <div class="space-y-2">
-                    <h3 class="font-bold text-[#C53030] text-xs">2. منطقة التحذير والأمان الشرياني (Anatomical Danger Zone):</h3>
-                    <div class="danger-badge p-3.5 rounded-2xl space-y-1 text-xs">
-                        <p class="font-bold text-red-700">• منطقة المسار الشرياني للأنف والشفة (Facial Artery Path):</p>
-                        <p class="text-[10px] leading-relaxed">توجيه صريح للطبيب: يُوصى بالحقن باستخدام الكانيولا الكليلة (Blunt Cannula 25G) فوق المستوى العظمي لتفادي الوعاء الدموي والمشكلات الشريانية (Ref: Lemperle Safety Protocol).</p>
-                    </div>
-                </div>
-
-                <!-- 3. Doctor Questions Script with Copy Buttons -->
-                <div class="space-y-2">
-                    <h3 class="font-bold text-[#3A2E2B] text-xs">3. كارت أسئلة الطبيب للعيادة (Doctor Script):</h3>
-                    <div class="space-y-2">
-                        <div class="bg-[#FAF7F2] p-3 rounded-xl border border-[#EFE4DC] flex justify-between items-center">
-                            <span class="text-[10px] text-[#3A2E2B]" id="q1">"ما هي درجة كثافة ولزوجة (G-Prime) مادة الفيلر للذقن؟"</span>
-                            <button onclick="copyQuestion('q1')" class="text-[9px] champagne-badge px-2 py-1 rounded-lg font-bold">نسخ</button>
-                        </div>
-                        <div class="bg-[#FAF7F2] p-3 rounded-xl border border-[#EFE4DC] flex justify-between items-center">
-                            <span class="text-[10px] text-[#3A2E2B]" id="q2">"هل ستعتمد الحقن الكانولي العميق فوق الغشاء العظمي؟"</span>
-                            <button onclick="copyQuestion('q2')" class="text-[9px] champagne-badge px-2 py-1 rounded-lg font-bold">نسخ</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. Interactive Swelling Recovery Graph -->
-                <div class="space-y-2">
-                    <h3 class="font-bold text-[#3A2E2B] text-xs">4. منحنى التورم والتعافي المتوقع (14-Day Recovery Graph):</h3>
-                    <div class="bg-[#FAF7F2] p-3 rounded-2xl border border-[#EFE4DC] text-center space-y-2">
-                        <canvas id="graphCanvas" class="w-full h-24 rounded-lg"></canvas>
-                        <p class="text-[9px] text-[#8C7A76]">المنحنى البياني يوضح ذروة التورم في أول 3 أيام وتلاشيها تماماً في اليوم 14.</p>
-                    </div>
-                </div>
-
-                <!-- Academic References -->
-                <div class="border-t border-[#EFE4DC] pt-3 text-[8px] text-[#8C7A76] space-y-0.5">
-                    <p><strong>المراجع الطبية المعتمدة:</strong> Farkas LG (1994) Anthropometry | Aesthetic Plastic Surgery Journal (2018) | Lemperle Vascular Safety Protocol.</p>
-                </div>
             </div>
 
             <button onclick="downloadPDFReport()" class="w-full py-4 rose-gold-btn font-bold rounded-2xl text-sm shadow-xl">
-                تحميل الملف السريري الكامل (PDF) 📄
+                تحميل الملف التجميلي كاملاً مع الصورة (PDF) 📄
             </button>
         </div>
 
@@ -139,118 +127,125 @@
     </footer>
 
     <script>
-        let globalImage = null;
+        let originalImg = null;
 
         function processImage(e) {
             const file = e.target.files[0];
             if (!file) return;
 
             document.getElementById('uploadSection').classList.add('hidden');
-            document.getElementById('simulationSection').classList.remove('hidden');
+            document.getElementById('comparisonSection').classList.remove('hidden');
 
-            const canvas = document.getElementById('faceCanvas');
-            const ctx = canvas.getContext('2d');
             const img = new Image();
             img.src = URL.createObjectURL(file);
 
             img.onload = function() {
-                globalImage = img;
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
+                originalImg = img;
 
-                // Render High-Tech HUD Facial Landmarks & Danger Zones
-                drawFacialHUD(canvas, ctx);
+                // Build Before (Original) Canvas
+                const bCanvas = document.getElementById('beforeCanvas');
+                const bCtx = bCanvas.getContext('2d');
+                bCanvas.width = img.width;
+                bCanvas.height = img.height;
+                bCtx.drawImage(img, 0, 0);
+
+                // Build After (Aesthetic Transformation) Canvas
+                const aCanvas = document.getElementById('afterCanvas');
+                const aCtx = aCanvas.getContext('2d');
+                aCanvas.width = img.width;
+                aCanvas.height = img.height;
+                
+                // Draw Base Image
+                aCtx.drawImage(img, 0, 0);
+
+                // Apply Digital Aesthetic Improvements Simulation
+                applyAestheticTransformation(aCanvas, aCtx);
+
+                // Initialize Before/After Drag Slider
+                initSlider();
 
                 setTimeout(() => {
-                    document.getElementById('simulationSection').classList.add('hidden');
                     document.getElementById('paywallSection').classList.remove('hidden');
-                }, 2000);
+                }, 1500);
             };
         }
 
-        function drawFacialHUD(canvas, ctx) {
+        function applyAestheticTransformation(canvas, ctx) {
             const w = canvas.width;
             const h = canvas.height;
 
-            // 1. Canthal Tilt Green Angle Line
-            ctx.strokeStyle = '#38A169';
-            ctx.lineWidth = Math.max(3, w / 90);
+            // 1. Under-eye Brightening & Tear Trough Blur (Smooth Filler Simulation)
+            ctx.fillStyle = 'rgba(255, 245, 238, 0.22)';
+            ctx.filter = 'blur(8px)';
             ctx.beginPath();
-            ctx.moveTo(w * 0.22, h * 0.42);
-            ctx.lineTo(w * 0.78, h * 0.37); // Positive Angle
-            ctx.stroke();
-
-            // Canthal Angle Badge on Canvas
-            ctx.fillStyle = '#38A169';
-            ctx.font = `bold ${Math.max(12, w/30)}px Alexandria`;
-            ctx.fillText("+4.2° Canthal Tilt", w * 0.25, h * 0.33);
-
-            // 2. Vascular Danger Zone (Red Ring around Nose & Upper Lip)
-            ctx.strokeStyle = 'rgba(229, 62, 62, 0.8)';
-            ctx.lineWidth = Math.max(2, w / 120);
-            ctx.setLineDash([6, 6]);
-            ctx.beginPath();
-            ctx.arc(w * 0.5, h * 0.64, w / 7, 0, Math.PI * 2);
-            ctx.stroke();
-
-            ctx.fillStyle = 'rgba(229, 62, 62, 0.15)';
+            ctx.arc(w * 0.38, h * 0.45, w / 12, 0, Math.PI * 2);
+            ctx.arc(w * 0.62, h * 0.45, w / 12, 0, Math.PI * 2);
             ctx.fill();
-            ctx.setLineDash([]); // Reset dash
+            ctx.filter = 'none'; // Reset filter
+
+            // 2. Subtle Lip Rosy Glow & Plump Highlight
+            ctx.fillStyle = 'rgba(224, 169, 144, 0.35)';
+            ctx.beginPath();
+            ctx.ellipse(w * 0.5, h * 0.72, w / 8, h / 28, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 3. Chin Projection Shadow Refinement
+            ctx.fillStyle = 'rgba(201, 130, 99, 0.2)';
+            ctx.beginPath();
+            ctx.arc(w * 0.5, h * 0.86, w / 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function initSlider() {
+            const container = document.getElementById('sliderContainer');
+            const overlay = document.getElementById('beforeOverlay');
+            const handle = document.getElementById('sliderHandle');
+            let isDragging = false;
+
+            function slide(x) {
+                const rect = container.getBoundingClientRect();
+                let position = x - rect.left;
+                if (position < 0) position = 0;
+                if (position > rect.width) position = rect.width;
+
+                const percentage = (position / rect.width) * 100;
+                overlay.style.width = percentage + "%";
+                handle.style.left = percentage + "%";
+            }
+
+            container.addEventListener('mousedown', () => isDragging = true);
+            window.addEventListener('mouseup', () => isDragging = false);
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) slide(e.clientX);
+            });
+
+            // Touch events for mobile devices
+            container.addEventListener('touchstart', () => isDragging = true);
+            window.addEventListener('touchend', () => isDragging = false);
+            container.addEventListener('touchmove', (e) => {
+                if (isDragging) slide(e.touches[0].clientX);
+            });
         }
 
         function simulatePayment() {
-            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري استخراج الملف السريري والمنحنى البياني.");
+            alert("تم الدفع بنجاح عبر Apple Pay! جاري استخراج الصورة المعدلة والتقرير الكامل.");
             document.getElementById('paywallSection').classList.add('hidden');
             document.getElementById('reportSection').classList.remove('hidden');
 
-            // Draw the Swelling Curve Graph dynamically on report load
-            renderSwellingGraph();
-        }
-
-        function renderSwellingGraph() {
-            const gCanvas = document.getElementById('graphCanvas');
-            const gCtx = gCanvas.getContext('2d');
-            gCanvas.width = 300;
-            gCanvas.height = 100;
-
-            gCtx.clearRect(0, 0, 300, 100);
-
-            // Draw Background Grid
-            gCtx.strokeStyle = '#EFE4DC';
-            gCtx.lineWidth = 1;
-            gCtx.beginPath();
-            gCtx.moveTo(0, 80); gCtx.lineTo(300, 80);
-            gCtx.stroke();
-
-            // Draw Swelling Curve (Peak at Day 2, drops by Day 14)
-            gCtx.strokeStyle = '#E0A990';
-            gCtx.lineWidth = 3;
-            gCtx.beginPath();
-            gCtx.moveTo(10, 70); // Day 0
-            gCtx.quadraticCurveTo(50, 10, 120, 55); // Day 2 Peak
-            gCtx.quadraticCurveTo(200, 78, 290, 80); // Day 14 Recovery
-            gCtx.stroke();
-
-            // Labels
-            gCtx.fillStyle = '#8C7A76';
-            gCtx.font = '9px Alexandria';
-            gCtx.fillText("اليوم 1 (ذروة)", 35, 95);
-            gCtx.fillText("اليوم 7", 140, 95);
-            gCtx.fillText("اليوم 14 (استقرار)", 220, 95);
-        }
-
-        function copyQuestion(elementId) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text);
-            alert("تم نسخ السؤال لمحافظتك بنجاح!");
+            // Render Final Simulated Photo inside PDF report preview
+            const rCanvas = document.getElementById('reportFinalCanvas');
+            const rCtx = rCanvas.getContext('2d');
+            const aCanvas = document.getElementById('afterCanvas');
+            rCanvas.width = aCanvas.width;
+            rCanvas.height = aCanvas.height;
+            rCtx.drawImage(aCanvas, 0, 0);
         }
 
         function downloadPDFReport() {
             const element = document.getElementById('pdfContainer');
             const opt = {
                 margin:       0.3,
-                filename:     'AuraRatio_Clinical_Dossier.pdf',
+                filename:     'AuraRatio_Visual_Aesthetic_Report.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
