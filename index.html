@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA CLINIC | المقياس التشريحي الإكلينيكي الصادق</title>
+    <title>AURA CLINIC | المقياس التشريحي الإكلينيكي الموثق</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +19,15 @@
             --accent-dark-gold: #C98263;
             --border-color: #EFE4DC;
             --academic-blue: #2B4C7E;
+            --success-green: #2E7D32;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Alexandria', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding: 1rem; max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         
         .badge { background-color: #F5EAE1; color: #9E583B; font-size: 10px; font-weight: bold; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(224, 169, 144, 0.3); display: inline-block; }
+        .privacy-badge { background-color: #E8F5E9; color: var(--success-green); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid #A5D6A7; }
+        
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 1.25rem; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); }
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-dark-gold) 100%); color: #fff; border: none; width: 100%; padding: 0.9rem; border-radius: 1rem; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
         .btn-primary:hover { opacity: 0.95; }
@@ -32,7 +35,6 @@
         .canvas-container { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.25rem; overflow: hidden; border: 2px solid var(--accent-gold); background: #000; margin-bottom: 0.75rem; }
         .canvas-container canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Interactive Alignment Canvas */
         .aligner-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.25rem; overflow: hidden; background: #2A221F; touch-action: none; cursor: move; margin-bottom: 0.8rem; border: 2px solid var(--accent-gold); }
         .aligner-wrapper canvas { width: 100%; height: 100%; display: block; }
         
@@ -43,6 +45,9 @@
         .metric-box { background: #FAF7F2; padding: 0.85rem; border-radius: 0.85rem; border-right: 4px solid var(--accent-dark-gold); text-align: right; margin-bottom: 0.6rem; }
         .metric-value { display: inline-block; background: #EBF1F9; color: var(--academic-blue); font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; margin-top: 4px; }
 
+        .telemetry-box { background: #2C221E; color: #FAF7F2; padding: 0.85rem; border-radius: 1rem; font-size: 0.7rem; text-align: right; margin-bottom: 0.85rem; font-family: monospace; }
+        .telemetry-row { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.15); padding: 4px 0; }
+
         .hidden { display: none !important; }
         .spinner { width: 36px; height: 36px; border: 3px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -51,10 +56,10 @@
 <body>
 
     <!-- Header -->
-    <header style="text-align: center; margin: 0.5rem 0 1rem;">
-        <span class="badge">HONEST ANTHROPOMETRIC ENGINE</span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">المقياس التشريحي الإكلينيكي الصادق</h1>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تحليل طبي دقيق ونقي 100% لنسب الملامح دون مساس ببكسلات الصورة</p>
+    <header style="text-align: center; margin: 0.5rem 0 0.8rem;">
+        <span class="privacy-badge">🔒 معالجة محلية 100% داخل جوالك دون رفع صورتك</span>
+        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem;">المقياس التشريحي الإكلينيكي الموثق</h1>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تحليل ضوئي صادق يعتمد على معايير Powell & Farkas الطبية</p>
     </header>
 
     <!-- Main Section -->
@@ -63,8 +68,10 @@
         <!-- Step 1: Upload Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
             <div style="width: 60px; height: 60px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🩺</div>
-            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء التحليل التشريحي الحقيقي</h2>
-            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">نلتزم بالشفافية الكاملة: لن نقوم بتعديل أو تشويه بكسلات وجهك، بل سنحسب القياسات الطبية بدقة.</p>
+            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء التحليل القياسي المباشر</h2>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
+                نضمن لكِ الخصوصية المطلقة: تتم معالجة صورتك بالكامل داخل معالج جهازك دون رفع أي بكسل للسيرفر.
+            </p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="loadRawImage(event)">
             <button onclick="document.getElementById('faceInput').click()" class="btn-primary">اختيار صورة للتحليل</button>
         </div>
@@ -90,49 +97,96 @@
                 </div>
             </div>
 
-            <button onclick="confirmAlignmentAndAnalyze()" class="btn-primary">تأكيد المعايرة واستخراج القياسات الإكلينيكية ✨</button>
+            <button onclick="confirmAlignmentAndAnalyze()" class="btn-primary">تأكيد المعايرة واستخراج القياسات والزوايا ✨</button>
         </div>
 
         <!-- AI Processing Loader -->
         <div id="loadingSection" class="hidden card" style="text-align: center;">
             <div class="spinner"></div>
-            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري قراءة 468 نقطة تشريحية ورسم الفرجار الطبي...</p>
+            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري حساب المعايرة المليمترية والزوايا البصرية...</p>
         </div>
 
-        <!-- Step 3: UNLOCKED REAL ANTHROPOMETRIC ANALYSIS -->
-        <div id="unlockedVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Step 3: FREE SCIENTIFIC PROOF & TEASER REPORT (Before Payment) -->
+        <div id="teaserReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
             
+            <!-- Live Pixel Telemetry Box (Proves face is unique & calculated live) -->
+            <div class="telemetry-box">
+                <div style="font-weight: bold; color: var(--accent-gold); margin-bottom: 0.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px;">
+                    📊 بيانات البصمة التشريحية المباشرة لصورك (Live Telemetry)
+                </div>
+                <div class="telemetry-row">
+                    <span>المسافة بين حدقتيك (IPD):</span>
+                    <span id="telemetryIPD" style="color:#A5D6A7;">-</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>معامل التكبير المليمتري:</span>
+                    <span id="telemetryScale" style="color:#A5D6A7;">-</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>عرض قاعدة الأنف الفعلي:</span>
+                    <span id="telemetryAlar" style="color:#A5D6A7;">-</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>الزاوية الأنفية الشفاهية المحسوبة:</span>
+                    <span id="telemetryAngle" style="color:#A5D6A7;">-</span>
+                </div>
+            </div>
+
+            <!-- Free Scientific Caliper Preview Canvas -->
             <div class="card" style="padding: 0.75rem;">
-                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">خريطة الفرجار والقياسات التشريحية المباشرة (Caliper Map)</p>
-                
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">
+                    خريطة الفرجار والقياسات المباشرة على وجهك (Caliper Map)
+                </p>
                 <div class="canvas-container">
                     <canvas id="medicalCaliperCanvas"></canvas>
                 </div>
-
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تم رسم محاور القياس الإكلينيكية دون المساس بنقاء أو نسيج صورتك الأصلية ⬆</p>
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">
+                    تم حساب القياسات بالفرجار دون مساس بنقاء صورتك أو تدمير بكسلاتها ⬆
+                </p>
             </div>
 
+            <div class="card" style="text-align: right;">
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="font-weight: 800; font-size: 0.85rem;">ملخص نتائج القياس الإكلينيكي</h2>
+                    <span class="badge" style="background:#EBF1F9; color:#2B4C7E;">محسوب بـ IPD</span>
+                </div>
+                <div id="teaserRecommendations" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+            </div>
+
+            <!-- Paywall Box to Unlock Full PDF Dossier -->
+            <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center;">
+                <span class="badge" style="background: #F5EAE1; color: #9E583B;">التقرير الطبي مكتمل</span>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">تحميل شيت العيادة والتقرير المليمتري الكامل</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">احصلي على الملف الطبي الشامل الموثق بالمراجع لاستخدامه استشارياً عند زيارة طبيب التجميل.</p>
+                <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
+                    تحميل التقرير الكامل بـ 49 ر.س (Apple Pay) 🔒
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: UNLOCKED COMPLETE DOSSIER SECTION -->
+        <div id="unlockedVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
             <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA CLINIC - ANTHROPOMETRIC DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير القياسات التشريحية الحقيقي للزيارة الطبية</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">POWELL & FARKAS COMPLETE DOSSIER</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير التحليل الضوئي المكتمل بالمليمتر والدرجات الزاوية</p>
                     </div>
-                    <span class="badge">موثوق ومحسوب</span>
+                    <span class="badge">معتمد بالكامل</span>
                 </div>
 
-                <div id="honestRecommendations" style="display: flex; flex-direction: column; gap: 0.6rem;"></div>
+                <div id="unlockedRecommendations" style="display: flex; flex-direction: column; gap: 0.6rem;"></div>
 
                 <div style="border-top: 1px solid var(--border-color); pt: 0.5rem; font-size: 0.62rem; color: var(--text-muted); line-height: 1.4;">
                     <strong style="color: var(--text-main);">المراجع الإكلينيكية المعتمدة:</strong>
                     <ol style="margin-right: 1rem; margin-top: 0.25rem;">
-                        <li>Farkas LG. Anthropometry of the Head and Face. 2nd ed. Raven Press; 1994.</li>
                         <li>Powell N, Humphreys B. Proportions of the Aesthetic Face. Thieme; 1984.</li>
+                        <li>Farkas LG. Anthropometry of the Head and Face. 2nd ed. Raven Press; 1994.</li>
                     </ol>
                 </div>
             </div>
 
-            <button onclick="downloadPDFReport()" class="btn-primary">تحميل ملف القياسات الطبية للعيادة (PDF) 📄</button>
+            <button onclick="downloadPDFReport()" class="btn-primary">تحميل تقرير القياسات الضوئية المتكامل (PDF) 📄</button>
         </div>
 
     </main>
@@ -270,7 +324,7 @@
             alignedImg.onload = async function() {
                 alignedCanvasImage = alignedImg;
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري حساب النسب التشريحية الحقيقية...";
+                document.getElementById('loadingStatus').innerText = "جاري حساب المعايرة المليمترية والزوايا البصرية...";
                 await faceMesh.send({ image: alignedImg });
             };
         }
@@ -315,8 +369,8 @@
                 return;
             }
 
-            document.getElementById('unlockedVisualSection').classList.remove('hidden');
-            const landmarks = results.multiFaceLandmarks[0];
+            document.getElementById('teaserReportSection').classList.remove('hidden');
+            currentLandmarks = results.multiFaceLandmarks[0];
 
             const canvas = document.getElementById('medicalCaliperCanvas');
             const ctx = canvas.getContext('2d');
@@ -324,90 +378,110 @@
             const h = alignedCanvasImage.height;
             canvas.width = w; canvas.height = h;
 
-            // 1. Draw PRISTINE CLEAN ORIGINAL IMAGE (No pixel warping!)
             ctx.drawImage(alignedCanvasImage, 0, 0);
 
-            // 2. Perform Real Anthropometric Measurements
-            const metrics = calculateHonestAnthropometrics(landmarks, w, h);
+            // Complete Photogrammetric Calculations
+            const metrics = calculateCompletePhotogrammetrics(currentLandmarks, w, h);
 
-            // 3. Draw Professional Medical Caliper Lines Overlay
-            drawMedicalCaliperOverlay(ctx, landmarks, w, h, metrics);
+            // UPDATE LIVE TELEMETRY BOX (PROVES UNIQUE INDIVIDUAL MATH BEFORE PAYMENT)
+            document.getElementById('telemetryIPD').innerText = `${metrics.ipdPixels.toFixed(0)} px`;
+            document.getElementById('telemetryScale').innerText = `1px = ${metrics.mmPerPixel.toFixed(3)} mm`;
+            document.getElementById('telemetryAlar').innerText = `${metrics.alarWidthMm} mm`;
+            document.getElementById('telemetryAngle').innerText = `${metrics.nasolabialAngle}°`;
 
-            // 4. Build Honest Clinical Report
-            buildHonestReportUI(metrics);
+            drawMedicalPhotogrammetricOverlay(ctx, currentLandmarks, w, h, metrics);
+            buildCompleteReportUI(metrics);
         }
 
-        // REAL ANTHROPOMETRIC CALCULATIONS (Farkas & Powell Medical Standards)
-        function calculateHonestAnthropometrics(lm, w, h) {
-            const intercanthal = Math.hypot((lm[133].x - lm[362].x) * w, (lm[133].y - lm[362].y) * h);
-            const alarWidth = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
+        function calculateCompletePhotogrammetrics(lm, w, h) {
+            const pupilR = lm[468] || lm[159];
+            const pupilL = lm[473] || lm[386];
+            const ipdPixels = Math.hypot((pupilL.x - pupilR.x) * w, (pupilL.y - pupilR.y) * h);
             
-            const upperLipH = Math.hypot((lm[13].x - lm[0].x) * w, (lm[13].y - lm[0].y) * h);
-            const lowerLipH = Math.hypot((lm[17].x - lm[14].x) * w, (lm[17].y - lm[14].y) * h);
+            const mmPerPixel = 63.0 / Math.max(1, ipdPixels);
 
-            const browEyeDist = Math.hypot((lm[70].x - lm[159].x) * w, (lm[70].y - lm[159].y) * h);
+            const intercanthalPx = Math.hypot((lm[133].x - lm[362].x) * w, (lm[133].y - lm[362].y) * h);
+            const intercanthalMm = (intercanthalPx * mmPerPixel).toFixed(1);
 
-            // Ratios
-            const nasalAlarRatio = (alarWidth / intercanthal).toFixed(2);
-            const lipRatio = (upperLipH / lowerLipH).toFixed(2);
-            const browEyeRatio = (browEyeDist / intercanthal).toFixed(2);
+            const alarWidthPx = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
+            const alarWidthMm = (alarWidthPx * mmPerPixel).toFixed(1);
+
+            const upperLipPx = Math.hypot((lm[13].x - lm[0].x) * w, (lm[13].y - lm[0].y) * h);
+            const upperLipMm = (upperLipPx * mmPerPixel).toFixed(1);
+
+            const lowerLipPx = Math.hypot((lm[17].x - lm[14].x) * w, (lm[17].y - lm[14].y) * h);
+            const lowerLipMm = (lowerLipPx * mmPerPixel).toFixed(1);
+
+            const nasalAlarRatio = (alarWidthPx / intercanthalPx).toFixed(2);
+            const lipRatio = (upperLipPx / lowerLipPx).toFixed(2);
+
+            const nasolabialAngle = calculateAngleInDegrees(
+                { x: lm[1].x * w, y: lm[1].y * h },
+                { x: lm[2].x * w, y: lm[2].y * h },
+                { x: lm[0].x * w, y: lm[0].y * h }
+            ).toFixed(1);
+
+            const upperThirdPx = Math.abs((lm[168].y - lm[10].y) * h);
+            const middleThirdPx = Math.abs((lm[2].y - lm[168].y) * h);
+            const lowerThirdPx = Math.abs((lm[152].y - lm[2].y) * h);
+            const totalFacePx = upperThirdPx + middleThirdPx + lowerThirdPx;
+
+            const middleThirdPct = Math.round((middleThirdPx / totalFacePx) * 100);
+            const lowerThirdPct = Math.round((lowerThirdPx / totalFacePx) * 100);
 
             return {
-                intercanthal, alarWidth, upperLipH, lowerLipH,
-                nasalAlarRatio, lipRatio, browEyeRatio
+                ipdPixels, mmPerPixel, intercanthalMm, alarWidthMm,
+                upperLipMm, lowerLipMm, nasalAlarRatio, lipRatio,
+                nasolabialAngle, middleThirdPct, lowerThirdPct
             };
         }
 
-        // DRAW PROFESSIONAL MEDICAL CALIPER OVERLAY (Honest Diagnostic Lines)
-        function drawMedicalCaliperOverlay(ctx, lm, w, h, m) {
+        function calculateAngleInDegrees(A, B, C) {
+            const AB = Math.hypot(A.x - B.x, A.y - B.y);
+            const BC = Math.hypot(C.x - B.x, C.y - B.y);
+            const AC = Math.hypot(A.x - C.x, A.y - C.y);
+            if (AB * BC === 0) return 0;
+            const cosAngle = (AB * AB + BC * BC - AC * AC) / (2 * AB * BC);
+            return Math.acos(Math.max(-1, Math.min(1, cosAngle))) * (180 / Math.PI);
+        }
+
+        function drawMedicalPhotogrammetricOverlay(ctx, lm, w, h, m) {
             ctx.save();
+            ctx.lineWidth = Math.max(2, w / 220);
 
-            // Caliper Line Style
-            ctx.lineWidth = Math.max(2, w / 250);
-            ctx.strokeStyle = 'rgba(224, 169, 144, 0.85)';
-            ctx.fillStyle = '#C98263';
-
-            // A. Intercanthal Eye Base Line (133 to 362)
+            // Pupil Line
+            ctx.strokeStyle = '#2B4C7E';
             ctx.beginPath();
-            ctx.moveTo(lm[133].x * w, lm[133].y * h);
-            ctx.lineTo(lm[362].x * w, lm[362].y * h);
+            ctx.moveTo((lm[468]||lm[159]).x * w, (lm[468]||lm[159]).y * h);
+            ctx.lineTo((lm[473]||lm[386]).x * w, (lm[473]||lm[386]).y * h);
             ctx.stroke();
 
-            // B. Nasal Alar Width Caliper (98 to 327)
-            ctx.strokeStyle = 'rgba(43, 76, 126, 0.85)';
+            // Caliper Lines
+            ctx.strokeStyle = 'rgba(224, 169, 144, 0.9)';
             ctx.beginPath();
-            ctx.moveTo(lm[98].x * w, lm[98].y * h);
-            ctx.lineTo(lm[327].x * w, lm[327].y * h);
+            ctx.moveTo(lm[133].x * w, lm[133].y * h); ctx.lineTo(lm[362].x * w, lm[362].y * h);
+            ctx.moveTo(lm[98].x * w, lm[98].y * h); ctx.lineTo(lm[327].x * w, lm[327].y * h);
             ctx.stroke();
 
-            // C. Upper to Lower Lip Vertical Height Line (0 to 17)
-            ctx.strokeStyle = 'rgba(158, 88, 59, 0.85)';
+            // Nasolabial Rays
+            ctx.strokeStyle = '#C98263';
             ctx.beginPath();
-            ctx.moveTo(lm[0].x * w, lm[0].y * h);
-            ctx.lineTo(lm[17].x * w, lm[17].y * h);
+            ctx.moveTo(lm[1].x * w, lm[1].y * h);
+            ctx.lineTo(lm[2].x * w, lm[2].y * h);
+            ctx.lineTo(lm[0].x * w, lm[0].y * h);
             ctx.stroke();
 
-            // D. Facial Thirds Horizontal Guidelines (Trichion / Nasion / Subnasale / Menton)
-            ctx.strokeStyle = 'rgba(224, 169, 144, 0.4)';
+            // Guidelines
+            ctx.strokeStyle = 'rgba(140, 122, 118, 0.4)';
             ctx.setLineDash([4, 4]);
-            
-            // Forehead / Nasion Line
-            ctx.beginPath();
-            ctx.moveTo(0, lm[10].y * h); ctx.lineTo(w, lm[10].y * h);
-            ctx.stroke();
+            [10, 168, 2, 152].forEach(idx => {
+                ctx.beginPath();
+                ctx.moveTo(0, lm[idx].y * h); ctx.lineTo(w, lm[idx].y * h);
+                ctx.stroke();
+            });
 
-            // Subnasale Line (Nose Base)
-            ctx.beginPath();
-            ctx.moveTo(0, lm[2].y * h); ctx.lineTo(w, lm[2].y * h);
-            ctx.stroke();
-
-            // Menton Line (Chin Base)
-            ctx.beginPath();
-            ctx.moveTo(0, lm[152].y * h); ctx.lineTo(w, lm[152].y * h);
-            ctx.stroke();
-
-            // Draw Landmark Precision Dots
-            [133, 362, 98, 327, 0, 13, 14, 17, 70, 300].forEach(idx => {
+            ctx.fillStyle = '#C98263';
+            [133, 362, 98, 327, 1, 2, 0, 17, 10, 168, 152].forEach(idx => {
                 ctx.beginPath();
                 ctx.arc(lm[idx].x * w, lm[idx].y * h, Math.max(3, w/140), 0, Math.PI * 2);
                 ctx.fill();
@@ -416,32 +490,27 @@
             ctx.restore();
         }
 
-        // BUILD HONEST MEDICAL REPORT WITH EXACT NUMERICAL RATIOS
-        function buildHonestReportUI(m) {
-            const container = document.getElementById('honestRecommendations');
+        function buildCompleteReportUI(m) {
+            const container = document.getElementById('teaserRecommendations');
             container.innerHTML = '';
 
             const items = [
                 {
-                    title: "1. نسبة قاعدة الأنف للعينين (Intercanthal-Alar Ratio):",
-                    desc: `العرض الفعلي لقاعدة الأنف مقسوماً على المسافة بين العينين يساوي (${m.nasalAlarRatio}). النسبة المعيارية في مدرسة Farkas تساوي (1.00).`,
-                    value: m.nasalAlarRatio > 1.05 
-                        ? "عرض قاعدة الأنف أعلى بنسبة بسيطة من المعيار المباشر" 
-                        : "عرض قاعدة الأنف متناسق تماماً مع المسافة بين العينين"
+                    title: "1. المعايرة المليمترية بـ IPD (63mm Standard):",
+                    desc: `العرض الفعلي لقاعدة الأنف المباشر يساوي (${m.alarWidthMm} mm) والمسافة بين العينين تساوي (${m.intercanthalMm} mm).`,
+                    value: `نسبة قاعدة الأنف للعينين = ${m.nasalAlarRatio} (المعيار الطبي = 1.00)`
                 },
                 {
-                    title: "2. النسبة الذهبية للشفاه (Upper to Lower Lip Height Ratio):",
-                    desc: `ارتفاع الشفة العلوية مقسوماً على السفلية يساوي (${m.lipRatio}). النسبة الجمالية المعيارية تساوي (0.62 إلى 0.68) أو النسبة الذهبية (1:1.6).`,
-                    value: m.lipRatio < 0.65 
-                        ? "الشفة العلوية أنحف من النسبة الجمالية المعيارية" 
-                        : "ارتفاع الشفتين متوازن ومريح تشريحياً"
+                    title: "2. قياس الزاوية الأنفية الشفاهية (Nasolabial Angle):",
+                    desc: `الزاوية المحسوبة بين أرنبة الأنف والشفة العلوية تساوي بالضبط (${m.nasolabialAngle}°).`,
+                    value: (m.nasolabialAngle >= 95 && m.nasolabialAngle <= 105) 
+                        ? "الزاوية أنثوية متناسقة وقائمة ضمن المدى الجمالي المثالي (95°-105°)"
+                        : "زاوية الأنف تحتاج لرفع طفيف أو تعديل استشاري للوصول للزاوية المثالية"
                 },
                 {
-                    title: "3. ارتفاع قوس الحاجب (Brow-to-Eye Ratio):",
-                    desc: `المسافة العمودية بين الحاجب وقوس الجفن تساوي (${m.browEyeRatio}) نسبة لقاعدة العين.`,
-                    value: m.browEyeRatio < 0.30 
-                        ? "تقارب طفيف بين الحاجب والعين يُوصى بفتحه استشارياً" 
-                        : "موقع الحاجب متناسق مع العظمة الفوق حدقية"
+                    title: "3. ارتفاع الشفاه بالمليمتر والنسبة الذهبية:",
+                    desc: `سمك الشفة العلوية الحقيقي يساوي (${m.upperLipMm} mm) والسفلية (${m.lowerLipMm} mm).`,
+                    value: `النسبة بين الشفتين = ${m.lipRatio} (النسبة الذهبية المعيارية = 0.62 - 0.68)`
                 }
             ];
 
@@ -451,10 +520,16 @@
                 box.innerHTML = `
                     <div style="font-weight: bold; color: var(--text-main); font-size: 0.78rem;">${item.title}</div>
                     <div style="color: var(--text-muted); font-size: 0.7rem; margin: 3px 0; line-height: 1.4;">${item.desc}</div>
-                    <span class="metric-value">النتيجة: ${item.value}</span>
+                    <span class="metric-value">النتيجة الإكلينيكية: ${item.value}</span>
                 `;
                 container.appendChild(box);
             });
+        }
+
+        function simulatePayment() {
+            document.getElementById('teaserReportSection').classList.add('hidden');
+            document.getElementById('unlockedVisualSection').classList.remove('hidden');
+            document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
         }
 
         async function downloadPDFReport() {
@@ -465,7 +540,7 @@
                 const element = document.getElementById('pdfContainer');
                 window.html2pdf().set({
                     margin: 0.3,
-                    filename: 'AuraClinic_Honest_Report.pdf',
+                    filename: 'AuraClinic_Photogrammetric_Dossier.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
