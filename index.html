@@ -40,14 +40,14 @@
         .hidden { display: none !important; }
         .spinner { width: 36px; height: 36px; border: 3px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .citation-box { background: #FAF7F2; padding: 0.75rem; border-radius: 0.75rem; border-right: 3px solid var(--accent-dark-gold); margin-bottom: 0.5rem; }
+        .citation-box { background: #FAF7F2; padding: 0.75rem; border-radius: 0.75rem; border-right: 3px solid var(--accent-dark-gold); margin-bottom: 0.5rem; text-align: right; }
     </style>
 </head>
 <body>
 
     <!-- Header -->
     <header style="text-align: center; margin: 0.5rem 0 1rem;">
-        <span class="badge">AURA AI SCIENTIFIC ENGINE v4.0</span>
+        <span class="badge">AURA AI SCIENTIFIC ENGINE</span>
         <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">محلل تناسق الملامح والنسب الذهبية</h1>
         <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تحليل علمي موثق بالدراسات الطبية لتحديد الملاءمة الجمالية</p>
     </header>
@@ -55,13 +55,13 @@
     <!-- Main Section -->
     <main style="display: flex; flex-direction: column; gap: 1rem; flex: 1; justify-content: center;">
 
-        <!-- Upload Section -->
+        <!-- Step 1: Upload Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
             <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">✨</div>
             <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه للتحليل العلمي بالذكاء الاصطناعي</h2>
             <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">مسح موثوق لـ 468 نقطة أبعاد وفق معايير Farkas العالمية للنسب الجمالية.</p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processAIImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التحليل العلمي</button>
+            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التحليل المجاني</button>
         </div>
 
         <!-- AI Processing Loader -->
@@ -70,10 +70,35 @@
             <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري تحميل خوارزمية المسح البصري...</p>
         </div>
 
-        <!-- AI Visual Canvas Result (Before & After) -->
-        <div id="resultVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- Step 2: FREE Scientific Teaser Report (Pre-Payment) -->
+        <div id="teaserReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="card" style="text-align: right;">
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="font-weight: 800; font-size: 0.85rem;">التشخيص العلمي الأكاديمي لملامحك</h2>
+                    <span class="badge">نتائج مجانية</span>
+                </div>
+
+                <!-- Dynamic Teaser Citations -->
+                <div id="teaserRecommendations" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+            </div>
+
+            <!-- Paywall Box to Unlock Visual Transformation -->
+            <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center; space-y: 0.75rem;">
+                <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة البصرية مغلقة</span>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف النتيجة البصرية المحاكاة (الصورة بعد التعديل)</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">احصلي على النتيجة البصرية المعدلة خصيصاً لأبعاد وجهك مع التقرير المخصص لطبيب العيادة.</p>
+                <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
+                    فتح النتيجة البصرية بـ 49 ر.س (Apple Pay) 🔒
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: UNLOCKED Post-Payment Section (Visual Output Revealed) -->
+        <div id="unlockedVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+            
+            <!-- Comparison Grid (Unlocked Image) -->
             <div class="card" style="padding: 0.75rem;">
-                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">مقارنة الصورة الحالية بالنتيجة المحاكاة المتوقعة</p>
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة البصرية المحاكاة المخصصة لوجهك</p>
                 <div class="comparison-grid">
                     <div class="img-box">
                         <canvas id="beforeCanvas"></canvas>
@@ -84,27 +109,24 @@
                         <span class="img-label" style="background: rgba(201, 130, 99, 0.9);">النتيجة المحاكاة (بعد)</span>
                     </div>
                 </div>
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تم تطبيق التعديلات البصرية المحاكاة على إحداثيات وجهك الحقيقية ⬆</p>
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تم تطبيق التعديلات المخصصة لوجهك بناءً على نقاط المسح البصري ⬆</p>
             </div>
-        </div>
 
-        <!-- Scientific Report Section -->
-        <div id="reportSection" class="hidden">
+            <!-- Full Dossier Container for PDF Export -->
             <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - SCIENTIFIC DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">التقرير العلمي لتناسق الملامح والنسب الذهبية</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - UNLOCKED DOSSIER</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">التقرير النهائي الكامل للعيادة</p>
                     </div>
-                    <span class="badge">توثيق أكاديمي</span>
+                    <span class="badge">مفعل بالكامل</span>
                 </div>
 
-                <!-- Dynamic Recommendations with Scientific Citations -->
-                <div id="dynamicRecommendations" style="display: flex; flex-direction: column; gap: 0.6rem;"></div>
+                <div id="unlockedRecommendations" style="display: flex; flex-direction: column; gap: 0.6rem;"></div>
 
                 <!-- Academic References List -->
                 <div style="border-top: 1px solid var(--border-color); pt: 0.5rem; font-size: 0.62rem; color: var(--text-muted); line-height: 1.4;">
-                    <strong style="color: var(--text-main);">المراجع والمقاييس الطبية المعتمدة في التقرير:</strong>
+                    <strong style="color: var(--text-main);">المراجع الطبية المعتمدة في هذا التقرير:</strong>
                     <ol style="margin-right: 1rem; margin-top: 0.25rem;">
                         <li>Farkas LG. Anthropometry of the Head and Face. 2nd ed. Raven Press; 1994.</li>
                         <li>Powell N, Humphreys B. Proportions of the Aesthetic Face. Thieme; 1984.</li>
@@ -113,7 +135,7 @@
                 </div>
             </div>
 
-            <button onclick="downloadPDFReport()" class="btn-primary" style="margin-top: 1rem;">تحميل التقرير العلمي كاملاً (PDF) 📄</button>
+            <button onclick="downloadPDFReport()" class="btn-primary">تحميل الملف الجمالي الكامل مع الصورة (PDF) 📄</button>
         </div>
 
     </main>
@@ -123,10 +145,12 @@
         جميع الحقوق محفوظة لـ AURA RATIO BEAUTY AI © 2026
     </footer>
 
-    <!-- Production Grade Execution Logic with Full Error Handling -->
+    <!-- Execution Logic -->
     <script>
         let faceMesh = null;
         let uploadedImg = null;
+        let currentAnalysis = null;
+        let currentLandmarks = null;
 
         function loadScript(src) {
             return new Promise((resolve, reject) => {
@@ -146,7 +170,7 @@
         async function ensureMediaPipeLoaded() {
             try {
                 if (window.FaceMesh) return;
-                document.getElementById('loadingStatus').innerText = "جاري تحميل محرك الذكاء الاصطناعي لتحديد النقاط...";
+                document.getElementById('loadingStatus').innerText = "جاري تحميل محرك الذكاء الاصطناعي...";
                 await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
                 await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
             } catch (err) {
@@ -179,7 +203,7 @@
 
             try {
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري قياس أبعاد الملامح ومطابقتها بـ Farkas Canons...";
+                document.getElementById('loadingStatus').innerText = "جاري قياس أبعاد الملامح ومطابقتها بالمراجع الطبية...";
 
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
@@ -209,153 +233,93 @@
             document.getElementById('loadingSection').classList.add('hidden');
 
             if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                handleProcessingError("لم يتم التعرف على ملامح الوجه بوضوح. يرجى رفع صورة واضحة بزاوية مواجهة مباشرة بدون إضاءة خافته.");
+                handleProcessingError("لم يتم التعرف على ملامح الوجه بوضوح. يرجى رفع صورة واضحة بزاوية مواجهة مباشرة.");
                 return;
             }
 
-            document.getElementById('resultVisualSection').classList.remove('hidden');
-            document.getElementById('reportSection').classList.remove('hidden');
+            // Reveal Step 2: FREE Scientific Teaser Report
+            document.getElementById('teaserReportSection').classList.remove('hidden');
 
-            const lm = results.multiFaceLandmarks[0];
+            currentLandmarks = results.multiFaceLandmarks[0];
 
-            // 1. Draw Original "Before" Canvas
+            // Render Original Base Canvas Buffer
             const bCanvas = document.getElementById('beforeCanvas');
             const bCtx = bCanvas.getContext('2d');
             bCanvas.width = uploadedImg.width;
             bCanvas.height = uploadedImg.height;
             bCtx.drawImage(uploadedImg, 0, 0);
 
-            // Draw Golden Reference Points on "Before" Canvas
+            // Draw Golden Landmark Points on "Before" Canvas
             bCtx.fillStyle = '#C98263';
             [33, 263, 1, 61, 291, 152, 70, 300].forEach(idx => {
                 bCtx.beginPath();
-                bCtx.arc(lm[idx].x * bCanvas.width, lm[idx].y * bCanvas.height, Math.max(3, bCanvas.width/100), 0, Math.PI * 2);
+                bCtx.arc(currentLandmarks[idx].x * bCanvas.width, currentLandmarks[idx].y * bCanvas.height, Math.max(3, bCanvas.width/100), 0, Math.PI * 2);
                 bCtx.fill();
             });
 
-            // 2. Perform Scientific Anthropometric Measurements
-            const analysis = calculateScientificMetrics(lm, bCanvas.width, bCanvas.height);
+            // Perform Real Anthropometric Measurements
+            currentAnalysis = calculateScientificMetrics(currentLandmarks, bCanvas.width, bCanvas.height);
 
-            // 3. Render Real Transformed "After" Canvas on Her Actual Landmark Points
-            const aCanvas = document.getElementById('afterCanvas');
-            const aCtx = aCanvas.getContext('2d');
-            aCanvas.width = uploadedImg.width;
-            aCanvas.height = uploadedImg.height;
-            aCtx.drawImage(uploadedImg, 0, 0);
-
-            renderRealVisualTransformation(aCtx, lm, aCanvas.width, aCanvas.height, analysis);
-
-            // 4. Build Scientific Citation Report
-            buildScientificReportUI(analysis);
+            // Render Free Scientific Teaser Text
+            buildScientificTeaserUI(currentAnalysis);
         }
 
         // SCIENTIFIC ANTHROPOMETRIC RATIOS (Farkas & Powell Standards)
         function calculateScientificMetrics(lm, w, h) {
-            // Baseline: Intercanthal Distance (Distance between inner eye corners)
             const intercanthalDist = Math.hypot((lm[133].x - lm[362].x) * w, (lm[133].y - lm[362].y) * h);
-            
-            // Nose Alar Width (Landmarks 98 to 327)
             const noseWidth = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
-            
-            // Lips Dimensions (Vermilion Height)
             const upperLipHeight = Math.hypot((lm[13].x - lm[0].x) * w, (lm[13].y - lm[0].y) * h);
             const lowerLipHeight = Math.hypot((lm[17].x - lm[14].x) * w, (lm[17].y - lm[14].y) * h);
-
-            // Cheekbone vs Jaw Width (Bizygomatic vs Bigonial)
             const cheekWidth = Math.hypot((lm[454].x - lm[234].x) * w, (lm[454].y - lm[234].y) * h);
             const jawWidth = Math.hypot((lm[288].x - lm[58].x) * w, (lm[288].y - lm[58].y) * h);
 
-            // Brow to Eye Height relative to Intercanthal Distance
-            const browEyeDist = Math.hypot((lm[70].x - lm[159].x) * w, (lm[70].y - lm[159].y) * h);
-            const relativeBrowRatio = browEyeDist / intercanthalDist;
-
             return {
-                // Farkas Canon 4: Nose Alar Width should equal Intercanthal Distance
                 needsNoseSlimming: noseWidth > intercanthalDist * 1.08,
-                // Powell Golden Decagon: Upper to Lower Lip Ratio ideal is 1 : 1.618
                 needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.65),
-                // Marquardt Ratio: Cheek to Jaw Ratio
-                needsCheekDefinition: cheekWidth < jawWidth * 1.12,
-                // Neoclassical Brow Heights
-                needsBrowLift: relativeBrowRatio < 0.38
+                needsCheekDefinition: cheekWidth < jawWidth * 1.12
             };
         }
 
-        // REAL DYNAMIC VISUAL TRANSFORMATION ON HER LANDMARKS
-        function renderRealVisualTransformation(ctx, lm, w, h, analysis) {
-            // A. Nose Contouring Simulation (If Alar Width > Intercanthal Distance)
-            if (analysis.needsNoseSlimming) {
-                ctx.fillStyle = 'rgba(58, 46, 43, 0.15)';
-                ctx.filter = 'blur(4px)';
-                ctx.beginPath();
-                ctx.arc(lm[98].x * w, lm[98].y * h, w / 45, 0, Math.PI * 2);
-                ctx.arc(lm[327].x * w, lm[327].y * h, w / 45, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.filter = 'none';
-            }
-
-            // B. Upper Lip Volume & Lift Highlight (If Upper Lip < 1:1.6 Golden Ratio)
-            if (analysis.needsUpperLipPlump) {
-                ctx.fillStyle = 'rgba(224, 169, 144, 0.4)';
-                ctx.filter = 'blur(2px)';
-                ctx.beginPath();
-                ctx.ellipse(lm[0].x * w, lm[0].y * h, w / 22, h / 40, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.filter = 'none';
-            }
-
-            // C. Cheekbone Lift & Illumination (If Marquardt Ratio indicates cheek fullness need)
-            if (analysis.needsCheekDefinition) {
-                ctx.fillStyle = 'rgba(255, 250, 245, 0.3)';
-                ctx.filter = 'blur(6px)';
-                ctx.beginPath();
-                ctx.arc(lm[234].x * w, lm[234].y * h, w / 16, 0, Math.PI * 2);
-                ctx.arc(lm[454].x * w, lm[454].y * h, w / 16, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.filter = 'none';
-            }
-        }
-
-        // SCIENTIFIC CITATION REPORT BUILDER
-        function buildScientificReportUI(analysis) {
-            const container = document.getElementById('dynamicRecommendations');
+        // BUILD FREE SCIENTIFIC TEASER REPORT (Text & Citations Only)
+        function buildScientificTeaserUI(analysis) {
+            const container = document.getElementById('teaserRecommendations');
             container.innerHTML = '';
 
             const recs = [];
 
             if (analysis.needsNoseSlimming) {
                 recs.push({
-                    title: "عرض القاعدة الأنفية (Alar Base Width)",
+                    title: "تحليل قاعدة الأنف (Alar Base Width)",
                     desc: "أظهر المسح البصري اتساعاً في قاعدة الأنف مقارنة بالمسافة بين الموقين الداخليين للعين.",
-                    citation: "وفق قانون فاركاس الأفقي (Farkas Canon 4: Intercanthal-Alar Ratio)."
+                    citation: "Farkas Canon 4: Intercanthal-Alar Ratio (1985)"
                 });
             } else {
                 recs.push({
-                    title: "تناسق القاعدة الأنفية (Alar Base Harmony)",
-                    desc: "عرض قاعدة الأنف مطابِق تماماً للمسافة بين العينين ضمن الحدود النموذجية.",
-                    citation: "مطابق لمعيار فاركاس الأفقي التناسب القياسي (Farkas Canon 4)."
+                    title: "تناسق قاعدة الأنف (Alar Base Harmony)",
+                    desc: "عرض قاعدة الأنف مطابِق للمسافة بين العينين ضمن الحدود النموذجية القياسية.",
+                    citation: "Farkas Canon 4 Standard"
                 });
             }
 
             if (analysis.needsUpperLipPlump) {
                 recs.push({
-                    title: "نسبة امتداد الشفة العلوية (Vermilion Height Ratio)",
+                    title: "امتداد الشفة العلوية (Vermilion Height)",
                     desc: "ارتفاع الشفة العلوية أقل من النسبة الذهبية الجمالية المقترحة مقارنة بالسفلية.",
-                    citation: "وفق قانون باول وهمفري للتناسب الجمالي (Powell & Humphreys Golden Decagon Ratio 1:1.618)."
+                    citation: "Powell & Humphreys Golden Decagon Ratio (1:1.618)"
                 });
             } else {
                 recs.push({
                     title: "توازن الشفتين (Balanced Lip Vermilion)",
-                    desc: "تناسق الارتفاع العمودي بين الشفة العلوية والسفلية متوازن تماماً.",
-                    citation: "مطابق لنسبة النسبة الذهبية (Golden Ratio 1:1.618)."
+                    desc: "تناسق الارتفاع العمودي بين الشفة العلوية والسفلية متوازن تماماً مع النسبة الذهبية.",
+                    citation: "Golden Ratio 1:1.618 Standard"
                 });
             }
 
             if (analysis.needsCheekDefinition) {
                 recs.push({
-                    title: "نسبة بروز الخدود للفك (Bizygomatic to Bigonial Ratio)",
-                    desc: "عرض الخدود يحتاج دعماً خفيفاً لإعطاء تباين أنثوي واضح مع خط الفك السفلي.",
-                    citation: "مستند لمعيار ماركارد للنسبة الذهبية للوجه (Marquardt Golden Facial Mask)."
+                    title: "نسبة الخدود للفك (Bizygomatic to Bigonial Ratio)",
+                    desc: "عرض الخدود يحتاج دعماً بكتلة الفيلر لإعطاء تباين أنثوي واضح مع خط الفك السفلي.",
+                    citation: "Marquardt Golden Facial Mask Standard"
                 });
             }
 
@@ -363,14 +327,71 @@
                 const box = document.createElement('div');
                 box.className = 'citation-box';
                 box.innerHTML = `
-                    <div style="font-weight: bold; color: var(--text-main);">${r.title}</div>
-                    <div style="color: var(--text-muted); font-size: 0.7rem; margin: 2px 0;">${r.desc}</div>
+                    <div style="font-weight: bold; color: var(--text-main); font-size: 0.78rem;">${r.title}</div>
+                    <div style="color: var(--text-muted); font-size: 0.7rem; margin: 3px 0;">${r.desc}</div>
                     <span class="academic-badge">${r.citation}</span>
                 `;
                 container.appendChild(box);
             });
         }
 
+        // TRIGGER APPLE PAY PAYMENT TO UNLOCK VISUAL RESULT
+        function simulatePayment() {
+            alert("تم قبول الدفع بنجاح عبر Apple Pay! جاري فتح الصورة النهائية المعدلة.");
+            
+            document.getElementById('teaserReportSection').classList.add('hidden');
+            document.getElementById('unlockedVisualSection').classList.remove('hidden');
+
+            // Render Real Transformed "After" Canvas on Her Actual Landmark Points
+            const aCanvas = document.getElementById('afterCanvas');
+            const aCtx = aCanvas.getContext('2d');
+            aCanvas.width = uploadedImg.width;
+            aCanvas.height = uploadedImg.height;
+            aCtx.drawImage(uploadedImg, 0, 0);
+
+            // Apply Dynamic Tailored Transformation on Canvas
+            renderRealVisualTransformation(aCtx, currentLandmarks, aCanvas.width, aCanvas.height, currentAnalysis);
+
+            // Duplicate Recommendations inside unlocked PDF container view
+            document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
+        }
+
+        // REAL DYNAMIC VISUAL TRANSFORMATION ON HER LANDMARKS (Post-Payment)
+        function renderRealVisualTransformation(ctx, lm, w, h, analysis) {
+            // A. Nose Contouring Simulation
+            if (analysis.needsNoseSlimming) {
+                ctx.fillStyle = 'rgba(58, 46, 43, 0.18)';
+                ctx.filter = 'blur(4px)';
+                ctx.beginPath();
+                ctx.arc(lm[98].x * w, lm[98].y * h, w / 40, 0, Math.PI * 2);
+                ctx.arc(lm[327].x * w, lm[327].y * h, w / 40, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.filter = 'none';
+            }
+
+            // B. Upper Lip Volume & Lift Highlight
+            if (analysis.needsUpperLipPlump) {
+                ctx.fillStyle = 'rgba(224, 169, 144, 0.45)';
+                ctx.filter = 'blur(2px)';
+                ctx.beginPath();
+                ctx.ellipse(lm[0].x * w, lm[0].y * h, w / 20, h / 38, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.filter = 'none';
+            }
+
+            // C. Cheekbone Lift & Illumination
+            if (analysis.needsCheekDefinition) {
+                ctx.fillStyle = 'rgba(255, 250, 245, 0.35)';
+                ctx.filter = 'blur(6px)';
+                ctx.beginPath();
+                ctx.arc(lm[234].x * w, lm[234].y * h, w / 15, 0, Math.PI * 2);
+                ctx.arc(lm[454].x * w, lm[454].y * h, w / 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.filter = 'none';
+            }
+        }
+
+        // PDF DOWNLOAD ENGINE
         async function downloadPDFReport() {
             try {
                 if (!window.html2pdf) {
@@ -379,7 +400,7 @@
                 const element = document.getElementById('pdfContainer');
                 window.html2pdf().set({
                     margin: 0.3,
-                    filename: 'AuraRatio_Scientific_Aesthetic_Report.pdf',
+                    filename: 'AuraRatio_Unlocked_Report.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
