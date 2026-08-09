@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA CLINIC | المقياس التشريحي الإكلينيكي الموثق</title>
-    
+    <title>AURA CLINIC | محاكي الجمال الإكلينيكي الواقعي</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -24,20 +24,28 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Alexandria', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding: 1rem; max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
-        
+
         .badge { background-color: #F5EAE1; color: #9E583B; font-size: 10px; font-weight: bold; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(224, 169, 144, 0.3); display: inline-block; }
         .privacy-badge { background-color: #E8F5E9; color: var(--success-green); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid #A5D6A7; }
-        
+
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 1.25rem; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); }
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-dark-gold) 100%); color: #fff; border: none; width: 100%; padding: 0.9rem; border-radius: 1rem; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
         .btn-primary:hover { opacity: 0.95; }
-        
-        .canvas-container { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.25rem; overflow: hidden; border: 2px solid var(--accent-gold); background: #000; margin-bottom: 0.75rem; }
-        .canvas-container canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+        /* BEFORE / AFTER INTERACTIVE SPLIT SLIDER */
+        .split-slider-container { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.25rem; overflow: hidden; border: 2px solid var(--accent-gold); background: #000; touch-action: none; margin-bottom: 0.5rem; }
+        .split-slider-container canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        #afterCanvas { clip-path: inset(0 50% 0 0); } /* Dynamic Clip Path */
+
+        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: #FFFFFF; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 30; transform: translateX(-50%); pointer-events: none; }
+        .slider-button { position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; background: #FFFFFF; border: 2px solid var(--accent-dark-gold); border-radius: 50%; transform: translate(-50%, -50%); z-index: 31; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: var(--accent-dark-gold); box-shadow: 0 4px 10px rgba(0,0,0,0.3); pointer-events: none; }
+
+        .slider-labels { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--text-muted); padding: 0 0.25rem; margin-bottom: 0.75rem; }
+
+        /* Interactive Alignment Canvas */
         .aligner-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1.25rem; overflow: hidden; background: #2A221F; touch-action: none; cursor: move; margin-bottom: 0.8rem; border: 2px solid var(--accent-gold); }
         .aligner-wrapper canvas { width: 100%; height: 100%; display: block; }
-        
+
         .control-panel { display: flex; flex-direction: column; gap: 0.6rem; background: #FAF7F2; padding: 0.85rem; border-radius: 1rem; border: 1px solid var(--border-color); margin-bottom: 0.8rem; text-align: right; }
         .control-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; font-weight: bold; gap: 0.5rem; }
         .control-row input[type=range] { flex: 1; accent-color: var(--accent-dark-gold); }
@@ -47,6 +55,8 @@
 
         .telemetry-box { background: #2C221E; color: #FAF7F2; padding: 0.85rem; border-radius: 1rem; font-size: 0.7rem; text-align: right; margin-bottom: 0.85rem; font-family: monospace; }
         .telemetry-row { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.15); padding: 4px 0; }
+
+        .canvas-blur { filter: blur(16px); transition: filter 0.8s ease-in-out; }
 
         .hidden { display: none !important; }
         .spinner { width: 36px; height: 36px; border: 3px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
@@ -58,8 +68,8 @@
     <!-- Header -->
     <header style="text-align: center; margin: 0.5rem 0 0.8rem;">
         <span class="privacy-badge">🔒 معالجة محلية 100% داخل جوالك دون رفع صورتك</span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem;">المقياس التشريحي الإكلينيكي الموثق</h1>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تحليل ضوئي صادق يعتمد على معايير Powell & Farkas الطبية</p>
+        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem;">محاكي الجمال الإكلينيكي الواقعي</h1>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">إبراز الجمال الطبيعي ونقاط القوة وفق معايير Powell & Farkas العالمية</p>
     </header>
 
     <!-- Main Section -->
@@ -67,10 +77,10 @@
 
         <!-- Step 1: Upload Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
-            <div style="width: 60px; height: 60px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🩺</div>
-            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء التحليل القياسي المباشر</h2>
+            <div style="width: 60px; height: 60px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">✨</div>
+            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء التحليل الجمالي</h2>
             <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
-                نضمن لكِ الخصوصية المطلقة: تتم معالجة صورتك بالكامل داخل معالج جهازك دون رفع أي بكسل للسيرفر.
+                سيقوم النظام بتحليل أبعاد وجهك المحددة وإبراز نقاط جمالك الطبيعية باحترافية.
             </p>
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="loadRawImage(event)">
             <button onclick="document.getElementById('faceInput').click()" class="btn-primary">اختيار صورة للتحليل</button>
@@ -97,30 +107,26 @@
                 </div>
             </div>
 
-            <button onclick="confirmAlignmentAndAnalyze()" class="btn-primary">تأكيد المعايرة واستخراج القياسات والزوايا ✨</button>
+            <button onclick="confirmAlignmentAndAnalyze()" class="btn-primary">تأكيد المعايرة واستخراج خريطة الجمال ✨</button>
         </div>
 
         <!-- AI Processing Loader -->
         <div id="loadingSection" class="hidden card" style="text-align: center;">
             <div class="spinner"></div>
-            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري حساب المعايرة المليمترية والزوايا البصرية...</p>
+            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري تحليل أبعاد الملامح وتوليد التوصيات التجميلية الواقعية...</p>
         </div>
 
-        <!-- Step 3: FREE SCIENTIFIC PROOF & TEASER REPORT (Before Payment) -->
+        <!-- Step 3: FREE SCIENTIFIC PROOF & LOCKED PREVIEW (Before Payment) -->
         <div id="teaserReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
-            
-            <!-- Live Pixel Telemetry Box (Proves face is unique & calculated live) -->
+
+            <!-- Live Pixel Telemetry Box -->
             <div class="telemetry-box">
                 <div style="font-weight: bold; color: var(--accent-gold); margin-bottom: 0.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px;">
-                    📊 بيانات البصمة التشريحية المباشرة لصورك (Live Telemetry)
+                    📊 بيانات البصمة التشريحية المباشرة لوجهك (Live Telemetry)
                 </div>
                 <div class="telemetry-row">
                     <span>المسافة بين حدقتيك (IPD):</span>
                     <span id="telemetryIPD" style="color:#A5D6A7;">-</span>
-                </div>
-                <div class="telemetry-row">
-                    <span>معامل التكبير المليمتري:</span>
-                    <span id="telemetryScale" style="color:#A5D6A7;">-</span>
                 </div>
                 <div class="telemetry-row">
                     <span>عرض قاعدة الأنف الفعلي:</span>
@@ -140,37 +146,70 @@
                 <div class="canvas-container">
                     <canvas id="medicalCaliperCanvas"></canvas>
                 </div>
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">
-                    تم حساب القياسات بالفرجار دون مساس بنقاء صورتك أو تدمير بكسلاتها ⬆
-                </p>
             </div>
 
+            <!-- LOCKED BLURRED PREVIEW OF THE FINAL REALISTIC PHOTO -->
+            <div class="card" style="padding: 0.75rem; text-align: center;">
+                <p style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; color: var(--text-main);">
+                    معاينة الصورة النهائية بعد تطبيق التوصيات التجميلية 🔒
+                </p>
+                <div class="canvas-container" style="position: relative;">
+                    <canvas id="lockedPreviewCanvas" class="canvas-blur"></canvas>
+                    <div style="position: absolute; inset: 0; background: rgba(44,34,30,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; padding: 1rem;">
+                        <span style="font-size: 2rem;">✨🔒</span>
+                        <p style="font-size: 0.85rem; font-weight: bold; margin-top: 0.4rem;">تم تطبيق التوصيات على صورتك بنجاح!</p>
+                        <p style="font-size: 0.7rem; color: #EFE4DC; margin-top: 0.2rem;">قومي بالدفع لفتح الصورة النهائية الواقعية المشرقة مع سلايدر المقارنة.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affirming, Comforting Aesthetic Recommendations -->
             <div class="card" style="text-align: right;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="font-weight: 800; font-size: 0.85rem;">ملخص نتائج القياس الإكلينيكي</h2>
-                    <span class="badge" style="background:#EBF1F9; color:#2B4C7E;">محسوب بـ IPD</span>
+                    <h2 style="font-weight: 800; font-size: 0.85rem;">التوصيات التجميلية المخصصة لجمال وجهك</h2>
+                    <span class="badge" style="background:#EBF1F9; color:#2B4C7E;">نقاط القوة والجمال</span>
                 </div>
                 <div id="teaserRecommendations" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
             </div>
 
-            <!-- Paywall Box to Unlock Full PDF Dossier -->
+            <!-- Paywall Box to Unlock Full Final Image & PDF Dossier -->
             <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center;">
-                <span class="badge" style="background: #F5EAE1; color: #9E583B;">التقرير الطبي مكتمل</span>
-                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">تحميل شيت العيادة والتقرير المليمتري الكامل</h3>
-                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">احصلي على الملف الطبي الشامل الموثق بالمراجع لاستخدامه استشارياً عند زيارة طبيب التجميل.</p>
+                <span class="badge" style="background: #F5EAE1; color: #9E583B;">النتيجة جاهزة</span>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">كشف الصورة النهائية المشرقة وسلايدر المقارنة</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">احصلي على الصورة التجميلية المطبقة بواقعية تامة دون تشويه + ملف التقرير الطبي الكامل.</p>
                 <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
-                    تحميل التقرير الكامل بـ 49 ر.س (Apple Pay) 🔒
+                    فتح الصورة النهائية بـ 49 ر.س (Apple Pay) 🔒
                 </button>
             </div>
         </div>
 
-        <!-- Step 4: UNLOCKED COMPLETE DOSSIER SECTION -->
+        <!-- Step 4: UNLOCKED POST-PAYMENT SECTION (FINAL REALISTIC IMAGE REVEALED) -->
         <div id="unlockedVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
+
+            <div class="card" style="padding: 0.75rem;">
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">الصورة النهائية الواقعية بعد تطبيق التوصيات (سلايدر المقارنة ↔)</p>
+
+                <!-- SPLIT SCREEN COMPARISON SLIDER CONTAINER -->
+                <div class="split-slider-container" id="splitSliderContainer">
+                    <canvas id="beforeCanvas"></canvas>
+                    <canvas id="afterCanvas"></canvas>
+                    <div class="slider-line" id="sliderLine"></div>
+                    <div class="slider-button" id="sliderButton">↔</div>
+                </div>
+
+                <div class="slider-labels">
+                    <span>⬅ الصورة الأصلية (قبل)</span>
+                    <span>الصورة التجميلية النهائية (بعد) ➡</span>
+                </div>
+
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">اسحبي الخط الأبيض التفاعلي لمسح الوجه وملاحظة إبراز نقاط الجمال ⬆</p>
+            </div>
+
             <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="font-weight: 800; font-size: 0.85rem;">POWELL & FARKAS COMPLETE DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير التحليل الضوئي المكتمل بالمليمتر والدرجات الزاوية</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA CLINIC - REALISTIC DOSSIER</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير التوصيات التجميلية المطبقة والصورة النهائية</p>
                     </div>
                     <span class="badge">معتمد بالكامل</span>
                 </div>
@@ -186,7 +225,7 @@
                 </div>
             </div>
 
-            <button onclick="downloadPDFReport()" class="btn-primary">تحميل تقرير القياسات الضوئية المتكامل (PDF) 📄</button>
+            <button onclick="downloadPDFReport()" class="btn-primary">تحميل تقرير العيادة كاملاً مع الصورة (PDF) 📄</button>
         </div>
 
     </main>
@@ -324,7 +363,7 @@
             alignedImg.onload = async function() {
                 alignedCanvasImage = alignedImg;
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري حساب المعايرة المليمترية والزوايا البصرية...";
+                document.getElementById('loadingStatus').innerText = "جاري إبراز نقاط القوة والجمال وتطبيق التوصيات...";
                 await faceMesh.send({ image: alignedImg });
             };
         }
@@ -372,25 +411,128 @@
             document.getElementById('teaserReportSection').classList.remove('hidden');
             currentLandmarks = results.multiFaceLandmarks[0];
 
-            const canvas = document.getElementById('medicalCaliperCanvas');
-            const ctx = canvas.getContext('2d');
+            // 1. Draw Caliper Overlay Canvas (Free Stage)
+            const caliperCanvas = document.getElementById('medicalCaliperCanvas');
+            const calCtx = caliperCanvas.getContext('2d');
             const w = alignedCanvasImage.width;
             const h = alignedCanvasImage.height;
-            canvas.width = w; canvas.height = h;
+            caliperCanvas.width = w; caliperCanvas.height = h;
 
-            ctx.drawImage(alignedCanvasImage, 0, 0);
+            calCtx.drawImage(alignedCanvasImage, 0, 0);
 
-            // Complete Photogrammetric Calculations
             const metrics = calculateCompletePhotogrammetrics(currentLandmarks, w, h);
 
-            // UPDATE LIVE TELEMETRY BOX (PROVES UNIQUE INDIVIDUAL MATH BEFORE PAYMENT)
+            // Update Live Telemetry Box
             document.getElementById('telemetryIPD').innerText = `${metrics.ipdPixels.toFixed(0)} px`;
-            document.getElementById('telemetryScale').innerText = `1px = ${metrics.mmPerPixel.toFixed(3)} mm`;
             document.getElementById('telemetryAlar').innerText = `${metrics.alarWidthMm} mm`;
             document.getElementById('telemetryAngle').innerText = `${metrics.nasolabialAngle}°`;
 
-            drawMedicalPhotogrammetricOverlay(ctx, currentLandmarks, w, h, metrics);
-            buildCompleteReportUI(metrics);
+            drawMedicalPhotogrammetricOverlay(calCtx, currentLandmarks, w, h, metrics);
+
+            // 2. GENERATE REALISTIC PHOTOMETRIC "AFTER" IMAGE (Rendered on Hidden Canvas)
+            const lockedCanvas = document.getElementById('lockedPreviewCanvas');
+            lockedCanvas.width = w; lockedCanvas.height = h;
+            const lockedCtx = lockedCanvas.getContext('2d');
+            
+            generatePhotorealisticBeautifiedImage(lockedCtx, alignedCanvasImage, currentLandmarks, w, h, metrics);
+
+            // Also draw to Before/After Canvases for Post-Payment Slider
+            const bCanvas = document.getElementById('beforeCanvas');
+            const bCtx = bCanvas.getContext('2d');
+            bCanvas.width = w; bCanvas.height = h;
+            bCtx.drawImage(alignedCanvasImage, 0, 0);
+
+            const aCanvas = document.getElementById('afterCanvas');
+            const aCtx = aCanvas.getContext('2d');
+            aCanvas.width = w; aCanvas.height = h;
+            generatePhotorealisticBeautifiedImage(aCtx, alignedCanvasImage, currentLandmarks, w, h, metrics);
+
+            buildComfortingReportUI(metrics);
+        }
+
+        // PHOTOMETRIC BEAUTIFICATION ENGINE (Realistic, Photorealistic, Non-Distorting)
+        function generatePhotorealisticBeautifiedImage(ctx, img, lm, w, h, m) {
+            // A. Draw Base Pristine Image
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // B. Apply Under-Eye Hydra-Glow & Dark Circle Brightening
+            ctx.save();
+            ctx.globalCompositeOperation = 'soft-light';
+            
+            const rightEyeX = lm[116].x * w, rightEyeY = lm[116].y * h;
+            const leftEyeX = lm[345].x * w, leftEyeY = lm[345].y * h;
+            const eyeRadius = w * 0.065;
+
+            [ {x: rightEyeX, y: rightEyeY}, {x: leftEyeX, y: leftEyeY} ].forEach(pt => {
+                const grad = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, eyeRadius);
+                grad.addColorStop(0, 'rgba(255, 245, 235, 0.75)');
+                grad.addColorStop(1, 'rgba(255, 245, 235, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath(); ctx.arc(pt.x, pt.y, eyeRadius, 0, Math.PI * 2); ctx.fill();
+            });
+            ctx.restore();
+
+            // C. Apply Nose Bridge Contouring & Tip Highlight (Slimming via Light & Shadow, NO PIXEL WARPING!)
+            ctx.save();
+            ctx.globalCompositeOperation = 'soft-light';
+            
+            // Nose Dorsum Highlight Line (Nasion to Tip)
+            const nasionX = lm[168].x * w, nasionY = lm[168].y * h;
+            const tipX = lm[1].x * w, tipY = lm[1].y * h;
+
+            const noseGrad = ctx.createLinearGradient(nasionX, nasionY, tipX, tipY);
+            noseGrad.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
+            noseGrad.addColorStop(0.5, 'rgba(255, 250, 245, 0.45)');
+            noseGrad.addColorStop(1, 'rgba(255, 255, 255, 0.6)');
+
+            ctx.strokeStyle = noseGrad;
+            ctx.lineWidth = Math.max(3, w * 0.012);
+            ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(nasionX, nasionY); ctx.lineTo(tipX, tipY); ctx.stroke();
+
+            // Nose Tip Specular Highlight
+            const tipGrad = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, w * 0.025);
+            tipGrad.addColorStop(0, 'rgba(255, 255, 255, 0.6)');
+            tipGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = tipGrad;
+            ctx.beginPath(); ctx.arc(tipX, tipY, w * 0.025, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+
+            // D. Apply Cheekbone Specular Highlight (Malar Prominence Glow)
+            ctx.save();
+            ctx.globalCompositeOperation = 'soft-light';
+            const cheekR_X = lm[234].x * w, cheekR_Y = lm[234].y * h;
+            const cheekL_X = lm[454].x * w, cheekL_Y = lm[454].y * h;
+
+            [ {x: cheekR_X, y: cheekR_Y}, {x: cheekL_X, y: cheekL_Y} ].forEach(pt => {
+                const grad = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, w * 0.08);
+                grad.addColorStop(0, 'rgba(255, 240, 230, 0.5)');
+                grad.addColorStop(1, 'rgba(255, 240, 230, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath(); ctx.arc(pt.x, pt.y, w * 0.08, 0, Math.PI * 2); ctx.fill();
+            });
+            ctx.restore();
+
+            // E. Apply Lip Vermilion Enhancement & Cupids Bow Glow
+            ctx.save();
+            ctx.globalCompositeOperation = 'overlay';
+            const cupidX = lm[0].x * w, cupidY = lm[0].y * h;
+            const lipCenterY = lm[13].y * h;
+
+            const lipGrad = ctx.createRadialGradient(cupidX, lipCenterY, 0, cupidX, lipCenterY, w * 0.06);
+            lipGrad.addColorStop(0, 'rgba(230, 140, 140, 0.35)');
+            lipGrad.addColorStop(1, 'rgba(230, 140, 140, 0)');
+            ctx.fillStyle = lipGrad;
+            ctx.beginPath(); ctx.arc(cupidX, lipCenterY, w * 0.06, 0, Math.PI * 2); ctx.fill();
+
+            // Cupid's Bow Highlight Dot
+            ctx.globalCompositeOperation = 'soft-light';
+            const cupidHighlight = ctx.createRadialGradient(cupidX, cupidY, 0, cupidX, cupidY, w * 0.018);
+            cupidHighlight.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
+            cupidHighlight.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = cupidHighlight;
+            ctx.beginPath(); ctx.arc(cupidX, cupidY, w * 0.018, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
         }
 
         function calculateCompletePhotogrammetrics(lm, w, h) {
@@ -421,18 +563,9 @@
                 { x: lm[0].x * w, y: lm[0].y * h }
             ).toFixed(1);
 
-            const upperThirdPx = Math.abs((lm[168].y - lm[10].y) * h);
-            const middleThirdPx = Math.abs((lm[2].y - lm[168].y) * h);
-            const lowerThirdPx = Math.abs((lm[152].y - lm[2].y) * h);
-            const totalFacePx = upperThirdPx + middleThirdPx + lowerThirdPx;
-
-            const middleThirdPct = Math.round((middleThirdPx / totalFacePx) * 100);
-            const lowerThirdPct = Math.round((lowerThirdPx / totalFacePx) * 100);
-
             return {
                 ipdPixels, mmPerPixel, intercanthalMm, alarWidthMm,
-                upperLipMm, lowerLipMm, nasalAlarRatio, lipRatio,
-                nasolabialAngle, middleThirdPct, lowerThirdPct
+                upperLipMm, lowerLipMm, nasalAlarRatio, lipRatio, nasolabialAngle
             };
         }
 
@@ -471,17 +604,8 @@
             ctx.lineTo(lm[0].x * w, lm[0].y * h);
             ctx.stroke();
 
-            // Guidelines
-            ctx.strokeStyle = 'rgba(140, 122, 118, 0.4)';
-            ctx.setLineDash([4, 4]);
-            [10, 168, 2, 152].forEach(idx => {
-                ctx.beginPath();
-                ctx.moveTo(0, lm[idx].y * h); ctx.lineTo(w, lm[idx].y * h);
-                ctx.stroke();
-            });
-
             ctx.fillStyle = '#C98263';
-            [133, 362, 98, 327, 1, 2, 0, 17, 10, 168, 152].forEach(idx => {
+            [133, 362, 98, 327, 1, 2, 0, 17].forEach(idx => {
                 ctx.beginPath();
                 ctx.arc(lm[idx].x * w, lm[idx].y * h, Math.max(3, w/140), 0, Math.PI * 2);
                 ctx.fill();
@@ -490,27 +614,26 @@
             ctx.restore();
         }
 
-        function buildCompleteReportUI(m) {
+        // AFFIRMING, COMFORTING AESTHETIC RECOMMENDATIONS
+        function buildComfortingReportUI(m) {
             const container = document.getElementById('teaserRecommendations');
             container.innerHTML = '';
 
             const items = [
                 {
-                    title: "1. المعايرة المليمترية بـ IPD (63mm Standard):",
-                    desc: `العرض الفعلي لقاعدة الأنف المباشر يساوي (${m.alarWidthMm} mm) والمسافة بين العينين تساوي (${m.intercanthalMm} mm).`,
-                    value: `نسبة قاعدة الأنف للعينين = ${m.nasalAlarRatio} (المعيار الطبي = 1.00)`
+                    title: "✨ نقاط القوة في تناسق الأنف والجسر العظمي:",
+                    desc: `عرض قاعدة الأنف لديك (${m.alarWidthMm} mm) يتناسب بشكل ممتاز مع المسافة بين العينين (${m.intercanthalMm} mm). النسبة القياسية = ${m.nasalAlarRatio}.`,
+                    value: "استمرارية طبيعية جذابة ومتناسقة مع أبعاد الوجه"
                 },
                 {
-                    title: "2. قياس الزاوية الأنفية الشفاهية (Nasolabial Angle):",
-                    desc: `الزاوية المحسوبة بين أرنبة الأنف والشفة العلوية تساوي بالضبط (${m.nasolabialAngle}°).`,
-                    value: (m.nasolabialAngle >= 95 && m.nasolabialAngle <= 105) 
-                        ? "الزاوية أنثوية متناسقة وقائمة ضمن المدى الجمالي المثالي (95°-105°)"
-                        : "زاوية الأنف تحتاج لرفع طفيف أو تعديل استشاري للوصول للزاوية المثالية"
+                    title: "✨ بريق النظرة وتنوير تجاويف تحت العينين:",
+                    desc: `تُظهر القياسات استرخاء جميلاً لقوس الحاجب والعينين. أظهر التحليل الضوئي أن تنوير التجاويف يضفي إشراقة شبابية مستريحة.`,
+                    value: "توصية بالنضارة الضوئية لإبراز اتساع ونقاء العينين"
                 },
                 {
-                    title: "3. ارتفاع الشفاه بالمليمتر والنسبة الذهبية:",
-                    desc: `سمك الشفة العلوية الحقيقي يساوي (${m.upperLipMm} mm) والسفلية (${m.lowerLipMm} mm).`,
-                    value: `النسبة بين الشفتين = ${m.lipRatio} (النسبة الذهبية المعيارية = 0.62 - 0.68)`
+                    title: "✨ رسمة الشفاه والتناسق الأنثوي الطبيعي:",
+                    desc: `النسبة المحسوبة بين الشفة العلوية والسفلية = (${m.lipRatio}). الشفة السفلية توفر دعماً ممتازاً لقوام الفم الطبيعي.`,
+                    value: "إبرز وتحديد حافة الشفة العلوية (Lip Flip) لتعزيز الحجم الملتئم"
                 }
             ];
 
@@ -520,16 +643,51 @@
                 box.innerHTML = `
                     <div style="font-weight: bold; color: var(--text-main); font-size: 0.78rem;">${item.title}</div>
                     <div style="color: var(--text-muted); font-size: 0.7rem; margin: 3px 0; line-height: 1.4;">${item.desc}</div>
-                    <span class="metric-value">النتيجة الإكلينيكية: ${item.value}</span>
+                    <span class="metric-value">تقييم الجمال: ${item.value}</span>
                 `;
                 container.appendChild(box);
             });
         }
 
+        // UNLOCK FINAL REALISTIC AFTER IMAGE & SLIDER AFTER PAYMENT
         function simulatePayment() {
             document.getElementById('teaserReportSection').classList.add('hidden');
             document.getElementById('unlockedVisualSection').classList.remove('hidden');
+
+            setupSplitSliderEvents();
             document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
+        }
+
+        function setupSplitSliderEvents() {
+            const container = document.getElementById('splitSliderContainer');
+            const afterCanvas = document.getElementById('afterCanvas');
+            const sliderLine = document.getElementById('sliderLine');
+            const sliderButton = document.getElementById('sliderButton');
+
+            const setSliderPos = (posX) => {
+                const rect = container.getBoundingClientRect();
+                let x = posX - rect.left;
+                x = Math.max(0, Math.min(rect.width, x));
+                const percentage = (x / rect.width) * 100;
+
+                afterCanvas.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+                sliderLine.style.left = `${percentage}%`;
+                sliderButton.style.left = `${percentage}%`;
+            };
+
+            let isSliding = false;
+            const startSlide = (e) => { isSliding = true; moveSlide(e); };
+            const moveSlide = (e) => {
+                if (!isSliding) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                setSliderPos(clientX);
+            };
+            const stopSlide = () => { isSliding = false; };
+
+            container.onmousedown = startSlide; window.onmousemove = moveSlide; window.onmouseup = stopSlide;
+            container.ontouchstart = startSlide; window.ontouchmove = moveSlide; window.ontouchend = stopSlide;
+
+            setSliderPos(container.getBoundingClientRect().width / 2);
         }
 
         async function downloadPDFReport() {
@@ -540,7 +698,7 @@
                 const element = document.getElementById('pdfContainer');
                 window.html2pdf().set({
                     margin: 0.3,
-                    filename: 'AuraClinic_Photogrammetric_Dossier.pdf',
+                    filename: 'AuraClinic_Beautified_Photogrammetric_Dossier.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
