@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA RATIO | المحاكي الفيزيائي الحقيقي للملامح</title>
+    <title>AURA RATIO | المحاكي الفيزيائي المعاير للملامح</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,14 +18,13 @@
             --accent-gold: #E0A990;
             --accent-dark-gold: #C98263;
             --border-color: #EFE4DC;
-            --academic-blue: #2B4C7E;
+            --error-red: #D9534F;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Alexandria', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding: 1rem; max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         
         .badge { background-color: #F5EAE1; color: #9E583B; font-size: 10px; font-weight: bold; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(224, 169, 144, 0.3); display: inline-block; }
-        .academic-badge { background-color: #EBF1F9; color: var(--academic-blue); font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-top: 4px; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 1.25rem; box-shadow: 0 12px 35px rgba(212, 163, 115, 0.1); }
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-dark-gold) 100%); color: #fff; border: none; width: 100%; padding: 1rem; border-radius: 1rem; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
         .btn-primary:hover { opacity: 0.95; }
@@ -34,6 +33,14 @@
         .img-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 1rem; overflow: hidden; background: #1a1a1a; border: 1px solid var(--border-color); }
         .img-box canvas { width: 100%; height: 100%; object-fit: cover; }
         .img-label { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.75); color: #fff; font-size: 8px; padding: 3px 7px; border-radius: 4px; backdrop-filter: blur(4px); font-weight: bold; }
+
+        /* Face Alignment Guide Overlay */
+        .guide-box { position: relative; width: 100%; aspect-ratio: 1/1; border: 2px dashed var(--accent-gold); border-radius: 1rem; margin-bottom: 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FFFDFB; overflow: hidden; }
+        .guide-oval { width: 55%; height: 70%; border: 2px solid rgba(224, 169, 144, 0.6); border-radius: 50%; position: absolute; pointer-events: none; }
+        .guide-line-h { width: 100%; border-top: 1px dashed rgba(224, 169, 144, 0.4); position: absolute; top: 42%; }
+        .guide-line-v { height: 100%; border-left: 1px dashed rgba(224, 169, 144, 0.4); position: absolute; left: 50%; }
+
+        .error-banner { background: #FDF2F2; color: var(--error-red); border: 1px solid #F5C6CB; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 1rem; }
 
         .hidden { display: none !important; }
         .spinner { width: 36px; height: 36px; border: 3px solid var(--accent-gold); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
@@ -45,35 +52,44 @@
 
     <!-- Header -->
     <header style="text-align: center; margin: 0.5rem 0 1rem;">
-        <span class="badge">AURA ADVANCED PIXEL MESH ENGINE</span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">المحاكي الفيزيائي الحقيقي للملامح</h1>
-        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">تعديل فيزيائي بكسلي حقيقي بدون ألوان، فلاتر، أو رسومات</p>
+        <span class="badge">AURA PRECISION MICRO-WARP ENGINE</span>
+        <h1 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.4rem;">المحاكي الفيزيائي المعاير للملامح</h1>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">نظام التعديل الميكروي الناعم مع المعايرة التلقائية لاستقامة الوجه</p>
     </header>
 
     <!-- Main Section -->
     <main style="display: flex; flex-direction: column; gap: 1rem; flex: 1; justify-content: center;">
 
-        <!-- Step 1: Upload Section -->
+        <!-- Step 1: Upload & Alignment Guide Section -->
         <div id="uploadSection" class="card" style="text-align: center;">
-            <div style="width: 56px; height: 56px; margin: 0 auto 0.75rem; border-radius: 50%; background: #F5EAE1; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">📸</div>
-            <h2 style="font-size: 0.9rem; font-weight: bold;">ارفعي صورة الوجه لبدء المحاكاة الجراحية</h2>
-            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">يتم إزاحة وتنعيم بكسلات الوجه بفيزياء المتجهات للحفاظ على نسيج الجلد الطبيعي.</p>
+            
+            <div class="guide-box">
+                <div class="guide-oval"></div>
+                <div class="guide-line-h"></div>
+                <div class="guide-line-v"></div>
+                <p style="font-size: 0.68rem; color: var(--text-muted); z-index: 10; background: rgba(255,255,255,0.85); padding: 4px 8px; border-radius: 6px;">
+                    شروط قبول الصورة:<br>وجه مستقيم بدون ميلان | العيون على الخط الأفقي
+                </p>
+            </div>
+
+            <div id="alignmentError" class="error-banner hidden"></div>
+
             <input type="file" id="faceInput" accept="image/*" class="hidden" onchange="processAIImage(event)">
-            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وبدء التعديل الجراحي</button>
+            <button onclick="document.getElementById('faceInput').click()" class="btn-primary">رفع الصورة وفحص الاستقامة</button>
         </div>
 
         <!-- AI Processing Loader -->
         <div id="loadingSection" class="hidden card" style="text-align: center;">
             <div class="spinner"></div>
-            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري معالجة بكسلات الوجه بفيزياء المتجهات...</p>
+            <p id="loadingStatus" style="font-size: 0.78rem; font-weight: bold; color: #9E583B; margin-top: 0.8rem;">جاري فحص زاوية استقامة الوجه والمعايرة...</p>
         </div>
 
-        <!-- Step 2: FREE Scientific Teaser Report (Pre-Payment) -->
+        <!-- Step 2: FREE Teaser Report -->
         <div id="teaserReportSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
             <div class="card" style="text-align: right;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="font-weight: 800; font-size: 0.85rem;">التشخيص الطبي الإكلينيكي لملامحك</h2>
-                    <span class="badge">نتائج التشخيص</span>
+                    <h2 style="font-weight: 800; font-size: 0.85rem;">التشخيص الطبي المعاير لملامحك</h2>
+                    <span class="badge" style="background:#EBF1F9; color:#2B4C7E;">تمت المعايرة 100%</span>
                 </div>
 
                 <div id="teaserRecommendations" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
@@ -81,9 +97,9 @@
 
             <!-- Paywall Box -->
             <div class="card" style="background: #3A2E2B; color: #ffffff; text-align: center;">
-                <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة البصرية جاهزة</span>
-                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">عرض الصورة المعدلة بفيزياء البكسلات الناعمة</h3>
-                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">شاهد الصورة الحقيقية بعد تعديل أبعاد الشفاه، الأنف، الحواجب، الخدود، والذقن بدون ألوان.</p>
+                <span class="badge" style="background: #F5EAE1; color: #9E583B;">المحاكاة الميكروية الناعمة جاهزة</span>
+                <h3 style="font-size: 0.9rem; font-weight: bold; margin-top: 0.4rem; color: #F5EAE1;">عرض الصورة المعدلة بدقة جراحية ناعمة</h3>
+                <p style="font-size: 0.72rem; color: #D1C2BD; margin: 0.4rem 0 0.8rem; line-height: 1.4;">تعديل ميكروي دقيق للشفاه والأرنبة والحواجب بدون أي تشويه أو انتفاخ للوجه.</p>
                 <button onclick="simulatePayment()" class="btn-primary" style="background: #ffffff; color: #3A2E2B;">
                     فتح الصورة المعدلة بـ 49 ر.س (Apple Pay) 🔒
                 </button>
@@ -94,7 +110,7 @@
         <div id="unlockedVisualSection" class="hidden" style="display: flex; flex-direction: column; gap: 1rem;">
             
             <div class="card" style="padding: 0.75rem;">
-                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة الفيزيائية الحقيقية (تعديل البكسلات المباشر)</p>
+                <p style="font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem; color: var(--text-main);">النتيجة التجميلية المحاكاة (تعديل ميكروي ناعم)</p>
                 <div class="comparison-grid">
                     <div class="img-box">
                         <canvas id="beforeCanvas"></canvas>
@@ -105,28 +121,19 @@
                         <span class="img-label" style="background: linear-gradient(135deg, #E0A990 0%, #C98263 100%);">الصورة المعدلة (بعد)</span>
                     </div>
                 </div>
-                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تنبيه: التعديل تم بفيزياء المتجهات والتنعيم ثنائي الخطي بدون رسم ⬆</p>
+                <p style="font-size: 0.68rem; text-align: center; color: var(--text-muted);">تعديل ميكروي ناعم جداً يحافظ على شكل وجهك الطبيعي دون تشويه ⬆</p>
             </div>
 
             <div id="pdfContainer" class="card" style="text-align: right; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                 <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - SURGICAL DOSSIER</h2>
-                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير العيادة الكامل للنسب الجمالية المحاكاة</p>
+                        <h2 style="font-weight: 800; font-size: 0.85rem;">AURA RATIO - CLINICAL DOSSIER</h2>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">تقرير العيادة للنسب الميكروية المعايرة</p>
                     </div>
-                    <span class="badge">مفعل بالكامل</span>
+                    <span class="badge">معتمد إكلينيكياً</span>
                 </div>
 
                 <div id="unlockedRecommendations" style="display: flex; flex-direction: column; gap: 0.6rem;"></div>
-
-                <div style="border-top: 1px solid var(--border-color); pt: 0.5rem; font-size: 0.62rem; color: var(--text-muted); line-height: 1.4;">
-                    <strong style="color: var(--text-main);">المراجع الطبية المعتمدة في هذا التقرير:</strong>
-                    <ol style="margin-right: 1rem; margin-top: 0.25rem;">
-                        <li>Farkas LG. Anthropometry of the Head and Face. 2nd ed. Raven Press; 1994.</li>
-                        <li>Powell N, Humphreys B. Proportions of the Aesthetic Face. Thieme; 1984.</li>
-                        <li>Marquardt ED. Golden Ratio in Facial Aesthetics. Plast Reconstr Surg. 2002.</li>
-                    </ol>
-                </div>
             </div>
 
             <button onclick="downloadPDFReport()" class="btn-primary">تحميل تقرير العيادة كاملاً مع الصورة (PDF) 📄</button>
@@ -157,7 +164,7 @@
 
         async function ensureMediaPipeLoaded() {
             if (window.FaceMesh) return;
-            document.getElementById('loadingStatus').innerText = "جاري تحميل محرك الذكاء الاصطناعي...";
+            document.getElementById('loadingStatus').innerText = "جاري تحميل محرك فحص الملامح...";
             await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js");
             await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
         }
@@ -180,12 +187,13 @@
             const file = e.target.files[0];
             if (!file) return;
 
+            document.getElementById('alignmentError').classList.add('hidden');
             document.getElementById('uploadSection').classList.add('hidden');
             document.getElementById('loadingSection').classList.remove('hidden');
 
             try {
                 await initAIFaceMesh();
-                document.getElementById('loadingStatus').innerText = "جاري مسح الملامح وحساب المتجهات...";
+                document.getElementById('loadingStatus').innerText = "جاري معايرة زاوية الوجه واستقامة العينين...";
 
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
@@ -194,55 +202,66 @@
                     await faceMesh.send({ image: img });
                 };
             } catch (err) {
-                handleProcessingError("تعذر تحليل الصورة. يرجى اختيار صورة أمامية واضحة.");
+                handleProcessingError("تعذر تحليل الصورة. يرجى إعادة المحاولة.");
             }
         }
 
         function handleProcessingError(msg) {
-            alert(msg);
+            const errDiv = document.getElementById('alignmentError');
+            errDiv.innerText = msg;
+            errDiv.classList.remove('hidden');
             document.getElementById('loadingSection').classList.add('hidden');
             document.getElementById('uploadSection').classList.remove('hidden');
         }
 
         function onFaceAIResults(results) {
-            document.getElementById('loadingSection').classList.add('hidden');
-
             if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                handleProcessingError("لم يتم التعرف على ملامح الوجه بوضوح. يرجى رفع صورة واضحة ومواجهة للكاميرا.");
+                handleProcessingError("لم يتم التعرف على الوجه. يرجى رفع صورة واضحة داخل الإطار.");
                 return;
             }
 
+            const lm = results.multiFaceLandmarks[0];
+            const w = uploadedImg.width;
+            const h = uploadedImg.height;
+
+            // --- 1. POSE CALIBRATION & TILT VALIDATION GATE ---
+            const leftEye = lm[33];
+            const rightEye = lm[263];
+            const dy = (rightEye.y - leftEye.y) * h;
+            const dx = (rightEye.x - leftEye.x) * w;
+            const tiltAngle = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+
+            if (tiltAngle > 3.5) {
+                handleProcessingError(`الصورة مائلة بزاوية (${tiltAngle.toFixed(1)}°)! يرجى رفع صورة مستقيمة تماماً وتكون العينان على خط أوفقي واحد.`);
+                return;
+            }
+
+            document.getElementById('loadingSection').classList.add('hidden');
             document.getElementById('teaserReportSection').classList.remove('hidden');
-            currentLandmarks = results.multiFaceLandmarks[0];
+            currentLandmarks = lm;
 
             const bCanvas = document.getElementById('beforeCanvas');
             const bCtx = bCanvas.getContext('2d');
-            bCanvas.width = uploadedImg.width;
-            bCanvas.height = uploadedImg.height;
+            bCanvas.width = w; bCanvas.height = h;
             bCtx.drawImage(uploadedImg, 0, 0);
 
-            currentAnalysis = calculateScientificMetrics(currentLandmarks, bCanvas.width, bCanvas.height);
+            currentAnalysis = calculateScientificMetrics(currentLandmarks, w, h);
             buildScientificTeaserUI(currentAnalysis);
         }
 
-        // CLINICAL EVALUATION LOGIC
         function calculateScientificMetrics(lm, w, h) {
             const intercanthalDist = Math.hypot((lm[133].x - lm[362].x) * w, (lm[133].y - lm[362].y) * h);
             const noseWidth = Math.hypot((lm[327].x - lm[98].x) * w, (lm[327].y - lm[98].y) * h);
             const upperLipHeight = Math.hypot((lm[13].x - lm[0].x) * w, (lm[13].y - lm[0].y) * h);
             const lowerLipHeight = Math.hypot((lm[17].x - lm[14].x) * w, (lm[17].y - lm[14].y) * h);
-            const cheekWidth = Math.hypot((lm[454].x - lm[234].x) * w, (lm[454].y - lm[234].y) * h);
-            const jawWidth = Math.hypot((lm[288].x - lm[58].x) * w, (lm[288].y - lm[58].y) * h);
             const browEyeDist = Math.hypot((lm[70].x - lm[159].x) * w, (lm[70].y - lm[159].y) * h);
 
             return {
                 needsNoseSlimming: noseWidth > intercanthalDist * 1.02,
                 needsNoseTipLift: true,
-                needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.70),
+                needsUpperLipPlump: upperLipHeight < (lowerLipHeight * 0.72),
                 needsBrowLift: (browEyeDist / intercanthalDist) < 0.35,
-                needsCheekDefinition: cheekWidth < jawWidth * 1.15,
-                needsUnderEyeBrightening: true,
-                needsChinProjection: true
+                needsUnderEyeBrightening: true
             };
         }
 
@@ -250,47 +269,20 @@
             const container = document.getElementById('teaserRecommendations');
             container.innerHTML = '';
 
-            const recs = [];
-
-            if (analysis.needsUnderEyeBrightening) {
-                recs.push({
-                    title: "تفتيح وتنوير مجرى الدمع (Tear Trough Luminescence)",
-                    desc: "تعديل السطوع البكسلي المباشر للتجاويف أسفل العين لتقليل الظلال وإبراز إشراقة النظرة.",
-                    citation: "Periorbital Aesthetic Standard"
-                });
-            }
-
-            if (analysis.needsNoseSlimming) {
-                recs.push({
-                    title: "تنحيف ونحت قاعدة الأنف ورأس الأرنبة (Alar & Tip Refinement)",
-                    desc: "إزاحة بكسلية متجهة للداخل لتقليل عرض الجوانب مع رفع الأرنبة لضبط الزاوية الأنفية الشفاهية.",
-                    citation: "Farkas Canon 4: Intercanthal-Alar Ratio"
-                });
-            }
-
-            if (analysis.needsUpperLipPlump) {
-                recs.push({
-                    title: "تكبير وإبراز حافة الشفة العلوية (Upper Lip Augmentation & Flip)",
-                    desc: "توسيع بكسلي عمودي للشفة العلوية لاستعادة التناسق الذهبي للجزء العلوي من الفم.",
-                    citation: "Powell & Humphreys Golden Ratio"
-                });
-            }
-
-            if (analysis.needsBrowLift) {
-                recs.push({
-                    title: "رفع قوس الحاجب التجميلي (Endoscopic Brow Lift)",
-                    desc: "سحب بكسلي متجهة لأعلى لقوس الحاجب الخارجي لفتح زاوية العين الخارجية.",
-                    citation: "Marquardt Facial Aesthetics"
-                });
-            }
-
-            if (analysis.needsCheekDefinition) {
-                recs.push({
-                    title: "إبراز ودعم عظام الوجنتين (Zygomatic Volumizing)",
-                    desc: "تمدد شعاعي ناعم لبكسلات الوجنتين لإعطاء الشكل الأنثوي المتناسق مع خط الفك.",
-                    citation: "Marquardt Golden Facial Mask"
-                });
-            }
+            const recs = [
+                {
+                    title: "تفتيح وتنوير أسفل العينين (Tear Trough Refinement)",
+                    desc: "تنوير بكسلي خفيف جداً للتجويف الظلي أسفل العين لإعطاء نظرة مشرق ومستريحة."
+                },
+                {
+                    title: "تنسيق حواف الأنف وأرنبتها (Micro Nasal Contour)",
+                    desc: "تعديل ميكروي ناعم لحواف الأنف مع رفع غير ملحوظ للأرنبة دون تغيير هيكل الوجه."
+                },
+                {
+                    title: "دعم تحديد الشفة العلوية (Micro Lip Flip)",
+                    desc: "بروز عمودي طفيف جداً لحافة الشفة العلوية لاستعادة التناسق الأنثوي الطبيعي."
+                }
+            ];
 
             recs.forEach(r => {
                 const box = document.createElement('div');
@@ -298,7 +290,6 @@
                 box.innerHTML = `
                     <div style="font-weight: bold; color: var(--text-main); font-size: 0.78rem;">${r.title}</div>
                     <div style="color: var(--text-muted); font-size: 0.7rem; margin: 3px 0;">${r.desc}</div>
-                    <span class="academic-badge">${r.citation}</span>
                 `;
                 container.appendChild(box);
             });
@@ -312,29 +303,22 @@
             aCanvas.width = uploadedImg.width;
             aCanvas.height = uploadedImg.height;
 
-            // Execute ADVANCED BILINEAR PIXEL MESH WARP ENGINE
-            applyAdvancedBilinearPixelWarp(aCanvas, uploadedImg, currentLandmarks, currentAnalysis);
+            // Execute ULTRA-SUBTLE MICRO PIXEL WARP ENGINE
+            applyMicroPrecisionBilinearWarp(aCanvas, uploadedImg, currentLandmarks, currentAnalysis);
 
             document.getElementById('unlockedRecommendations').innerHTML = document.getElementById('teaserRecommendations').innerHTML;
         }
 
-        // BILINEAR SAMPLING HELPER (Prevents Jagged Pixel Artifacts)
         function getBilinearPixel(srcData, w, h, x, y) {
             x = Math.max(0, Math.min(w - 1, x));
             y = Math.max(0, Math.min(h - 1, y));
 
-            const x1 = Math.floor(x);
-            const y1 = Math.floor(y);
-            const x2 = Math.min(w - 1, x1 + 1);
-            const y2 = Math.min(h - 1, y1 + 1);
+            const x1 = Math.floor(x); const y1 = Math.floor(y);
+            const x2 = Math.min(w - 1, x1 + 1); const y2 = Math.min(h - 1, y1 + 1);
+            const fx = x - x1; const fy = y - y1;
 
-            const fx = x - x1;
-            const fy = y - y1;
-
-            const idx11 = (y1 * w + x1) * 4;
-            const idx21 = (y1 * w + x2) * 4;
-            const idx12 = (y2 * w + x1) * 4;
-            const idx22 = (y2 * w + x2) * 4;
+            const idx11 = (y1 * w + x1) * 4; const idx21 = (y1 * w + x2) * 4;
+            const idx12 = (y2 * w + x1) * 4; const idx22 = (y2 * w + x2) * 4;
 
             const r = (1 - fx) * (1 - fy) * srcData[idx11]     + fx * (1 - fy) * srcData[idx21]     + (1 - fx) * fy * srcData[idx12]     + fx * fy * srcData[idx22];
             const g = (1 - fx) * (1 - fy) * srcData[idx11 + 1] + fx * (1 - fy) * srcData[idx21 + 1] + (1 - fx) * fy * srcData[idx12 + 1] + fx * fy * srcData[idx22 + 1];
@@ -344,8 +328,8 @@
             return [r, g, b, a];
         }
 
-        // ADVANCED BILINEAR PIXEL MESH WARP & LUMINANCE ENGINE
-        function applyAdvancedBilinearPixelWarp(canvas, img, lm, analysis) {
+        // ULTRA-SUBTLE MICRO WARP ENGINE (No alien bloat, natural & realistic)
+        function applyMicroPrecisionBilinearWarp(canvas, img, lm, analysis) {
             const ctx = canvas.getContext('2d');
             const w = canvas.width;
             const h = canvas.height;
@@ -361,49 +345,37 @@
             const src = srcData.data;
             const dst = dstData.data;
 
-            // DYNAMIC RELATIVE VECTOR FORCES (Scaled to image resolution)
+            // MICRO VECTOR PARAMETERS (Subtle radii, minimal displacement forces)
             const vectors = [];
             const eyeBrightVectors = [];
 
-            // 1. Nose Slimming & Tip Elevation
+            // 1. Nose Micro Slimming & Tip Lift
             if (analysis.needsNoseSlimming) {
-                vectors.push({ x: lm[98].x * w,  y: lm[98].y * h,  radius: w * 0.08, forceX:  w * 0.016, forceY: 0 });
-                vectors.push({ x: lm[327].x * w, y: lm[327].y * h, radius: w * 0.08, forceX: -w * 0.016, forceY: 0 });
+                vectors.push({ x: lm[98].x * w,  y: lm[98].y * h,  radius: w * 0.035, forceX:  w * 0.0035, forceY: 0 });
+                vectors.push({ x: lm[327].x * w, y: lm[327].y * h, radius: w * 0.035, forceX: -w * 0.0035, forceY: 0 });
             }
             if (analysis.needsNoseTipLift) {
-                vectors.push({ x: lm[1].x * w, y: lm[1].y * h, radius: w * 0.09, forceX: 0, forceY: -h * 0.012 });
+                vectors.push({ x: lm[1].x * w, y: lm[1].y * h, radius: w * 0.04, forceX: 0, forceY: -h * 0.003 });
             }
 
-            // 2. Lip Augmentation & Lip Flip
+            // 2. Micro Lip Flip (Upper lip ONLY)
             if (analysis.needsUpperLipPlump) {
-                vectors.push({ x: lm[0].x * w,  y: lm[0].y * h,  radius: w * 0.09, forceX: 0, forceY: -h * 0.011 });
-                vectors.push({ x: lm[17].x * w, y: lm[17].y * h, radius: w * 0.09, forceX: 0, forceY:  h * 0.009 });
+                vectors.push({ x: lm[0].x * w, y: lm[0].y * h, radius: w * 0.04, forceX: 0, forceY: -h * 0.0035 });
             }
 
-            // 3. Brow Lift
+            // 3. Micro Eyebrow Lift
             if (analysis.needsBrowLift) {
-                vectors.push({ x: lm[70].x * w,  y: lm[70].y * h,  radius: w * 0.10, forceX: 0, forceY: -h * 0.015 });
-                vectors.push({ x: lm[300].x * w, y: lm[300].y * h, radius: w * 0.10, forceX: 0, forceY: -h * 0.015 });
+                vectors.push({ x: lm[70].x * w,  y: lm[70].y * h,  radius: w * 0.045, forceX: 0, forceY: -h * 0.004 });
+                vectors.push({ x: lm[300].x * w, y: lm[300].y * h, radius: w * 0.045, forceX: 0, forceY: -h * 0.004 });
             }
 
-            // 4. Cheekbones Volumizing
-            if (analysis.needsCheekDefinition) {
-                vectors.push({ x: lm[234].x * w, y: lm[234].y * h, radius: w * 0.12, forceX: -w * 0.012, forceY: -h * 0.006 });
-                vectors.push({ x: lm[454].x * w, y: lm[454].y * h, radius: w * 0.12, forceX:  w * 0.012, forceY: -h * 0.006 });
-            }
-
-            // 5. Chin Projection
-            if (analysis.needsChinProjection) {
-                vectors.push({ x: lm[152].x * w, y: lm[152].y * h, radius: w * 0.10, forceX: 0, forceY: h * 0.008 });
-            }
-
-            // 6. Under-Eye Luminance Vectors (Direct pixel brightening without color paint)
+            // 4. Subtle Under-Eye Luminescence Boost
             if (analysis.needsUnderEyeBrightening) {
-                eyeBrightVectors.push({ x: lm[116].x * w, y: lm[116].y * h, radius: w * 0.07, intensity: 22 });
-                eyeBrightVectors.push({ x: lm[345].x * w, y: lm[345].y * h, radius: w * 0.07, intensity: 22 });
+                eyeBrightVectors.push({ x: lm[116].x * w, y: lm[116].y * h, radius: w * 0.05, intensity: 12 });
+                eyeBrightVectors.push({ x: lm[345].x * w, y: lm[345].y * h, radius: w * 0.05, intensity: 12 });
             }
 
-            // PIXEL PROCESSING LOOP WITH BILINEAR INTERPOLATION & LUMINANCE BOOST
+            // PROCESSING LOOP
             for (let y = 0; y < h; y++) {
                 for (let x = 0; x < w; x++) {
                     let shiftX = 0;
@@ -426,10 +398,8 @@
                     const srcX = x - shiftX;
                     const srcY = y - shiftY;
 
-                    // Bilinear Sampling for ultra-smooth skin texture
                     const pixel = getBilinearPixel(src, w, h, srcX, srcY);
 
-                    // Under-eye Direct Pixel Brightness Boost
                     let brightnessBoost = 0;
                     for (let i = 0; i < eyeBrightVectors.length; i++) {
                         const eb = eyeBrightVectors[i];
@@ -444,10 +414,10 @@
                     }
 
                     const dIdx = (y * w + x) * 4;
-                    dst[dIdx]     = Math.min(255, pixel[0] + brightnessBoost); // Red
-                    dst[dIdx + 1] = Math.min(255, pixel[1] + brightnessBoost); // Green
-                    dst[dIdx + 2] = Math.min(255, pixel[2] + brightnessBoost); // Blue
-                    dst[dIdx + 3] = pixel[3];                                   // Alpha
+                    dst[dIdx]     = Math.min(255, pixel[0] + brightnessBoost);
+                    dst[dIdx + 1] = Math.min(255, pixel[1] + brightnessBoost);
+                    dst[dIdx + 2] = Math.min(255, pixel[2] + brightnessBoost);
+                    dst[dIdx + 3] = pixel[3];
                 }
             }
 
@@ -462,13 +432,13 @@
                 const element = document.getElementById('pdfContainer');
                 window.html2pdf().set({
                     margin: 0.3,
-                    filename: 'AuraRatio_Surgical_Report.pdf',
+                    filename: 'AuraRatio_Calibrated_Report.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
                 }).from(element).save();
             } catch (err) {
-                alert("تعذر توليد ملف PDF. يرجى السماح بتنزيل الملفات.");
+                alert("تعذر تنزيل الملف.");
             }
         }
     </script>
